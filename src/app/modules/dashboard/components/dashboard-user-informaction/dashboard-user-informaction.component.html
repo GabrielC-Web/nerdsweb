@@ -1,0 +1,82 @@
+<form *ngIf="userInfo" [formGroup]="componentForm" class="container row justify-content-around align-items-center p-3 mx-auto">
+
+  <div class="d-flex flex-column align-items-center justify-content-around gap-3
+  col-12 col-md-6 p-3 `" style="height: 300px;">
+
+    <h4 class="fw-bold cmm-txt">Información de Perfil</h4>
+
+    <div class="w-100 row justify-content-center align-items-center p-4 rounded cmm-bg-white shadowBorder
+    cmm-bg-white shadowBorder">
+
+      <!-- Contenedor de la Foto de perfil -->
+      <div class="col-12 col-md-3 d-flex flex-column justify-content-around align-items-center">
+
+        <div class="col-10 rounded-circle cmm-bg-gradient mx-auto mb-3" style="aspect-ratio: 1/1;"></div>
+
+        <p class="fs-16 fw-bold text-center">Foto de perfil</p>
+
+      </div>
+
+      <!-- Conteneor de informacion del usuario, nombre y correo -->
+      <div class="col-12 col-md-9 d-flex flex-column justify-content-around align-items-center pt-4 px-3">
+
+        <!-- Nombre del usuario-->
+        <cmm-cmp-i-text class="col-12 px-2 input-borderless input-X-large" formControlName="username" label=""
+        placeholder="Ej: Nombre del negocio"></cmm-cmp-i-text>
+
+        <!-- Correo -->
+        <cmm-cmp-i-email class="col-12 px-2 input-borderless input-large" formControlName="email" label=""
+        placeholder="Ej: lol@lol.lol"></cmm-cmp-i-email>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="d-flex flex-column align-items-center justify-content-around gap-3
+col-12 col-md-6 p-3" style="height: 300px;">
+
+    <h4 class="fw-bold cmm-txt">Mi negocio</h4>
+
+    <!-- Contenedor de level -->
+    <div class="col-12 d-flex flex-wrap rounded cmm-bg-white shadowBorder">
+
+      <!-- texto -->
+      <div class="d-flex justify-content-center align-items-center col-12 col-md-5 h-100 border py-4">
+
+          <!-- Texto de pregunta para el input -->
+          <p class="fs-16 fw-bold text-center m-0">Nivel</p>
+
+      </div>
+
+      <!-- Nivel de tu negocio -->
+      <cmm-cmp-i-select class="col-12 col-md-7 input-borderless input-large mb-3" style="transform: translateY(14px);"
+      formControlName="level" selectMode="select" label="" [optionsList]="selectList" optionKey="id" optionName="name">
+      </cmm-cmp-i-select>
+
+    </div>
+
+    <!-- Contenedor de description -->
+    <div class="col-12 d-flex flex-wrap rounded cmm-bg-white shadowBorder">
+
+      <!-- texto -->
+      <div class="d-flex justify-content-center align-items-center col-12 col-md-5 h-100 border py-4">
+
+          <!-- Texto de pregunta para el input -->
+          <p class="fs-16 fw-bold text-center m-0">Tipo de empresa</p>
+
+      </div>
+
+      <!-- A que se dedica su empresa -->
+      <cmm-cmp-i-text class="col-12 col-md-7 input-borderless input-large mb-3" style="transform: translateY(14px);"
+      formControlName="description" label="" placeholder="Ej: Venta de ropa"></cmm-cmp-i-text>
+
+    </div>
+
+  </div>
+
+  <cmm-cmp-b-button @inOutAnimation *ngIf="checkFormChanges()" class="col-12 col-md-10 my-3" [button_text]="'Guardar cambios'"
+  [buttonType]="'gradient'" (click)="onSubmit()"></cmm-cmp-b-button>
+
+</form>

@@ -1,0 +1,38 @@
+<div class="row align-items-center justify-content-center p-3 p-md-4">
+
+  <!-- Contenedor del form -->
+  <div class="col-12 col-md-8">
+
+    <!-- Titulo de form -->
+    <h4 class="text-center fw-bold mb-3 cmm-txt">Formulario de contácto</h4>
+
+    <!-- Form -->
+    <form *ngIf="componentForm" [formGroup]="componentForm" >
+
+      <!-- Nombre -->
+      <cmm-cmp-i-text [implementCustomInput]="true" label="Nombre" formControlName="name"></cmm-cmp-i-text>
+
+      <!-- Email -->
+      <cmm-cmp-i-text [implementCustomInput]="true" label="Email" formControlName="email"></cmm-cmp-i-text>
+
+      <!-- Mensaje -->
+      <mat-form-field class="w-100 mb-2 textAreaInput" appearance="outline">
+
+        <!-- Label -->
+        <mat-label>Mensaje</mat-label>
+
+        <!-- Campo textarea -->
+        <textarea matInput type="text" name="message" formControlName="message"
+        placeholder="Ej: Quiero tener mi propio ecommerce ¿Que debo hacer?"
+        minlength="1" maxlength="8000"></textarea>
+
+      </mat-form-field>
+
+    </form>
+
+    <!-- Botón de enviar form -->
+    <cmm-cmp-b-button  [buttonclass]="'fs-20'" (submit)="onSubmit()"></cmm-cmp-b-button>
+
+  </div>
+
+</div>

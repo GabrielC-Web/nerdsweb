@@ -1,0 +1,13 @@
+@media (max-width: 576px) {
+
+  br{
+    display: none;
+  }
+}
+
+
+.cmm-bg-shadow{
+  height: 800px !important;
+  background: linear-gradient(15deg, rgba(255,255,255,1) 20%, rgba(223,215,235,1) 50%, rgba(255,255,255,1) 80%);
+  box-shadow: inset 0px 0px 20px 15px #ffffff !important;
+}

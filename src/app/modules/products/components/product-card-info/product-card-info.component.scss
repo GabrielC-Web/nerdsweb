@@ -1,0 +1,20 @@
+@import '../../../../common/assets/styles/scss/variables.scss';
+
+.product-cart{
+  box-shadow: 0 0 2px $v-txt !important;
+}
+
+.product-cart:hover {
+  animation: hover 250ms ease;
+  animation-fill-mode: forwards;
+}
+
+@keyframes hover {
+  0%   {
+    box-shadow: 0 0 2px $v-txt;
+  }
+  100% {
+    box-shadow: 0 0 10px $v-primary-selected;
+    transform: translateY(-1.5rem);
+  }
+}

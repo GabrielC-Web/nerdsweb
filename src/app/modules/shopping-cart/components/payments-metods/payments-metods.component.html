@@ -1,0 +1,88 @@
+<section class="d-flex flex-column justify-content-between align-items-center gap-3">
+
+  <!-- Titulo del contenedor -->
+  <p class="fs-30 w-100">Paga con</p>
+
+  <!-- Contenedor de seleccion d emetodos de pagos disponibles -->
+  <div *ngIf="methodSelected" class="d-flex align-items-center gap-3 p-0 col-12 overflow-auto">
+
+    <!-- OPcion de metodo de pago disponible -->
+    <div *ngFor="let paymentMethod of paymentMethodsList"
+    [ngClass]="methodSelected.id == paymentMethod.id ? 'nd-btn-primary' : 'nd-btn-primary-outline'"
+    class="cmm-bg-white rounded shadowBorder p-3 d-flex align-items-center">
+
+      {{paymentMethod.name}}
+
+    </div>
+
+  </div>
+
+  <!-- Contenedor de los datos extras necesarios para el metodo de pago -->
+  <div *ngIf="methodSelected" class="border p-3 rounded shadowBorder d-flex flex-wrap col-12">
+
+    <!-- Dato extra necesario para realizar el pago -->
+    <div *ngFor="let info of methodSelected.extraInfo" class="w-100 d-flex">
+
+       <!--Nombre del dato  -->
+      <p>{{info.name}}</p>
+
+      <!-- Valor del dato -->
+      <p>{{info.value}}</p>
+
+    </div>
+
+  </div>
+
+  <!-- Contenedor del formualrio del metodo de pago -->
+
+  <form *ngIf="componentForm" [formGroup]="componentForm" class="d-flex col-12 flex-column justify-content-center align-items-center mx-auto px-0">
+
+    <!-- Contenedor para inputs de lista -->
+    <div class="w-100 m-0 p-0"  *ngFor="let input of methodSelected.config.selects">
+
+      <!-- input de listas -->
+      <cmm-cmp-i-select class="col-sm-12" [formControlName]="input.form" [placeholder]="input.placeholder"
+      [implementCustomInput]="true" selectMode="autocomplete" [label]="input.label"
+      [optionsList]="input.list" [optionKey]="input.value" [optionName]="input.name"></cmm-cmp-i-select>
+
+    </div>
+
+    <!-- Contenedor para inputs de texto -->
+    <div class="w-100 m-0 p-0" *ngFor="let input of methodSelected.config.text">
+
+      <!-- input de texto -->
+      <cmm-cmp-i-text class="col-sm-12" [formControlName]="input.form" [label]="input.label" [placeholder]="input.placeholder" [maxLength]="input.maxLength"></cmm-cmp-i-text>
+
+    </div>
+
+    <!-- Contenedor para inputs de fecha -->
+    <div class="w-100 m-0 p-0" *ngFor="let input of methodSelected.config.dates">
+
+        <!-- input de fechas -->
+        <cmm-cmp-i-date [label]="input.label" [formControlName]="input.form" [typeFilterDate]="1" toLocaleDateString="en-US" [placeholder]="input.placeholder"></cmm-cmp-i-date>
+
+    </div>
+
+    <!-- Contenedor para inputs de rango de fechas -->
+    <div class="w-100 m-0 p-0" *ngFor="let input of methodSelected.config.rangeDate">
+
+        <!-- input de fechas -->
+        <cmm-cmp-i-date [label]="input.label" [rangeControls]="input.form" [typeFilterDate]="1" toLocaleDateString="en-US" [placeholder]="input.placeholder" selectDateMode="range"></cmm-cmp-i-date>
+
+    </div>
+
+    <!-- Contenedor para inputs de Archivo -->
+    <div class="w-100 m-0 p-0" *ngFor="let input of methodSelected.config.file">
+
+      <!-- Input de archivo -->
+      <cmm-cmp-i-smfile [formControlName]="input.form" [label]="input.label" [maxFileSize]="2"></cmm-cmp-i-smfile>
+
+    </div>
+
+    <!-- Botón de submit -->
+    <cmm-cmp-b-button *ngIf="checkChanges()" class="col-12" @inOutAnimation (submit)="onSubmit()">
+    </cmm-cmp-b-button>
+
+  </form>
+
+</section>

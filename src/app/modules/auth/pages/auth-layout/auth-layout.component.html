@@ -1,0 +1,55 @@
+
+<section class="w-100 d-flex flex-column justify-content-start align-items-center" style=" min-height: 87vh;
+background: linear-gradient(345deg, rgba(255,255,255,1) 24%, rgba(217,204,237,1) 65%, rgba(244,211,186,1) 91%);">
+
+  <div class="w-100 text-center my-4">
+
+    <h3 class="fw-bold my-4 cmm-txt">
+      {{
+          isLogin ?
+          '¡Nos alegra verte de nuevo!' :
+          'Regístrate y comienza tu negocio online'
+      }}
+    </h3>
+
+    <p class="fs-20">
+      {{
+        isLogin ?
+        'Inicia tu sesión y observa los avances de tu tienda online.' :
+        'Solo debes llenar el formulario y comenzaremos a trabajar para ti.'
+      }}
+
+    </p>
+
+  </div>
+
+  <div class="container position-relative" style="height: 500px;">
+
+    <div class="h-100 d-none d-lg-flex flex-column justify-content-center align-items-center col-12 col-lg-4
+    position-absolute animate right gap-4 pt-4" [ngClass]="{'move': isLogin}">
+
+      <h4 class="txt">{{isLogin ? '¿Aún no tienes una cuenta?' : '¿Ya estas registrado?'}}</h4>
+
+      <cmm-cmp-b-button class="col-5" [button_text]=" isLogin ? 'Regístrarme' : 'Iniciar sesión'"
+      [buttonType]="'gradient-tertiary'"(click)="isLogin = !isLogin"></cmm-cmp-b-button>
+
+    </div>
+
+    <div class="h-100 col-12 col-lg-8 position-absolute z-2 animate left"
+    [ngClass]="{'card-rotate': isLogin,'move': isLogin}">
+
+      <div class="w-80 h-100 position-relative cmm-bg-white rounded border shadowBorder mx-auto container-inner">
+
+        <cmp-auth-login class="card-back" (changeFunction)="isLogin = !isLogin"></cmp-auth-login>
+
+        <cmp-auth-singup class="card-front" (changeFunction)="isLogin = !isLogin"></cmp-auth-singup>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+

@@ -1,0 +1,45 @@
+<div class="container d-flex flex-wrap p-0 justify-content-around align-items-center">
+
+  <div *ngFor="let product of productsList" class="col-12 col-sm-8 p-3"
+  [ngClass]="productsList.length <= 2 ? 'col-lg-5' : 'col-lg-4'">
+
+    <div class="cmm-bg-white border d-flex flex-column justify-content-around align-items-center
+    px-5 pt-3 mb-5 product-cart" style="border-radius: 4rem;"
+    data-aos="flip-left" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+
+      <h4 class="text-center cmm-txt-primary-selected fw-bold pt-3">{{product.productName}}</h4>
+
+      <div class="d-flex" style="height: 60px;">
+
+        <p class="text-center fs-13 align-self-center">{{product.description}}</p>
+
+      </div>
+
+      <h2 class="fw-bold cmm-txt">${{product.amount}}</h2>
+
+      <p *ngIf="product.extraAmount" class="text-center fs-13 fw-bold">Precio de contratación {{product.extraAmount}}</p>
+
+      <p class="fw-bold back-txt fs-24 w-100 mb-0">Esto Incluye:</p>
+
+      <div class="w-100 d-flex flex-column" style="height: 490px;">
+
+        <p *ngFor="let characteristic of product.characteristics" class="col-12 fs-13 my-1 fw-bold">
+
+          <mat-icon class="pt-1 cmm-txt-gradient">done</mat-icon>
+
+          {{characteristic}}
+
+        </p>
+
+      </div>
+
+    </div>
+
+    <cmm-cmp-b-button class="my-3" [button_text]="'Contratar'" [buttonType]="'gradient'" [buttonclass]="'fs-20'"
+    data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="300" data-aos-offset="0"
+    style=" max-width: 200px;"
+    (click)="navigateToProductDetail(product.idProduct)"></cmm-cmp-b-button>
+
+  </div>
+
+</div>

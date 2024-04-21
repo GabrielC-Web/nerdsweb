@@ -1,0 +1,75 @@
+<!-- Contenedor del form -->
+<div class="h-100 w-100 p-4">
+
+  <div class="d-flex flex-column align-items-center justify-content-around col-12 col-md-10 mx-auto h-100">
+
+    <!-- Titulo de form -->
+    <h3 class="text-center fw-bold cmm-txt">Iniciar sesión</h3>
+
+    <div class="my-3 w-100 cmm-bg-gradient-secondary" style="height: 3px; border-radius: 50%;"></div>
+
+    <!-- login -->
+    <form @inOutAnimation *ngIf="componentForm && !updatepassword" [formGroup]="componentForm"
+    class="w-100 d-flex flex-column justify-content-start gap-3">
+
+      <!-- Usuario o correo -->
+      <cmm-cmp-i-text  class="col-12" formControlName="member" label="Usuario o correo" placeholder="Ej: loquesea">
+      </cmm-cmp-i-text>
+
+      <!-- Contraseña -->
+      <cmm-cmp-i-password class="col-12" formControlName="password" label="Contraseña" placeholder="Ej: Usuario-1">
+      </cmm-cmp-i-password>
+
+    </form>
+
+    <!-- Actualizar contaseña -->
+    <form @inOutAnimation *ngIf="componentFormUpdate && updatepassword" [formGroup]="componentFormUpdate"
+    class="w-100 d-flex flex-column justify-content-start gap-3">
+
+      <!-- contraseña -->
+      <cmm-cmp-i-password class="col-12" formControlName="password" [implementCustomInput]="true" label="Nueva contraseña" placeholder="Ej: Contraseña-1" [minLength]="passwordMinlength" [maxLength]="passwordMaxLength" [validatorMessages]="validatorBoxMessages" [showAssistanceMessages]="updatepassword">
+      </cmm-cmp-i-password>
+
+      <!-- confirmar contraseña -->
+      <cmm-cmp-i-password class="col-12" formControlName="confirmPassword" [implementCustomInput]="true" label="Confirmar contraseña" placeholder="Ej: Contraseña-1" [minLength]="passwordMinlength"
+      [maxLength]="passwordMaxLength"></cmm-cmp-i-password>
+
+    </form>
+
+
+    <div class="d-flex d-lg-none flex-column w-100">
+
+      <p class="w-100 text-end my-1">
+
+        ¿No tiene una cuenta?
+
+        <span class="ms-2 cmm-txt-gradient-hover cursor-pointer"
+        (click)="changeFunction.emit()">
+
+          Regístrate
+
+        </span>
+
+      </p>
+
+      <p class="w-100 text-end my-1">
+
+        ¿Olvidó su contraseña?
+
+        <span class="ms-2 cmm-txt-gradient-hover cursor-pointer"
+        (click)="updatepassword = !updatepassword">
+
+          Recuperar contraseña
+
+        </span>
+
+      </p>
+
+    </div>
+
+    <!-- Botón de enviar form -->
+    <cmm-cmp-b-button class="col-12" (submit)="onSubmit()" [buttonType]="'gradient-tertiary'"></cmm-cmp-b-button>
+
+  </div>
+
+</div>

@@ -1,0 +1,73 @@
+<div class="w-100 cmm-bg-gradient-secondary">
+  <p class="text-white text-center m-0 py-3 fs-20 fw-bold">¡ey, Ahorra hasta 30% con nuestros planes anuales!</p>
+</div>
+
+<mat-toolbar class="p-0" id="toolbar" style="height: 100px;">
+
+  <div class="cmm-bg-white w-100 h-100 d-flex justify-content-between align-items-center">
+
+    <!-- Logo Brand -->
+    <a class="" [routerLink]="['home']">
+
+      <img [src]="NerdsWebLogo" alt="" class="ms-3" style="width: 200px; height: fit-content;">
+
+    </a>
+
+    <ul class="d-none d-md-flex justify-content-end align-items-center m-0 px-4 gap-5">
+
+      <a class="cmm-txt-gradient-hover fs-24" [routerLink]="['products/ecommerce']">Ecommerce</a>
+
+      <a class="cmm-txt-gradient-hover fs-24" [routerLink]="['products/social_media']">Redes Sociales</a>
+
+      <!-- <a class="cmm-txt-gradient-hover" [routerLink]="['auth']">Registrate</a> -->
+
+      <a class="cmm-txt-gradient-hover fs-24 d-flex gap-2 align-items-center" [routerLink]="['dashboard']">
+
+        {{userInfo?.name ? userInfo?.name : 'Mi Cuenta'}}
+
+        <mat-icon class="fs-28" style="width: 28px !important">account_circle</mat-icon>
+
+      </a>
+
+      <!-- <a class="cmm-txt-gradient-hover" [routerLink]="['shopping_carts']">
+
+        <mat-icon class="fs-24">shopping_cart</mat-icon>
+
+      </a> -->
+
+    </ul>
+
+    <!-- Icono menu -->
+    <button class="d-block d-md-none h-100" mat-button [matMenuTriggerFor]="beforeMenu">
+
+      <!-- Icono -->
+      <mat-icon>dehaze</mat-icon>
+
+    </button>
+
+    <!-- Menu Expandible, por ahora oculto -->
+    <mat-menu #beforeMenu="matMenu" xPosition="before">
+
+      <!-- Menu options -->
+      <div class="my-2 d-flex flex-column px-4 ">
+
+        <a class="cmm-txt-gradient-hover fs-24 text-center" [routerLink]="['dashboard']">
+
+          {{userInfo?.name ? '@'+userInfo?.name : 'Mi Cuenta'}}
+
+        </a>
+
+        <!-- Divider -->
+        <div class="my-3 w-100 cmm-bg-gradient-secondary" style="height: 3px; border-radius: 50%;"></div>
+
+        <a class="cmm-txt-gradient-hover fs-24 mb-3" [routerLink]="['products/ecommerce']">Ecommerce</a>
+
+        <a class="cmm-txt-gradient-hover fs-24 mb-3" [routerLink]="['products/social_media']">Redes Sociales</a>
+
+      </div>
+
+    </mat-menu>
+
+  </div>
+
+</mat-toolbar>

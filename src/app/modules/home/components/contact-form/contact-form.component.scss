@@ -1,0 +1,4 @@
+//* De esta manera no limito la altura del textarea
+::ng-deep .textAreaInput > .mat-mdc-text-field-wrapper {
+  height: auto !important;
+}

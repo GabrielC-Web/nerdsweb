@@ -1,0 +1,84 @@
+<section class="container row justify-content-center align-items-center p-3 m-auto">
+
+  <!-- Contenedor de los servicios -->
+  <div class="row p-3 m-0 justify-content-around align-items-center">
+
+    <!-- Contenedor de servicio -->
+    <div class="d-flex flex-column justify-content-between align-items-center col-lg-6 p-2 m-0" style="height: 360px;">
+
+      <h4 class="fw-bold cmm-txt">Planes contratados</h4>
+
+      <div *ngFor="let services of userServices" class="cmm-bg-white rounded w-100 my-2"
+      [ngClass]="serviceSelected.id == services.id ? 'p-3' : 'px-3 py-2'">
+
+        <h4>{{services.name}}</h4>
+
+      </div>
+
+      <div *ngIf="!userServices?.length" class="h-100 w-100 cmm-bg-white rounded d-flex flex-column justify-content-center align-items-center gap-3 shadowBorder" style="background-color: #ffffff7c;">
+
+        <h5 class="txt text-center">Usted no tiene  <br> ningun servicio contratado</h5>
+
+        <cmm-cmp-b-button [button_text]="'Ver productos'" [buttonType]="'gradient'"></cmm-cmp-b-button>
+
+      </div>
+
+    </div>
+
+    <!-- Centenedro de vista previa -->
+    <div class="d-flex flex-column justify-content-center align-items-center col-lg-6 p-2 m-0" style="height: 360px;">
+
+      <h4 class="fw-bold cmm-txt">Previsualización</h4>
+
+      <img *ngIf="serviceSelected" [src]="" alt="">
+
+      <div *ngIf="!serviceSelected" class="h-100 w-100 cmm-bg-white rounded d-flex flex-column justify-content-center align-items-center shadowBorder" style="background-color: #ffffff7c;">
+
+        <h5 class="txt text-center">Seleccione un servicio <br> para ver la vista previa</h5>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Iconos de dialogos -->
+  <div class="row p-3 m-0 justify-content-around align-items-center">
+
+    <a class="col-12 col-md-4 d-flex flex-column justify-content-start align-items-center gap-2 m-0 p-2 cursor-pointer
+    text-decoration-none" href="https://wa.me/584242990601/?text=Hola%20nerds%21%20Tengo%20la%20siguiente%20duda%3A%0A"
+    target="_blank">
+
+      <img [src]="eardphonesIcon" alt="" style="max-width: 100px;">
+
+      <p class="fs-28 fw-normal">
+        Soporte Técnico
+      </p>
+
+    </a>
+
+    <div class="col-12 col-md-4 d-flex flex-column justify-content-start align-items-center gap-2 m-0 p-2">
+
+      <img [src]="tickeIcon" alt="" style="max-width: 100px;">
+
+      <p class="fs-28 fw-normal">
+        Cupones
+      </p>
+
+    </div>
+
+    <div class="col-12 col-md-4 d-flex flex-column justify-content-start align-items-center gap-2 m-0 p-2 cursor-pointer"
+    [routerLink]="['products']">
+
+      <img [src]="plusIcon" alt="" style="max-width: 100px;">
+
+      <p class="fs-28 fw-normal">
+        Agregar Productos
+      </p>
+
+    </div>
+
+  </div>
+
+
+</section>

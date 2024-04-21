@@ -1,0 +1,22 @@
+@import "../../../../common/assets/styles/scss/variables.scss";
+
+.default-step{
+  background-color: $v-light-white;
+  p {
+    color: $v-txt;
+  }
+}
+
+.actual-step{
+  background-color: $v-primary;
+  p {
+    color: $v-white;
+  }
+}
+
+.step-completed{
+  background-color: $v-primary-disabled;
+  p {
+    color: $v-txt;
+  }
+}

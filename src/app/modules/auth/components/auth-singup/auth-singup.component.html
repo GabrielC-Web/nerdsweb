@@ -1,0 +1,70 @@
+
+<!-- Contenedor del form -->
+<div class="h-100 w-100 p-4 overflow-auto">
+
+  <div class="d-flex flex-column align-items-center justify-content-start col-12 col-md-10 mx-auto h-100">
+
+    <!-- Titulo de form -->
+    <h3 class="text-center fw-bold cmm-txt">¡Bienvenido!</h3>
+
+    <div class="my-3 w-100 cmm-bg-gradient-secondary" style="height: 3px; border-radius: 50%;"></div>
+
+    <!-- Form -->
+    <form *ngIf="componentForm" [formGroup]="componentForm" class="d-flex flex-wrap m-0">
+
+      <!-- Nombre del usuario-->
+      <cmm-cmp-i-text class="col-12 px-2" formControlName="username" label="Nombre del usuario"
+      placeholder="Ej: Nombre del negocio"></cmm-cmp-i-text>
+
+      <!-- Correo -->
+      <cmm-cmp-i-email class="col-12 col-md-6 px-2" formControlName="email" label="Dirección de correo"
+      placeholder="Ej: lol@lol.lol"></cmm-cmp-i-email>
+
+      <!-- Nivel de tu negocio -->
+      <cmm-cmp-i-select class="col-12 col-md-6 px-2" formControlName="level" selectMode="select"
+      label="Nivel de tu negocio" placeholder="Ej: uno" [optionsList]="selectList" optionKey="id"
+      optionName="name" ></cmm-cmp-i-select>
+
+      <!-- A que se dedica su empresa -->
+      <cmm-cmp-i-text class="col-12 col-md-6 px-2" formControlName="description"
+      label="¿A que se dedica su empresa?'" placeholder="Ej: Venta de ropa"></cmm-cmp-i-text>
+
+      <!-- Teléfono -->
+      <cmm-cmp-i-text class="col-12 col-md-6 px-2" formControlName="phoneNumber" [minLength]="10"
+      [maxLength]="11" [onlyNumber]="true" replaceMessage="teléfono" label="Teléfono"
+      placeholder="Ej: 04241356800" [implementCustomInput]="true"></cmm-cmp-i-text>
+
+      <!-- Contraseña -->
+      <cmm-cmp-i-password class="col-12 col-md-6 px-2" formControlName="password" label="Contraseña" placeholder="Ej: Usuario-1"></cmm-cmp-i-password>
+
+      <!-- Confirmar contraseña -->
+      <cmm-cmp-i-password class="col-12 col-md-6 px-2" formControlName="confirmPassword" label="Confirmar contraseña" placeholder="Ej: Usuario-1"></cmm-cmp-i-password>
+
+
+    </form>
+
+    <div class="d-flex d-lg-none flex-column w-100 pb-3">
+
+      <p class="w-100 text-end my-1">
+
+        ¿Ya tiene una cuenta?
+
+        <span class="ms-2 cmm-txt-gradient-hover cursor-pointer"
+        (click)="changeFunction.emit()">
+
+          Iniciar sesión
+
+        </span>
+
+      </p>
+
+    </div>
+
+    <!-- Botón de enviar form -->
+    <cmm-cmp-b-button class="col-12 pb-5 p-lg-0" (submit)="onSubmit()" [buttonType]="'gradient-tertiary'"></cmm-cmp-b-button>
+
+  </div>
+
+</div>
+
+

@@ -1,0 +1,85 @@
+<section class="container p-3 d-flex flex-column justify-content-center">
+
+  <div class="d-flex justify-content-around align-items-center gap-2 w-100 mb-4">
+
+    <!-- Contenedor de productos -->
+    <div class="rounded cmm-bg-white borderShadow p-4 d-flex flex-column justify-content-between align-items-center gap-2">
+
+      <div class="d-flex align-items-center gap-2">
+
+        <img [src]="productIcon" alt="icono de productos" style="max-width: 60px;">
+
+        <p class="fs-32 m-0">Productos</p>
+
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center my-3 mx-3 w-90">
+
+        <p class="fs-30 cmm-txt-error m-0 cmm-txt-bold me-3">36</p>
+
+        <p class="fs-18 cmm-txt-error m-0"> productos con poco stock </p>
+
+      </div>
+
+      <button mat-button class="btn-primary w-90"> Ver mas </button>
+
+    </div>
+
+    <!-- Contenedor de Ordenes -->
+    <div class="rounded cmm-bg-white borderShadow p-4 d-flex flex-column justify-content-between align-items-center gap-2">
+
+      <div class="d-flex align-items-center gap-2">
+
+        <img [src]="orderIcon" alt="icono de ordenes" style="max-width: 60px;">
+
+        <p class="fs-32 m-0">Ordenes</p>
+
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center my-3 mx-3 w-90">
+
+        <p class="fs-30 cmm-txt-success m-0 cmm-txt-bold me-3">5</p>
+
+        <p class="fs-18 cmm-txt-success m-0"> Ordenes activas </p>
+
+      </div>
+
+      <button mat-button class="btn-primary w-90"> Ver mas </button>
+
+    </div>
+
+    <!-- Contenedor de Usuarios -->
+    <div class="rounded cmm-bg-white borderShadow p-4 d-flex flex-column justify-content-between align-items-center gap-2">
+
+      <div class="d-flex align-items-center gap-2">
+
+        <img [src]="productIcon" alt="icono de productos" style="max-width: 60px;">
+
+        <p class="fs-32 m-0">Usuario</p>s
+
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center my-3 mx-3 w-90">
+
+        <p class="fs-30 cmm-txt-error m-0 cmm-txt-bold me-3">5</p>
+
+        <p class="fs-18 cmm-txt-error m-0"> usuarios nuevos </p>
+
+      </div>
+
+      <button mat-button class="btn-primary w-90"> Ver mas </button>
+
+    </div>
+
+  </div>
+
+  <ngx-charts-number-card
+    [view]="view"
+    [scheme]="colorScheme"
+    [results]="single"
+    [cardColor]="cardColor"
+    (select)="onSelect($event)"
+    class="cmm-bg-white rounded borderShadow d-flex justify-content-around">
+  </ngx-charts-number-card>
+
+</section>

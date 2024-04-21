@@ -1,0 +1,5 @@
+@import "../../../../common/assets/styles/scss/variables.scss";
+
+.ngx-charts-number-card .cell .value-text{
+  fill: $v-txt !important;
+}

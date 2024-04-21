@@ -1,0 +1,30 @@
+<div class="container-full">
+
+  <cmm-cmp-spinner class="vh-100" *ngIf="spinner"></cmm-cmp-spinner>
+
+  <cmp-shopping-float-button *ngIf="!actualPath.includes('shopping-cart') && token" class="position-fixed" style="width: 60px; bottom: 10vh; right: 2em; z-index: 999;"></cmp-shopping-float-button>
+  <!-- Navbar -->
+  <cmp-base-header></cmp-base-header>
+
+  <!-- Container -->
+  <mat-drawer-container class="position-relative">
+
+    <!-- Container and Footer -->
+    <mat-drawer-content class="cmm-bg-white">
+
+      <!-- Contenedor del componente de la vista -->
+      <div id="page-container" class="overflow-hidden" style="min-height: 87vh;">
+
+        <!-- Area para colocar el componente correspondiente segun la ruta -->
+        <router-outlet></router-outlet>
+
+      </div>
+
+      <!-- Footer -->
+      <cmp-footer></cmp-footer>
+
+    </mat-drawer-content>
+
+  </mat-drawer-container>
+
+</div>

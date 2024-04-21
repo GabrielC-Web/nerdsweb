@@ -1,0 +1,11 @@
+<div class="position-absolute rounded-circle cmm-bg-primary d-flex justify-content-center
+align-items-center w-100 shopping_cart" style="aspect-ratio: 1/1;" matTooltip="Carrito de compra"
+(click)="goToShoppingCart()">
+
+  <span *ngIf="productsList.length" class="position-absolute top-0 start-100 translate-middle badge rounded-pill cmm-bg-secondary">
+    {{productsList.length}}
+  </span>
+
+  <mat-icon class="cmm-txt-white fs-36" style="height: auto !important; width: auto !important;">shopping_cart</mat-icon>
+
+</div>

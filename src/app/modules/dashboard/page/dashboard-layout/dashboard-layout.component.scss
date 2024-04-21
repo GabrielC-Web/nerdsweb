@@ -1,0 +1,45 @@
+label .options p {
+  grid-column-start: 1;
+  grid-column-end: 1;
+  grid-row-start: 1;
+  grid-row-end: 1;
+  transition: all .5s;
+ }
+
+ label .options p.option-1 {
+  transform: translate(0px,0%);
+  opacity: 1;
+ }
+
+ label .options p.option-2 {
+  transform: translate(0px,100%);
+  opacity: 0;
+ }
+
+ label .icon {
+  transform: rotate(180deg);
+  transition: all 250ms;
+ }
+
+ input:checked +.options + .icon {
+  transform: rotate(0deg);
+  transition: all 250ms;
+ }
+
+ input:checked + .options {
+
+  p.option-1 {
+    transform: translate(0px,-100%);
+    opacity: 0;
+  }
+
+  p.option-2 {
+    transform: translate(0px,0%);
+    opacity: 1;
+  }
+
+ }
+
+ input:checked + .options > .icon {
+  transform: rotate(0deg);
+ }

@@ -1,0 +1,46 @@
+{
+  "name": "Pago movil",
+  "description": "Transferencia bancaria rápida y eficaz a través de la red de pagos móviles",
+  "status": "ACTIVO",
+  "idStatus": "",
+  "bol_delete": false,
+  "requeriments": [],
+  "config": {
+
+    "text": [
+      {
+        "form": "phone",
+        "label": "Teléfono",
+        "placeholder": "Ej: 04241231234",
+        "regex": "(0424|0414|0412|0426|0416|424|414|412|426|416)+([0-9]{6,7})",
+        "onlyNumber": true,
+        "minLength": 11,
+        "maxLength": 12,
+        "required": true,
+        "Value": ""
+      },
+      {
+        "form": "reference",
+        "label": "N° de referencia",
+        "placeholder": "Ej: 1234",
+        "regex": "",
+        "onlyNumber": true,
+        "minLength": 4,
+        "maxLength": 4,
+        "required": true,
+        "Value": ""
+      }
+    ],
+
+    "file": [
+      {
+        "form": "verification",
+        "label": "Comprobante",
+        "placeholder": "Ej: 04241231234",
+        "required": true,
+        "Value": ""
+      }
+    ]
+
+  }
+}
