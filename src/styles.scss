@@ -1,1 +1,52 @@
 /* You can add global styles to this file, and also import other style files */
+
+/*--------------------------------------------------------------------------------------------------------------------------------------
+ Importaciones de Archivo de Estilos
+--------------------------------------------------------------------------------------------------------------------------------------*/
+
+@import "node_modules/bootstrap/dist/css/bootstrap.css";
+@import "./app/common/assets/styles/scss/backgrounds.scss";
+@import "./app/common/assets/styles/scss/materialize.scss";
+@import "./app/common/assets/styles/scss/text.scss";
+@import "./app/common/assets/styles/scss/variables.scss";
+@import "./app/common/assets/styles/scss/effects.scss";
+@import "./app/common/assets/styles/scss/themes-material.scss";
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+img {
+  width: 100%;
+}
+
+h2,
+.h2 {
+  color: $v-txt;
+  font-size: calc(2.325rem + 0.9vw);
+}
+
+@media (max-width: 576px) {
+
+  br {
+    display: none;
+  }
+}
+
+
+:root {
+
+  // Clase de todos los inputs que tienen la clase outline
+  .shoppingCartProduts {
+
+    --mat-expansion-header-collapsed-state-height: 130px;
+    --mat-expansion-header-expanded-state-height: 170px;
+
+  }
+}
