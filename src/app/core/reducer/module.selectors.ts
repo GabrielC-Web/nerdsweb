@@ -3,9 +3,9 @@ import { ModulesState } from "./module.reducers";
 
 export const SelectModulesState = createFeatureSelector<ModulesState>("Modules");
 
-export const withdrawFilter = createSelector(
+export const catalogFilter = createSelector(
   SelectModulesState,
-  ModulesState => ModulesState.filters.withdraw
+  ModulesState => ModulesState.filters.catalog
 )
 
 export const depositFilter = createSelector(

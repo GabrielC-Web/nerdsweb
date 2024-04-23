@@ -1,13 +1,13 @@
-export interface WithdrawFilterModel {
+export interface CatalogFilterModel {
   limit: string;
   page: string;
   search: string;
-  startDate: any;
-  endDate: any;
+  stockStart: string;
+  stockEnd: string;
   amountStart: string;
   amountEnd: string;
-  idWithdrawStatus: string;
-  idWithdrawCurrency: string;
+  idStatus: string;
+  visibility: boolean;
 }
 
 export interface DepositFilterModel {

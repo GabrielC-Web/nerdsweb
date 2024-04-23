@@ -1,22 +1,22 @@
 import { ModulesActions, ModulesActionsTypes } from "./module.actions";
-import { DepositFilterModel, WithdrawFilterModel } from './module.models';
+import { DepositFilterModel, CatalogFilterModel } from './module.models';
 export interface ModulesState {
   filters: {
-    withdraw: WithdrawFilterModel,
+    catalog: CatalogFilterModel,
     deposit: DepositFilterModel,
   };
 }
 
-export const initialWidrawFilter: WithdrawFilterModel = {
+export const initialCatalogFilterModel: CatalogFilterModel = {
   limit: '10',
   page: '0',
   search: '',
-  startDate: '',
-  endDate: '',
+  stockStart: '',
+  stockEnd: '',
   amountStart: '',
   amountEnd: '',
-  idWithdrawStatus: '',
-  idWithdrawCurrency: '',
+  idStatus: '',
+  visibility: false,
 };
 
 export const initialDepositFilter: DepositFilterModel = {
@@ -33,7 +33,7 @@ export const initialDepositFilter: DepositFilterModel = {
 
 export const initialModuleFilter: ModulesState = {
   filters: {
-    withdraw: initialWidrawFilter,
+    catalog: initialCatalogFilterModel,
     deposit: initialDepositFilter,
   }
 }
@@ -45,18 +45,18 @@ export function ModulesReducer(
   switch (action.type) {
 
     // Acciones de retiro
-    case ModulesActionsTypes.WithdrawFilter:
+    case ModulesActionsTypes.CatalogFilter:
       return {
         filters: {
           ...state.filters,
-          withdraw: action.payload.withdraw
+          catalog: action.payload.catalog
         }
       }
-    case ModulesActionsTypes.ClearWithdrawFilter:
+    case ModulesActionsTypes.ClearCatalogFilter:
       return {
         filters: {
           ...state.filters,
-          withdraw: initialWidrawFilter
+          catalog: initialCatalogFilterModel
         }
       }
 
@@ -81,7 +81,7 @@ export function ModulesReducer(
       return {
         filters: {
           deposit: initialDepositFilter,
-          withdraw: initialWidrawFilter
+          catalog: initialCatalogFilterModel
         }
       }
 

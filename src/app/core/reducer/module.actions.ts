@@ -1,10 +1,10 @@
 import { Action } from "@ngrx/store";
-import { DepositFilterModel, WithdrawFilterModel } from "./module.models";
+import { DepositFilterModel, CatalogFilterModel } from "./module.models";
 
 export enum ModulesActionsTypes {
   // modulo de retiro
-  WithdrawFilter = '[Withdraw filter] Withdraw filter',
-  ClearWithdrawFilter = '[Clear withdraw filter] Clear withdraw filter',
+  CatalogFilter = '[Catalog filter] Catalog filter',
+  ClearCatalogFilter = '[Clear Catalog filter] Clear Catalog filter',
 
   // modulo de deposito
   DepositFilter = '[Deposit filter] Deposit filter',
@@ -15,13 +15,13 @@ export enum ModulesActionsTypes {
 }
 
 // Acciones del modulo de retiro
-export class setWithdrawFilter implements Action {
-  readonly type = ModulesActionsTypes.WithdrawFilter;
+export class setCatalogFilter implements Action {
+  readonly type = ModulesActionsTypes.CatalogFilter;
 
-  constructor(public payload: { withdraw: WithdrawFilterModel }) {}
+  constructor(public payload: { catalog: CatalogFilterModel }) {}
 }
-export class clearWithdrawFilter implements Action {
-  readonly type = ModulesActionsTypes.ClearWithdrawFilter;
+export class clearCatalogFilter implements Action {
+  readonly type = ModulesActionsTypes.ClearCatalogFilter;
 
   constructor() {}
 }
@@ -46,8 +46,8 @@ export class modulesFilterClear implements Action {
   constructor() {}
 }
 
-export type ModulesActions =  setWithdrawFilter |
-                              clearWithdrawFilter |
+export type ModulesActions =  setCatalogFilter |
+                              clearCatalogFilter |
 
                               setDepositFilter |
                               clearDepositFilter|

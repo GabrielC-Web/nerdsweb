@@ -1,1 +1,14 @@
-<p>dashboard-catalogue works!</p>
+<cmm-cmp-t-main
+  *ngIf="utilityListsLoaded"
+  [showSearch]="false"
+  [header]="header"
+  [rows]="rows"
+  [filterFull]="filterFull"
+  [filtersObject]="filtersObject"
+  [deleteDatesOnInput]="true"
+  [lengthList]="lengthList"
+  (requesthttp)="requetshttp($event)"
+  (emitClearFilter)="clearFilter()"
+  (emitActionDone)="routerFunction($event)"
+  >
+</cmm-cmp-t-main>
