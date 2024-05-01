@@ -1,0 +1,42 @@
+<div class="container-fluid h-100 d-flex flex-column align-items-center p-4"
+style="min-height: 87vh; background: linear-gradient(150deg, rgba(218,204,237,1) 0%, rgba(246,240,242,1) 47%, rgba(247,216,195,0.9288165949973739) 63%, rgba(255,255,255,1) 78%);">
+
+  <section class="container py-4">
+
+    <div class="d-flex felx-wrap w-100 justify-content-center">
+
+      <p class="fs-36 mb-0 me-auto">Producto</p>
+
+      <div class="d-flex gap-2 ms-auto">
+
+        <button class="border px-3 cmm-bg-light-gray rounded d-flex align-items-center justify-content-around"
+        (click)="location.back()">
+          <mat-icon>keyboard_backspace</mat-icon>
+          <p class="m-0">Regresar</p>
+        </button>
+
+        <button class="border px-3 btn-primary rounded d-flex align-items-center justify-content-around">
+          <p class="m-0 cmm-txt-white">Guardar</p>
+        </button>
+
+      </div>
+
+    </div>
+
+    <form [formGroup]="componentForm" class="w-100 d-flex flex-column gap-2 py-4">
+
+      <div class="d-flex flex-wrap w-100">
+
+        <cmm-cmp-i-text [label]="'Nombre del producto'" formControlName="productName" ></cmm-cmp-i-text>
+
+        <cmm-cmp-i-text [label]="'Marca del producto'" formControlName="brand" ></cmm-cmp-i-text>
+
+      </div>
+
+    </form>
+
+  </section>
+
+  <div style="height: 120px;"></div>
+
+</div>

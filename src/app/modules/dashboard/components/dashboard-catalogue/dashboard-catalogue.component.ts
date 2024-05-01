@@ -41,6 +41,12 @@ export class DashboardCatalogueComponent implements CmmComponentTableModel {
       cssClass: 'text-center',
     },
     {
+      text: 'Marca',
+      action: false,
+      field: 'brand',
+      cssClass: 'text-center',
+    },
+    {
       text: 'Stock',
       action: false,
       field: 'stock',
@@ -425,10 +431,10 @@ export class DashboardCatalogueComponent implements CmmComponentTableModel {
     let productB64;
 
     if(product) {
-      productB64 = btoa(JSON.stringify(product));
+      productB64 = this.dataService.CmmB64EncodeUnicode(JSON.stringify(product));
     }
 
-    this.router.navigate(['cataloge/product'], {
+    this.router.navigate(['dashboard/cataloge/product'], {
       queryParams: { product: productB64 },
     });
 

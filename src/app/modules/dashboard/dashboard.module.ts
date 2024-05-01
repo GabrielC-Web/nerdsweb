@@ -11,6 +11,7 @@ import { DashboardCatalogueComponent } from './components/dashboard-catalogue/da
 import { DashboardBackofficesOptionsComponent } from './components/dashboard-backoffices-options/dashboard-backoffices-options.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { SharedModule } from 'src/app/core/shared/shared.module';
+import { DashboardProductComponent } from './components/dashboard-product/dashboard-product.component';
 
 
 
@@ -22,7 +23,8 @@ import { SharedModule } from 'src/app/core/shared/shared.module';
     DashboardUserInformactionComponent,
     DashboardCuponDialogComponent,
     DashboardCatalogueComponent,
-    DashboardBackofficesOptionsComponent
+    DashboardBackofficesOptionsComponent,
+    DashboardProductComponent
   ],
   imports: [
     CommonModule,
