@@ -29,9 +29,15 @@ export class DashboardCatalogueComponent implements CmmComponentTableModel {
    */
   header: CmmTableHeader[]= [
     {
-      text: 'Id',
+      text: 'Nombre',
       action: false,
-      field: 'idProduct',
+      field: 'productName',
+      cssClass: 'text-center',
+    },
+    {
+      text: 'Miniatura',
+      action: false,
+      field: 'images',
       cssClass: 'text-center',
     },
     {
@@ -44,6 +50,24 @@ export class DashboardCatalogueComponent implements CmmComponentTableModel {
       text: 'Precio',
       action: false,
       field: 'amount',
+      cssClass: 'text-center',
+    },
+    {
+      text: 'Estado',
+      action: false,
+      field: 'status',
+      cssClass: 'text-center',
+    },
+    {
+      text: 'Visibilidad',
+      action: false,
+      field: 'visible',
+      cssClass: 'text-center',
+    },
+    {
+      text: 'Accion',
+      action: true,
+      field: 'editproduct',
       cssClass: 'text-center',
     },
   ];
@@ -270,25 +294,35 @@ export class DashboardCatalogueComponent implements CmmComponentTableModel {
 
       //* Creo una fila
       finalRowObj = {
-        productName: row.productName ?? CmmTableColumnErrorMsg ,
-        brand: row.brand ?? CmmTableColumnErrorMsg ,
-        description: row.description ?? CmmTableColumnErrorMsg ,
-        amount: row.amount+ ' (' + row.extraAmount + ')' ?? CmmTableColumnErrorMsg ,
-        extraAmount: row.extraAmount ?? CmmTableColumnErrorMsg ,
-        characteristics: row.characteristics ?? CmmTableColumnErrorMsg ,
-        category: row.category ?? CmmTableColumnErrorMsg ,
-        variant: row.variant ?? CmmTableColumnErrorMsg ,
-        stock: row.stock ?? CmmTableColumnErrorMsg ,
-        discount: row.discount ?? CmmTableColumnErrorMsg ,
-        idProduct: row.idProduct ?? CmmTableColumnErrorMsg ,
-        variants: row.variants ?? CmmTableColumnErrorMsg ,
-        paymentDetail: {
+        productName: row.productName ?? CmmTableColumnErrorMsg,
+        brand: row.brand ?? CmmTableColumnErrorMsg,
+        description: row.description ?? CmmTableColumnErrorMsg,
+        amount: row.extraAmount ? row.amount+ '$ + ' + row.extraAmount + '$' : row.amount + '$',
+        extraAmount: row.extraAmount ?? CmmTableColumnErrorMsg,
+        characteristics: row.characteristics ?? CmmTableColumnErrorMsg,
+        images: row.images?.length ? {
           nameAction: 'iconFunctionAction',
           value: row,
-          icon: 'info',
+          icon: 'edit',
           class: 'cursor-pointer',
-          function: 'goDetailOrder()',
-          tooltip: 'Ver detalle',
+          function: 'goDetailProduct()',
+          tooltip: 'Editar producto',
+        } : CmmTableColumnErrorMsg,
+        category: row.category ?? CmmTableColumnErrorMsg,
+        visible: row.visible ? 'Visible' : 'Oculto',
+        status: row.status ?? CmmTableColumnErrorMsg,
+        variant: row.variant ?? CmmTableColumnErrorMsg,
+        stock: row.stock ?? CmmTableColumnErrorMsg,
+        discount: row.discount ?? CmmTableColumnErrorMsg,
+        idProduct: row.idProduct ?? CmmTableColumnErrorMsg,
+        variants: row.variants ?? CmmTableColumnErrorMsg,
+        editproduct: {
+          nameAction: 'iconFunctionAction',
+          value: row,
+          icon: 'edit',
+          class: 'cursor-pointer',
+          function: 'goDetailProduct()',
+          tooltip: 'Editar producto',
         } as CmmTableRow,
 
       };
@@ -331,20 +365,13 @@ export class DashboardCatalogueComponent implements CmmComponentTableModel {
    */
   routerFunction(elementReceived: any): void {
     switch (elementReceived.function) {
-      case 'goDetailOrder()':
-        this.goDetailOrder(elementReceived.value);
+      case 'goDetailProduct()':
+        this.goDetailProduct(elementReceived.value);
         break;
 
       default:
         break;
     }
-  }
-
-  /**
-   * Funcion para crear un producto nuevo
-   */
-  addProduct(){
-
   }
 
   /**
@@ -391,13 +418,20 @@ export class DashboardCatalogueComponent implements CmmComponentTableModel {
   // }
 
   /**
-   * @param order Funcion que redirige a la vista de detalle de orden
+   * @param product Funcion que redirige a la vista de detalle de orden
    */
-  goDetailOrder(order: any) {
-    let productB64 = btoa(JSON.stringify(order));
-    this.router.navigate(['merchant/reports/mobileyament_detail/'], {
+  goDetailProduct(product?: ProductCatalogModel) {
+
+    let productB64;
+
+    if(product) {
+      productB64 = btoa(JSON.stringify(product));
+    }
+
+    this.router.navigate(['cataloge/product'], {
       queryParams: { product: productB64 },
     });
+
   }
 
   //? Información de utilidad

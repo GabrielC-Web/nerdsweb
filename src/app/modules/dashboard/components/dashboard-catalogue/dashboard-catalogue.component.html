@@ -1,24 +1,32 @@
-<section>
+<div class="container-fluid h-100 d-flex flex-column align-items-center p-4"
+style="min-height: 87vh; background: linear-gradient(150deg, rgba(218,204,237,1) 0%, rgba(246,240,242,1) 47%, rgba(247,216,195,0.9288165949973739) 63%, rgba(255,255,255,1) 78%);">
 
-  <shd-cmp-filter-form
-    [filtersObjects]="filtersObject"
-    [actionButtonText]="'Añadir productos'"
-    [titulo]="'Catálogo'"
-    (submit)="addProduct()"
-    >
-  </shd-cmp-filter-form>
+  <section class="container py-4">
 
-  <cmm-cmp-t-main
-    [showSearch]="false"
-    [header]="header"
-    [rows]="rows"
-    [filterFull]="filterFull"
-    [deleteDatesOnInput]="true"
-    [lengthList]="lengthList"
-    (requesthttp)="requetshttp($event)"
-    (emitClearFilter)="clearFilter()"
-    (emitActionDone)="routerFunction($event)"
-    >
-  </cmm-cmp-t-main>
+    <shd-cmp-filter-form
+      class="my-3"
+      [filtersObjects]="filtersObject"
+      [actionButtonText]="'Añadir productos'"
+      [titulo]="'Catálogo'"
+      (submit)="goDetailProduct()"
+      >
+    </shd-cmp-filter-form>
 
-</section>
+    <cmm-cmp-t-main
+      [showSearch]="false"
+      [header]="header"
+      [rows]="rows"
+      [filterFull]="filterFull"
+      [deleteDatesOnInput]="true"
+      [lengthList]="lengthList"
+      (requesthttp)="requetshttp($event)"
+      (emitClearFilter)="clearFilter()"
+      (emitActionDone)="routerFunction($event)"
+      >
+    </cmm-cmp-t-main>
+
+  </section>
+
+  <div style="height: 120px;"></div>
+
+</div>

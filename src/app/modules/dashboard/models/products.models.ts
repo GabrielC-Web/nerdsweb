@@ -8,7 +8,10 @@ export interface ProductCatalogModel {
     amount:          number;
     extraAmount:     number;
     characteristics: string[];
+    images:        string[];
     category:        string[];
+    status:         string;
+    visible:         boolean;
     variant:         boolean;
     stock:           null;
     discount:        number;
