@@ -52,14 +52,14 @@ export class DashboardServicesComponent implements OnInit {
    */
   getUserServices() {
 
-    this.dashboardService.getUserServices()
-    .pipe(
-      takeUntil(this.$unsubscribe)
-    )
-    .subscribe({
-      next: (response: any) => {
+    // this.dashboardService.getUserProducts()
+    // .pipe(
+    //   takeUntil(this.$unsubscribe)
+    // )
+    // .subscribe({
+    //   next: (response: any) => {
 
-      }
-    })
+    //   }
+    // })
   }
 }

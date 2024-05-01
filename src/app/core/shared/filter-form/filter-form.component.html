@@ -1,0 +1,90 @@
+<form [formGroup]="componentForm" class="d-flex flex-wrap justify-content-end align-items-center gap-2 px-4">
+
+  <p *ngIf="titulo" class="fs-36 mb-0 me-auto">{{titulo}}</p>
+
+  <div *ngFor="let filter of filtersObjects" class="d-flex justify-content-center">
+
+    <div *ngIf="filter.filterType == 'multiSelect'" class="dropdownx">
+
+      <button class="border px-3 py-2 cmm-bg-white rounded dropdown-toggle d-flex align-items-center justify-content-around"
+      style="width: 150px; height: 50px; " type="button" data-bs-toggle="dropdown" aria-expanded="false">
+
+        <mat-icon *ngIf="filter.icon">{{filter.icon}}</mat-icon>
+
+        <p class="m-0">{{filter.nameFilter}}</p>
+
+      </button>
+
+      <ul class="dropdown-menu">
+
+        <li *ngFor="let option of filter.options">
+
+          <mat-checkbox *ngIf="!option.subOptions?.length" class="dropdown-item" [value]="option.value" color="primary"
+          (change)="componentForm.controls[option.nameForm].setValue($event.checked)">
+            {{option.nameOption}}
+          </mat-checkbox>
+
+          <div *ngIf="option.subOptions?.length" class="dropdownx d-flex justify-content-center">
+
+            <mat-checkbox class="dropdown-toggle" [value]="option.value" color="primary" style="width: 125px;"
+            (change)="componentForm.controls[option.nameForm].setValue($event.checked)" data-bs-toggle="dropdown">
+              {{option.nameOption}}
+            </mat-checkbox>
+
+            <ul class="dropdown-menu">
+
+              <li *ngFor="let subOption of option.subOptions">
+                <mat-checkbox class="dropdown-item" data-bs-auto-close="true" [value]="subOption.value" color="primary"
+                (change)="componentForm.controls[subOption.nameSubOption].setValue($event.checked)">
+                  {{subOption.nameSubOption}}
+                </mat-checkbox>
+              </li>
+
+            </ul>
+
+          </div>
+
+
+
+        </li>
+
+      </ul>
+
+    </div>
+
+    <div *ngIf="filter.filterType == 'quantity'" class="dropdownx">
+
+      <button class="border px-3 py-2 cmm-bg-white rounded dropdown-toggle d-flex align-items-center justify-content-around"
+      style="width: 150px; height: 50px; " type="button" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
+
+        <mat-icon *ngIf="filter.icon">{{filter.icon}}</mat-icon>
+
+        <p class="m-0">{{filter.nameFilter}}</p>
+
+      </button>
+
+      <ul class="dropdown-menu">
+
+        <cmm-cmp-i-amount *ngFor="let option of filter.options" [label]="option.nameOption"
+        [formControlName]="option.nameForm" class="dropdown-item"></cmm-cmp-i-amount>
+
+        <cmm-cmp-b-button button_text="Filtrar" class="dropdown-item" (submit)="onSubmit()"></cmm-cmp-b-button>
+
+      </ul>
+
+    </div>
+
+    <div *ngIf="filter.filterType == 'input'">
+
+      <cmm-cmp-i-text *ngFor="let option of filter.options" [label]="option.nameOption" [formControlName]="option.nameForm"
+      [subscriptSizing]="'dynamic'">
+        <mat-icon *ngIf="filter.icon" dinamycPreffix >{{filter.icon}}</mat-icon>
+      </cmm-cmp-i-text>
+
+    </div>
+
+  </div>
+
+  <cmm-cmp-b-button *ngIf="actionButtonText" [button_text]="actionButtonText" (submit)="submit.emit()" ></cmm-cmp-b-button>
+
+</form>

@@ -10,11 +10,12 @@ import { Store, select } from '@ngrx/store';
 import { catalogFilter } from 'src/app/core/reducer/module.selectors';
 import { ProductCatalogModel } from '../../models/products.models';
 import { clearCatalogFilter, setCatalogFilter } from 'src/app/core/reducer/module.actions';
+import { FilterObjectModel } from 'src/app/core/shared/models/filter-form.model';
 
 @Component({
   selector: 'cmp-dashboard-catalogue',
   templateUrl: './dashboard-catalogue.component.html',
-  styleUrls: ['./dashboard-catalogue.component.scss']
+  styleUrls: ['./dashboard-catalogue.component.scss'],
 })
 export class DashboardCatalogueComponent implements CmmComponentTableModel {
 
@@ -28,57 +29,21 @@ export class DashboardCatalogueComponent implements CmmComponentTableModel {
    */
   header: CmmTableHeader[]= [
     {
-      text: 'Id notif',
+      text: 'Id',
       action: false,
-      field: 'idConciliationPm',
+      field: 'idProduct',
       cssClass: 'text-center',
     },
     {
-      text: 'Número de referencia',
+      text: 'Stock',
       action: false,
-      field: 'transactionNumber',
+      field: 'stock',
       cssClass: 'text-center',
     },
     {
-      text: 'Teléfono emisor',
-      action: false,
-      field: 'issuingPhone',
-      cssClass: 'text-center',
-    },
-    {
-      text: 'Banco emisor',
-      action: false,
-      field: 'issuingBankName',
-      cssClass: 'text-center',
-    },
-    {
-      text: 'Banco receptor',
-      action: false,
-      field: 'receivingBankName',
-      cssClass: 'text-center',
-    },
-    {
-      text: 'Estado',
-      action: true,
-      field: 'statusName',
-      cssClass: 'text-center',
-    },
-    {
-      text: 'Fecha',
-      action: false,
-      field: 'createDate',
-      cssClass: 'text-center',
-    },
-    {
-      text: 'Monto',
+      text: 'Precio',
       action: false,
       field: 'amount',
-      cssClass: 'text-center',
-    },
-    {
-      text: 'Detalle de pago',
-      action: true,
-      field: 'paymentDetail',
       cssClass: 'text-center',
     },
   ];
@@ -101,7 +66,100 @@ export class DashboardCatalogueComponent implements CmmComponentTableModel {
   /**
    * Objeto para crear los inputs de filtros que tendra la tabla
    */
-  filtersObject: any;
+  filtersObject: FilterObjectModel[] = [
+    {
+      "nameFilter": "Búsqueda rápida",
+      "icon": "search",
+      "filterType": "input",
+      "options": [
+        {
+          "nameOption": "Búsqueda rápida",
+          "nameForm": "search",
+          "regex": '',
+          "onlyNumber": false,
+          "min": '',
+          "max": "",
+          "value": "",
+        },
+      ]
+    },
+    {
+      "nameFilter": "Precio",
+      "icon": "monetization_on",
+      "filterType": "quantity",
+      "options": [
+        {
+          "nameOption": "Desde",
+          "nameForm": "amountStart",
+          "onlyNumber": true,
+          "min": "",
+          "max": "",
+          "value": ""
+        },
+        {
+          "nameOption": "Hasta",
+          "nameForm": "amountEnd",
+          "onlyNumber": true,
+          "min": "",
+          "max": "",
+          "value": ""
+        },
+
+      ]
+    },
+    {
+      "nameFilter": "Stock",
+      "icon": "local_mall",
+      "filterType": "quantity",
+      "options": [
+        {
+          "nameOption": "Desde",
+          "nameForm": "stockStart",
+          "onlyNumber": true,
+          "min": "",
+          "max": "",
+          "value": ""
+        },
+        {
+          "nameOption": "Hasta",
+          "nameForm": "stockEnd",
+          "onlyNumber": true,
+          "min": "",
+          "max": "",
+          "value": ""
+        },
+
+      ]
+    },
+    {
+      "nameFilter": "Filtro",
+      "icon": "filter_list",
+      "filterType": "multiSelect",
+      "options": [
+        {
+          "nameOption": "Visibilidad",
+          "nameForm": "visibility",
+          "value": ""
+        },
+        {
+          "nameOption": "Estatus",
+          "nameForm": "statusProduct",
+          "value": "",
+          "subOptions": [
+            {
+              "nameSubOption": "Habilitado",
+              "value": "",
+            },
+            {
+              "nameSubOption": "Inhabilitado",
+              "value": "",
+            }
+          ],
+        },
+
+      ]
+    },
+  ];
 
   /**
    * Observable de suscripción al store con los filtros de la tabla
@@ -159,10 +217,10 @@ export class DashboardCatalogueComponent implements CmmComponentTableModel {
   ngOnInit(): void {
 
     //* Obtengo el listado de estatus
-    this.getListStatusTypes()
+    this.getListStatusTypes();
 
     //* Obtengo la data de los pagosmóviles
-    this.getTableData()
+    this.getTableData();
 
   }
 
@@ -189,7 +247,7 @@ export class DashboardCatalogueComponent implements CmmComponentTableModel {
           this.lengthList = 120;
 
           //* Construyo la tabla
-          this.buildTable(response.data.rows);
+          this.buildTable(response.data);
 
         },
         error: error => {}
@@ -215,7 +273,7 @@ export class DashboardCatalogueComponent implements CmmComponentTableModel {
         productName: row.productName ?? CmmTableColumnErrorMsg ,
         brand: row.brand ?? CmmTableColumnErrorMsg ,
         description: row.description ?? CmmTableColumnErrorMsg ,
-        amount: row.amount ?? CmmTableColumnErrorMsg ,
+        amount: row.amount+ ' (' + row.extraAmount + ')' ?? CmmTableColumnErrorMsg ,
         extraAmount: row.extraAmount ?? CmmTableColumnErrorMsg ,
         characteristics: row.characteristics ?? CmmTableColumnErrorMsg ,
         category: row.category ?? CmmTableColumnErrorMsg ,
@@ -280,6 +338,13 @@ export class DashboardCatalogueComponent implements CmmComponentTableModel {
       default:
         break;
     }
+  }
+
+  /**
+   * Funcion para crear un producto nuevo
+   */
+  addProduct(){
+
   }
 
   /**

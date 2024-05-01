@@ -1,14 +1,24 @@
-<cmm-cmp-t-main
-  *ngIf="utilityListsLoaded"
-  [showSearch]="false"
-  [header]="header"
-  [rows]="rows"
-  [filterFull]="filterFull"
-  [filtersObject]="filtersObject"
-  [deleteDatesOnInput]="true"
-  [lengthList]="lengthList"
-  (requesthttp)="requetshttp($event)"
-  (emitClearFilter)="clearFilter()"
-  (emitActionDone)="routerFunction($event)"
-  >
-</cmm-cmp-t-main>
+<section>
+
+  <shd-cmp-filter-form
+    [filtersObjects]="filtersObject"
+    [actionButtonText]="'Añadir productos'"
+    [titulo]="'Catálogo'"
+    (submit)="addProduct()"
+    >
+  </shd-cmp-filter-form>
+
+  <cmm-cmp-t-main
+    [showSearch]="false"
+    [header]="header"
+    [rows]="rows"
+    [filterFull]="filterFull"
+    [deleteDatesOnInput]="true"
+    [lengthList]="lengthList"
+    (requesthttp)="requetshttp($event)"
+    (emitClearFilter)="clearFilter()"
+    (emitActionDone)="routerFunction($event)"
+    >
+  </cmm-cmp-t-main>
+
+</section>
