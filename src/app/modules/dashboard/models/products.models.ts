@@ -10,7 +10,7 @@ export interface ProductCatalogModel {
     characteristics: string[];
     images:        string[];
     category:        string[];
-    status:         string;
+    status:         'Activo' | 'Inactivo';
     visible:         boolean;
     variant:         boolean;
     stock:           null;

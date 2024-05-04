@@ -25,11 +25,86 @@ style="min-height: 87vh; background: linear-gradient(150deg, rgba(218,204,237,1)
 
     <form [formGroup]="componentForm" class="w-100 d-flex flex-column gap-2 py-4">
 
-      <div class="d-flex flex-wrap w-100">
+      <!-- Datos propios del producto -->
+      <div class="d-flex flex-wrap col-12 col-sm-6">
 
-        <cmm-cmp-i-text [label]="'Nombre del producto'" formControlName="productName" ></cmm-cmp-i-text>
+        <!-- Nombre de producto -->
+        <cmm-cmp-i-text class="col-12 col-lg-6 px-2" [label]="'Nombre del producto'" formControlName="productName" ></cmm-cmp-i-text>
 
-        <cmm-cmp-i-text [label]="'Marca del producto'" formControlName="brand" ></cmm-cmp-i-text>
+        <!-- Marca del producto -->
+        <cmm-cmp-i-text class="col-12 col-lg-6 px-2" [label]="'Marca del producto'" formControlName="brand" ></cmm-cmp-i-text>
+
+        <!-- Descripcion del produto -->
+        <mat-form-field class="col-12 px-2" appearance="outline">
+          <mat-label>Descripción del producto</mat-label>
+          <textarea matInput placeholder="Ej: Una e commerce potente y altamente competitiva para ti" rows="4">{{product.description}}</textarea>
+        </mat-form-field>
+
+        <!-- Contenedor de los estados del producto -->
+        <div class="d-flex flex-wrap col-12 col-md-6 px-3">
+
+          <p class="fs-20 fw-bold col-12 col-md-5 mb-3">Estado</p>
+
+          <div class="d-flex flex-column align-items-end col-12 col-md-7">
+
+            <label for="switchVisible" class="swtich-container" [ngClass]="componentForm.controls['visible'].value ? 'cmm-bg-primary' : 'cmm-bg-light-white'">
+              <input type="checkbox" class="invisible" id="switchVisible" [checked]="componentForm.controls['visible'].value"
+              (change)="changeValueForm('visible', !componentForm.controls['visible'].value)">
+              <p class="stateName">{{componentForm.controls['visible'].value ? 'Visible' : 'Oculto'}}</p>
+              <div class="selector"></div>
+            </label>
+
+            <label for="switchState" class="swtich-container mx-3"  [ngClass]="componentForm.controls['status'].value == 'Activo' ? 'cmm-bg-primary' : 'cmm-bg-light-white'">
+              <input type="checkbox" class="invisible" id="switchState"
+              (change)="changeValueForm('status',componentForm.controls['status'].value == 'Activo' ? 'Inactivo' : 'Activo' )">
+              <p class="stateName">{{componentForm.controls['status'].value}}</p>
+              <div class="selector"></div>
+            </label>
+
+          </div>
+
+        </div>
+
+        <!-- Contenedor de las categorias del producto -->
+        <div class="d-flex flex-wrap col-12 col-md-6 px-2">
+
+          <p class="fs-20 fw-bold col-12 col-md-5">Categorias</p>
+
+          <div class="dropdown col-12 col-md-7 mb-3 d-flex">
+
+            <button class="border px-3 py-2 cmm-bg-white rounded d-flex align-items-center justify-content-around dropdown-toggle ms-auto"
+            style="width: 135px; height: 50px; " data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+
+              <mat-icon>add</mat-icon>
+
+              <p class="m-0">categoría</p>
+
+            </button>
+
+            <div class="dropdown-menu p-3">
+
+              <cmm-cmp-i-text formControlName="category" label="Categoria" placeholder="Ej: Calzado deportivo"></cmm-cmp-i-text>
+
+              <cmm-cmp-b-button class="w-100" [button_text]="'Agregar'" (click)="addCategorie()"></cmm-cmp-b-button>
+
+            </div>
+
+          </div>
+
+          <div class="d-flex flex-wrap gap-2 col-12 col-md-9">
+
+            <div *ngFor="let category of productCategories; index as i" style="height: 50px;"
+            class="border px-3 py-2 cmm-bg-white rounded d-flex gap-2 align-items-center justify-content-around">
+
+              <p class="m-0">{{category}}</p>
+
+              <mat-icon class="deletedIcon cursor-pointer" (click)="deletedCategorie(i)">deleted</mat-icon>
+
+            </div>
+
+          </div>
+
+        </div>
 
       </div>
 

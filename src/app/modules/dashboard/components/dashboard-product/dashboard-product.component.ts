@@ -55,6 +55,10 @@ export class DashboardProductComponent implements CmmComponentFormModel {
    * datos del producto que se quiere editar si es que se recibieron algun producto
    */
   product!: ProductCatalogModel;
+  /**
+   * datos del producto que se quiere editar si es que se recibieron algun producto
+   */
+  productCategories!: String[];
 
   constructor(
     public dataServices: CmmDataService,
@@ -88,7 +92,7 @@ export class DashboardProductComponent implements CmmComponentFormModel {
     // Creo el formulario con el constructor agregando los controles necesarios
     this.componentForm = this.fb.group({
       productName: [this.product.productName, Validators.required],
-      category: [this.product.category, Validators.required],
+      category: [''],
       amount: [this.product.amount, Validators.required],
       description: [this.product.description, Validators.required],
       brand: [this.product.brand, Validators.required],
@@ -99,6 +103,8 @@ export class DashboardProductComponent implements CmmComponentFormModel {
       status: [this.product.status, Validators.required],
     });
 
+    // Guardamos el array de categorias del producto
+    this.productCategories = this.product.category;
 
     // Ejecuto la funcion para observar todos los cambios que ocurran en el formulario
     this.listenFormChanges();
@@ -118,6 +124,34 @@ export class DashboardProductComponent implements CmmComponentFormModel {
 
 
   };
+
+  /**
+   * Funcion par acambiar el valor de uno de los campos
+   */
+  changeValueForm(formName: string, value: any){
+    this.componentForm.controls[formName].setValue(value);
+  }
+
+  /**
+   * Funcion para agregar una categoria al arreglo
+   */
+  addCategorie(){
+    let newCategorie = this.componentForm.controls['category'].value;
+
+    if(newCategorie){
+      this.productCategories.push(newCategorie);
+      this.componentForm.controls['category'].setValue('');
+    }
+  }
+
+  /**
+   * Funcion para eliminar una categoria
+   */
+  deletedCategorie(index: number) {
+
+    this.productCategories.splice(index, 1);
+
+  }
 
   /**
    * Valida el formulario y decide si puede enviarse al endpoint
