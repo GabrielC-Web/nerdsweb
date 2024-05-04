@@ -173,16 +173,16 @@ export class DashboardCatalogueComponent implements CmmComponentTableModel {
         },
         {
           "nameOption": "Estatus",
-          "nameForm": "statusProduct",
+          "nameForm": "status",
           "value": "",
           "subOptions": [
             {
               "nameSubOption": "Habilitado",
-              "value": "",
+              "value": "Activo",
             },
             {
               "nameSubOption": "Inhabilitado",
-              "value": "",
+              "value": "Inactivo",
             }
           ],
         },
@@ -240,6 +240,8 @@ export class DashboardCatalogueComponent implements CmmComponentTableModel {
     this.$filter.pipe(takeUntil(this.$unsubscribe)).subscribe({
       next: (data: any) => {
         this.filterFull = data;
+        console.log(this.filterFull);
+
       },
     });
   }
@@ -349,8 +351,16 @@ export class DashboardCatalogueComponent implements CmmComponentTableModel {
    */
   requetshttp(requestObj: any): void {
 
+    let newFilterFull = {
+      ...requestObj,
+        limit: requestObj.limit ?? '5',
+        page: requestObj.page ?? '0',
+    };
+
+    if(JSON.stringify(this.filterFull) == JSON.stringify(newFilterFull)) return;
+
     //* Guardo el nuevo valor del filtro
-    this.filterFull = requestObj;
+    this.filterFull = newFilterFull;
 
     //* Vacío las filas
     this.rows = [];

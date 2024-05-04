@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, UntypedFormGroup, Validators } from '@angular/forms';
-import { Subject } from 'rxjs';
+import { Subject, find } from 'rxjs';
 import { CmmComponentFormModel } from 'src/app/common/data/forms/models/form.model';
 import { FilterObjectModel, OptionFilterModel } from '../models/filter-form.model';
 
@@ -45,7 +45,12 @@ export class FilterFormComponent implements CmmComponentFormModel {
   /**
    * Variable que envia el evento de click al componente
    */
-  @Output() submit: EventEmitter<boolean> = new EventEmitter();
+  @Output() buttonAction: EventEmitter<boolean> = new EventEmitter();
+
+  /**
+   * Variable que envia el evento de click al componente
+   */
+  @Output() filter: EventEmitter<boolean> = new EventEmitter();
 
   ngOnInit(){};
 
@@ -139,7 +144,7 @@ export class FilterFormComponent implements CmmComponentFormModel {
           // Le asigno al arreglo de controles un nuevo paramtero con el nombre del control
           (group as any)[option.nameForm] = new FormControl(
             // Le coloco el valor inicial que venga, si viene
-            option.value ? option.value : false
+            option.value
           );
 
         })
@@ -148,12 +153,11 @@ export class FilterFormComponent implements CmmComponentFormModel {
 
     })
 
-
     //* Inicializo el formulario
     this.componentForm = new UntypedFormGroup(group);
 
     // Ejecuto la funcion para observar todos los cambios que ocurran en el formulario
-    this.listenFormChanges();
+    // this.listenFormChanges();
 
   };
 
@@ -168,16 +172,60 @@ export class FilterFormComponent implements CmmComponentFormModel {
 
       console.log(value);
 
+      this.filter.emit(value)
+
     })
 
 
   };
 
   /**
+   * Funcion para agregar los filtros a un campo de multiseleccion con subopciones
+   * @param formName Nombre del campo del formulario en el que se van a sumar lso valores del filtro
+   * @param value Valor que se desea sumar al filtro
+   */
+  addSubOptionMultiselect(formName: string, value: string) {
+
+    let optionsArray: string[] = (this.componentForm.controls[formName].value as String).split(',');
+
+    let index = optionsArray.findIndex((option: string) => option == value);
+
+    if(index >= 0){
+      optionsArray.splice(index,1);
+    }
+    else{
+      optionsArray.push(value);
+    }
+
+    this.componentForm.controls[formName].setValue(optionsArray.join(','))
+
+  };
+
+  /**
+   * funcion para checkear si la subopcion esta incluida en su respectivo filtro
+   * @param formName Nombre del campo del formulario en el que se van a sumar lso valores del filtro
+   * @param value Valor que se desea sumar al filtro
+   */
+  checkSubOptionState(formName: string, value: string): boolean{
+
+    if(!this.componentForm.controls[formName].value) return false;
+
+    let optionsArray: string[] = (this.componentForm.controls[formName].value as String).split(',');
+
+    let index = optionsArray.findIndex((option: string) => option == value);
+
+    if(index >= 0){
+      return true;
+    }
+    return false;
+  }
+  /**
    * Valida el formulario y decide si puede enviarse al endpoint
    * En el error ejecutamos CmmdataService.CmmSetApiError con el objeto de error del formulario
    */
   onSubmit(){
+
+    this.filter.emit(this.componentForm.value);
 
   };
 

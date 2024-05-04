@@ -43,7 +43,7 @@ export class DashboardService {
 
     }
 
-    return this.http.get(this.gatewayUrl + '/v1/list/products');
+    return this.http.get(this.gatewayUrl + '/v1/list/products', {params});
 
   }
 

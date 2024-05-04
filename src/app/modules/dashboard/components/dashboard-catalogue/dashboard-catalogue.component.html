@@ -8,7 +8,8 @@ style="min-height: 87vh; background: linear-gradient(150deg, rgba(218,204,237,1)
       [filtersObjects]="filtersObject"
       [actionButtonText]="'Añadir productos'"
       [titulo]="'Catálogo'"
-      (submit)="goDetailProduct()"
+      (buttonAction)="goDetailProduct()"
+      (filter)="requetshttp($event)"
       >
     </shd-cmp-filter-form>
 
