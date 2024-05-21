@@ -308,7 +308,7 @@ export class DashboardCatalogueComponent implements CmmComponentTableModel {
         amount: row.extraAmount ? row.amount+ '$ + ' + row.extraAmount + '$' : row.amount + '$',
         extraAmount: row.extraAmount ?? CmmTableColumnErrorMsg,
         characteristics: row.characteristics ?? CmmTableColumnErrorMsg,
-        images: row.images?.length ? {
+        images: row.image?.length ? {
           nameAction: 'iconFunctionAction',
           value: row,
           icon: 'edit',

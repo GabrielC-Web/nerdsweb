@@ -9,13 +9,14 @@ style="min-height: 87vh; background: linear-gradient(150deg, rgba(218,204,237,1)
 
       <div class="d-flex gap-2 ms-auto">
 
-        <button class="border px-3 cmm-bg-light-gray rounded d-flex align-items-center justify-content-around"
-        (click)="location.back()">
+        <button class="border px-3 cmm-bg-white border rounded d-flex align-items-center justify-content-around"
+        style="width: 150px;" (click)="location.back()">
           <mat-icon>keyboard_backspace</mat-icon>
           <p class="m-0">Regresar</p>
         </button>
 
-        <button class="border px-3 btn-primary rounded d-flex align-items-center justify-content-around">
+        <button class="border px-3 btn-primary rounded d-flex align-items-center justify-content-around"
+        style="width: 150px;" (click)="onSubmit()">
           <p class="m-0 cmm-txt-white">Guardar</p>
         </button>
 
@@ -23,10 +24,12 @@ style="min-height: 87vh; background: linear-gradient(150deg, rgba(218,204,237,1)
 
     </div>
 
-    <form [formGroup]="componentForm" class="w-100 d-flex flex-column gap-2 py-4">
+    <form [formGroup]="componentForm" class="w-100 d-flex flex-wrap py-4">
 
       <!-- Datos propios del producto -->
-      <div class="d-flex flex-wrap col-12 col-sm-6">
+      <div class="d-flex flex-wrap col-12 col-sm-6 px-2">
+
+        <p class="fs-20 fw-bold col-12 mb-3">Datos del producto</p>
 
         <!-- Nombre de producto -->
         <cmm-cmp-i-text class="col-12 col-lg-6 px-2" [label]="'Nombre del producto'" formControlName="productName" ></cmm-cmp-i-text>
@@ -34,14 +37,36 @@ style="min-height: 87vh; background: linear-gradient(150deg, rgba(218,204,237,1)
         <!-- Marca del producto -->
         <cmm-cmp-i-text class="col-12 col-lg-6 px-2" [label]="'Marca del producto'" formControlName="brand" ></cmm-cmp-i-text>
 
+        <!-- Precio del producto -->
+        <cmm-cmp-i-amount class="col-12 col-lg-4 px-2" [label]="'Precio del producto'" formControlName="amount"></cmm-cmp-i-amount>
+
+        <!-- Precio extra del producto -->
+        <cmm-cmp-i-amount class="col-12 col-lg-4 px-2" [label]="'Precio extra del producto'" formControlName="extraAmount"></cmm-cmp-i-amount>
+
+        <!-- Descuento del producto -->
+        <cmm-cmp-i-amount class="col-12 col-lg-4 px-2" [label]="'Descuento del producto'" formControlName="discount"></cmm-cmp-i-amount>
+
         <!-- Descripcion del produto -->
         <mat-form-field class="col-12 px-2" appearance="outline">
           <mat-label>Descripción del producto</mat-label>
           <textarea matInput placeholder="Ej: Una e commerce potente y altamente competitiva para ti" rows="4">{{product.description}}</textarea>
         </mat-form-field>
 
+        <div formArrayName="images" class="w-100 d-flex align-items-center p-3 border cmm-bg-white rounded"
+        style="height: 200px; flex-direction: row-reverse;">
+
+          <cmm-cmp-i-smfile style="width: 160px;" *ngFor="let img of images.controls; index as i"
+          [formControlName]="i" inputType="onlyImage" (inputChange)="setImage(i)"></cmm-cmp-i-smfile>
+
+        </div>
+
+      </div>
+
+      <!-- Estados y caracteristicas -->
+      <div class="d-flex flex-wrap col-12 col-sm-6 px-2">
+
         <!-- Contenedor de los estados del producto -->
-        <div class="d-flex flex-wrap col-12 col-md-6 px-3">
+        <div class="d-flex flex-wrap col-12 col-md-6 pe-3 mb-4">
 
           <p class="fs-20 fw-bold col-12 col-md-5 mb-3">Estado</p>
 
@@ -66,7 +91,7 @@ style="min-height: 87vh; background: linear-gradient(150deg, rgba(218,204,237,1)
         </div>
 
         <!-- Contenedor de las categorias del producto -->
-        <div class="d-flex flex-wrap col-12 col-md-6 px-2">
+        <div class="d-flex flex-wrap col-12 col-md-6 px-2 mb-4">
 
           <p class="fs-20 fw-bold col-12 col-md-5">Categorias</p>
 
@@ -105,6 +130,206 @@ style="min-height: 87vh; background: linear-gradient(150deg, rgba(218,204,237,1)
           </div>
 
         </div>
+
+        <!-- Contenedor de las categorias del producto -->
+        <div class="d-flex flex-wrap col-12">
+
+          <p class="fs-20 fw-bold col-12 col-md-5">Caracteristicas</p>
+
+          <div class="dropdown col-12 col-md-7 mb-3 d-flex">
+
+            <button class="border px-3 py-2 cmm-bg-white rounded d-flex align-items-center justify-content-around dropdown-toggle ms-auto"
+            style="height: 50px; " data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+
+              <mat-icon>add</mat-icon>
+
+              <p class="m-0">Caracteristicas</p>
+
+            </button>
+
+            <div class="dropdown-menu p-3">
+
+              <cmm-cmp-i-text formControlName="characteristics" label="Categoria" placeholder="Ej: Calzado deportivo"></cmm-cmp-i-text>
+
+              <cmm-cmp-b-button class="w-100" [button_text]="'Agregar'" (click)="addCharacteristics()"></cmm-cmp-b-button>
+
+            </div>
+
+          </div>
+
+          <div class="w-100 d-flex flex-column gap-2 p-3 col-12 col-md-9 cmm-bg-white rounded border">
+
+            <div *ngFor="let characteristic of productCharacteristics; index as i" style="height: 23px;"
+            class="py-2 d-flex align-items-center justify-content-around">
+
+              <p class="m-0 col-11 pe-2">- {{characteristic}}</p>
+
+              <mat-icon class="deletedIcon cursor-pointer col-1" (click)="deletedCharacteristics(i)">deleted</mat-icon>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Variantes del producto -->
+      <div class="d-flex flex-column col-12 px-3 mt-4">
+
+        <!-- Contenedor de titulo y boton -->
+        <div class="d-flex flex-wrap col-12">
+
+          <p class="fs-20 fw-bold col-12 col-md-5" style="height: 50px;">Inventario</p>
+
+          <div *ngIf="!typeVariant" class="dropdown col-12 col-md-7 mb-3 d-flex">
+
+            <button class="border px-3 py-2 cmm-bg-white rounded d-flex align-items-center justify-content-around dropdown-toggle ms-auto"
+            style="width: 135px; height: 50px; " data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+
+              <mat-icon>add</mat-icon>
+
+              <p class="m-0">Variantes</p>
+
+            </button>
+
+            <div class="dropdown-menu p-3">
+
+              <mat-form-field  appearance="outline">
+                <mat-label>Tipo de Variante</mat-label>
+                <mat-select name="typeVariant">
+                  <mat-option *ngFor="let option of typeVariantsList" [value]="option.infoSelect"
+                  (click)="typeVariant = option; productVariants.length ? '' : addVariant()">
+                    {{option.typeName}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Contenedor de campos para el stock -->
+        <div class="d-flex flex-wrap col-12">
+
+          <cmm-cmp-i-text class="col-12 col-lg-6 px-2" formControlName="stock" label="Cantidad Stok"
+          placeholder="Ej: 2" [onlyNumber]="true"></cmm-cmp-i-text>
+
+          <cmm-cmp-i-text class="col-12 col-lg-6 px-2" formControlName="limitStock" label="notificar cuando"
+          placeholder="Ej: 2" [onlyNumber]="true" [hints]="componentForm.controls['limitStock'].value
+            ? 'Quedan ' + componentForm.controls['limitStock'].value + ' productos' : ''">
+
+            <mat-icon class="cursor-pointer cmm-txt-primary" (click)="changeAlertStock(!enableEmptyStockAlert)">
+              {{enableEmptyStockAlert ? 'notifications_active' : 'notifications_none'}}
+            </mat-icon>
+
+          </cmm-cmp-i-text>
+
+        </div>
+
+        <!-- Contendero de las variantes el producto -->
+        <div *ngIf="variants['controls'].length" class="cmm-bg-white rounded border position-relative d-flex flex-column py-3">
+
+          <!-- Encabezado -->
+          <div class="d-flex flex-wrap justify-content-between border-bottom col-12 pb-3 px-3">
+
+            <!-- Titulo del tipo de varaiante seleccionada -->
+            <p class="fs-20 fw-bold col-9 my-2 d-flex align-items-center">
+
+              {{typeVariant.typeName}}
+
+              <mat-icon class="cursor-pointer deletedIcon ms-3" (click)="typeVariant = null">deleted</mat-icon>
+
+            </p>
+
+            <!-- Boton para agregar una variante -->
+            <button class="col-3 border px-3 py-2 cmm-bg-white rounded d-flex align-items-center justify-content-around"
+            style="height: 50px;" (click)="addVariant()" matTooltip="Agregar una Variante">
+
+              <mat-icon>add</mat-icon>
+
+              <p class="m-0">Variante</p>
+
+            </button>
+
+          </div>
+
+          <!-- Contenedor de las Variantes -->
+          <div formArrayName="variants" class="d-flex flex-column w-100 overflow-auto">
+
+            <!-- Encabezado de la tabla -->
+            <div class="w-100 d-flex justify-content-around border-bottom" style="min-width: 500px;">
+
+              <!-- Imagen de la variante -->
+              <p class="w-100 text-center text-nowrap my-2 fs-18 cmm-txt-primary" style="max-width: 90px;">Imagen</p>
+
+              <!-- NOmbre -->
+              <p class="w-100 text-center text-nowrap my-2 fs-18 cmm-txt-primary" style="max-width: 240px;">
+                {{typeVariant.typeVariantId == 1 ? 'Talla' : 'Nombre'}}
+              </p>
+
+              <!-- Color, solo aparece cuando se selecciono una variante de este tipo -->
+              <p *ngIf="typeVariant.typeVariantId == 2 || typeVariant.typeVariantId == 3"
+              class="w-100 text-center text-nowrap my-2 fs-18 cmm-txt-primary" style="max-width: 90px;">Color</p>
+
+              <!-- La cantidad de variantes -->
+              <p class="w-100 text-center text-nowrap my-2 fs-18 cmm-txt-primary" style="max-width: 240px;">Stock</p>
+
+              <!-- Precio de la variante -->
+              <p class="w-100 text-center text-nowrap my-2 fs-18 cmm-txt-primary" style="max-width: 240px;">Precio Extr</p>
+
+              <!-- Espacio vacio para la accion de eliminar -->
+              <div class="text-center text-nowrap my-2 fs-18 cmm-txt-primary" style="width: 100px;"></div>
+
+            </div>
+
+            <!-- Filas de la tabla -->
+            <div *ngFor="let productVariant of variants['controls']; index as i" class="w-100 d-flex justify-content-around align-items-center py-1" style="min-width: 500px;" [formGroupName]="i">
+
+              <!-- input de imagen -->
+              <cmm-cmp-i-smfile style="width: 80px;" formControlName="variantImage" inputType="onlyImage"
+              (inputChange)="setImage(i, true)"></cmm-cmp-i-smfile>
+
+              <!-- input de nombre -->
+              <mat-form-field class="p-2" style="height: 65px;" appearance="outline" subscriptSizing="dynamic">
+                <input matInput maxlength="30" [placeholder]="typeVariant.placeholder" formControlName="name">
+              </mat-form-field>
+
+              <!-- Input de color -->
+              <mat-form-field *ngIf="typeVariant.typeVariantId == 2 || typeVariant.typeVariantId == 3"
+              subscriptSizing="dynamic" class="p-2" style="height: 65px;" style="width: 90px;" appearance="outline" (click)="primaryColor.click()">
+                <input #primaryColor matInput type="color" class="cursor-pointer" formControlName="color">
+              </mat-form-field>
+
+              <!-- Input de stock -->
+              <mat-form-field class="p-2" style="height: 65px;" appearance="outline" subscriptSizing="dynamic">
+                <input cmm-di-amount-format [decimal]="false" matInput maxlength="20"
+                placeholder="Ej: 10" formControlName="stock">
+              </mat-form-field>
+
+              <!-- Input de precio de variante -->
+              <mat-form-field class="p-2" style="height: 65px;" appearance="outline" subscriptSizing="dynamic">
+
+                <input cmm-di-amount-format [decimal]="true" matInput maxlength="20"
+                placeholder="Ej: 30" formControlName="variantPrice">
+
+                <p matSuffix class="fs-18 text-bold m-0 me-3">$</p>
+
+              </mat-form-field>
+
+              <div class="d-flex justify-content-center align-items-center" style="width: 100px;">
+                <mat-icon class="cmm-error-hover" (click)="deletedVariant(i)">deleted</mat-icon>
+              </div>
+
+            </div>
+
+          </div>
+
+
+        </div>
+
 
       </div>
 

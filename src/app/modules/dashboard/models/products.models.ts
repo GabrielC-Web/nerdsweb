@@ -5,30 +5,33 @@ export interface ProductCatalogModel {
     productName:     string;
     brand:           string;
     description:     string;
-    amount:          number;
-    extraAmount:     number;
+    amount:          number | null;
+    extraAmount:     number | null;
     characteristics: string[];
-    images:        string[];
+    image:        string[];
     category:        string[];
     status:         'Activo' | 'Inactivo';
     visible:         boolean;
     variant:         boolean;
-    stock:           null;
-    discount:        number;
-    idProduct:       string;
-    variants:        VariantModel[];
+    stock:           string;
+    limitStock:      string;
+    discount:        number | null;
+    idProduct?:       string;
+    variants:        VariantModel[] | [];
 }
 
 /**
  * Interface de las distintas variantes de un producto
  */
 export interface VariantModel {
+    idProduct?:   string;
     name:         string;
-    color:        null;
-    startDate:    null;
-    endDate:      null;
-    stock:        null;
-    variantPrice: null;
+    color:        string;
+    startDate:    string;
+    endDate:      string;
+    stock:        string;
+    variantPrice: string;
     image:        string[];
-    idVariant:    string;
+    idVariant?:    string;
+    infoSelect:    any
 }

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CatalogFilterModel } from 'src/app/core/reducer/module.models';
 import { environment } from 'src/environments/environment';
+import { ProductCatalogModel } from '../models/products.models';
 
 @Injectable({
   providedIn: 'root',
@@ -23,8 +24,8 @@ export class DashboardService {
   }
 
   /**
-   * @description Servicio para realizar login
-   * @param formLogin Datos del usuario necesarios para hacer login
+   * @description Servicio para optener todos los productos del vendedor
+   * @param filterData Datos utiles para la funcion de busqueda de productos
    * @returns
    */
   getUserProducts(filterData: CatalogFilterModel): Observable<any> {
@@ -48,7 +49,29 @@ export class DashboardService {
   }
 
   /**
-   * @description Servicio para realizar login
+   * @description Servicio para agregar un producto del vendedor
+   * @param formData Datos del producto en cuestion
+   * @returns
+   */
+  addUserProduct(formData: ProductCatalogModel): Observable<any> {
+
+    return this.http.post(this.gatewayUrl + '/v1/profile/product', formData);
+
+  }
+
+  /**
+   * @description Servicio para editar un producto del vendedor
+   * @param formData Datos actualizados del producto
+   * @returns
+   */
+  putUserProduct(formData: ProductCatalogModel): Observable<any> {
+
+    return this.http.put(this.gatewayUrl + '/v1/profile/product', formData);
+
+  }
+
+  /**
+   * @description Servicio para optener todas las ordenes del vendedor
    * @param formLogin Datos del usuario necesarios para hacer login
    * @returns
    */
@@ -59,24 +82,13 @@ export class DashboardService {
   }
 
   /**
-   * @description Servicio para realizar login
+   * @description Servicio para optener todos los usuarios del vendedor
    * @param formLogin Datos del usuario necesarios para hacer login
    * @returns
    */
   getUserClients(): Observable<any> {
 
     return this.http.get(this.gatewayUrl + '/v1/profile/getCart');
-
-  }
-
-  /**
-   * @description Servicio para realizar login
-   * @param formLogin Datos del usuario necesarios para hacer login
-   * @returns
-   */
-  postSingupEndpoint(formLogin: any): Observable<any> {
-
-    return this.http.post(this.gatewayUrl + '/v1/auth/register', formLogin);
 
   }
 
