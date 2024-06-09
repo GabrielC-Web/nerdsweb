@@ -1,19 +1,34 @@
 import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { CmmComponentFormModel } from 'src/app/common/data/forms/models/form.model';
 import { CmmDataService } from 'src/app/common/services/data.service';
 import { FilterObjectModel } from 'src/app/core/shared/models/filter-form.model';
-import { ProductCatalogModel, VariantModel } from '../../models/products.models';
+import { ProductCatalogModel, VariantModel, typeProducts } from '../../models/products.models';
 import { Location } from '@angular/common';
 import { ImagesService } from 'src/app/core/services/images.service';
 import { DashboardService } from '../../services/dashboard.service';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { CmmAlertModalModel } from 'src/app/common/data/dialogs/models/dialogs.model';
+import { CmmDialogService } from 'src/app/common/services/dialogs.service';
 
 @Component({
   selector: 'app-dashboard-product',
   templateUrl: './dashboard-product.component.html',
-  styleUrls: ['./dashboard-product.component.scss']
+  styleUrls: ['./dashboard-product.component.scss'],
+    animations: [
+    trigger('inOutAnimation', [
+      transition(':enter', [
+        style({ height: 0, opacity: 0 }),
+        animate('0.5s ease-out', style({ height: '*', opacity: 1 })),
+      ]),
+      transition(':leave', [
+        style({ height: '*', opacity: 1 }),
+        animate('0.5s ease-in', style({ height: 0, opacity: 0 })),
+      ]),
+    ]),
+  ],
 })
 export class DashboardProductComponent implements CmmComponentFormModel {
 
@@ -66,9 +81,19 @@ export class DashboardProductComponent implements CmmComponentFormModel {
   productCategories!: String[];
 
   /**
+   * Tipos de productos
+   */
+  typeProducts = typeProducts;
+
+  /**
    * Lista de caracterisricas que posee el producto
    */
   productCharacteristics!: String[];
+
+  /**
+   * Lista de caracterisricas que posee el producto
+   */
+  productTypeList: any[] = [];
 
   /**
    * indica si activar alarma de poco stock o no
@@ -93,7 +118,7 @@ export class DashboardProductComponent implements CmmComponentFormModel {
       ]
     },
     {
-      typeVariantId: '2',
+      typeVariantId: '6664eef8e6707fa195f44dfb',
       typeName: 'Color',
       placeholder: 'Ej: Negro',
       infoSelect: [
@@ -119,7 +144,7 @@ export class DashboardProductComponent implements CmmComponentFormModel {
       ]
     },
     {
-      typeVariantId: '4',
+      typeVariantId: '66227d217fdb4313de67b60b',
       typeName: 'Modelo',
       placeholder: 'Ej: Empresarial',
       infoSelect: [
@@ -144,8 +169,10 @@ export class DashboardProductComponent implements CmmComponentFormModel {
 
   constructor(
     public dataServices: CmmDataService,
+    public dialogService: CmmDialogService,
     public dashboardService: DashboardService,
     public imagesService: ImagesService,
+    private router: Router,
     private route: ActivatedRoute,
     public location: Location,
     private fb: FormBuilder
@@ -172,6 +199,7 @@ export class DashboardProductComponent implements CmmComponentFormModel {
         visible: true,
         status: 'Inactivo',
         stock: '',
+        type: '',
         limitStock: '',
         image: [],
         variants: [],
@@ -202,13 +230,14 @@ export class DashboardProductComponent implements CmmComponentFormModel {
       visible: [this.product.visible, Validators.required],
       status: [this.product.status, Validators.required],
       stock: [this.product.stock],
-      limitStock: [this.product.limitStock, Validators.required],
+      type: [this.product.type || typeProducts.physical],
+      limitStock: [this.product.limitStock],
       variants: this.fb.array([]),
       images: this.fb.array([]),
     });
 
     if(this.product.idProduct){
-      this.componentForm.addControl('IdProduct', new FormControl(this.product.idProduct))
+      this.componentForm.addControl('idProduct', new FormControl(this.product.idProduct))
     }
 
     // Guardamos el array de categorias del producto
@@ -387,6 +416,13 @@ export class DashboardProductComponent implements CmmComponentFormModel {
   /**
    * Funcion para eliminar una variante
    */
+  deletedAllVariant() {
+    this.variants.clear();
+  }
+
+  /**
+   * Funcion para eliminar una variante
+   */
   deletedVariant(index: number) {
     this.variants.removeAt(index);
   }
@@ -424,6 +460,8 @@ export class DashboardProductComponent implements CmmComponentFormModel {
 
     this.componentForm.markAllAsTouched();
 
+    console.log(this.componentForm);
+
     if(!this.componentForm.valid) return;
 
     let finalProduct = {
@@ -440,7 +478,23 @@ export class DashboardProductComponent implements CmmComponentFormModel {
       .pipe(takeUntil(this.$unsubscribe))
       .subscribe({
         next: (response) => {
-          console.log(response);
+
+          // Armamos la data de la alerta
+          const messagesData: CmmAlertModalModel = {
+            title: response.message,
+            text: '',
+            giftData: '',
+            typeIcon: 'success',
+            showCancelButton: false,
+            showConfirmButton: true,
+            cancelButtonText: '',
+            confirmButtonText: 'Aceptar',
+          }
+
+          // Abrimos la alerta con el mensaje
+          this.dialogService.CmmAlertModal(messagesData);
+
+          this.router.navigate(['dashboard/cataloge']);
         },
         error: (err) => {console.log(err)}
       })
@@ -451,7 +505,23 @@ export class DashboardProductComponent implements CmmComponentFormModel {
       .pipe(takeUntil(this.$unsubscribe))
       .subscribe({
         next: (response) => {
-          console.log(response);
+
+          // Armamos la data de la alerta
+          const messagesData: CmmAlertModalModel = {
+            title: response.message,
+            text: '',
+            giftData: '',
+            typeIcon: 'success',
+            showCancelButton: false,
+            showConfirmButton: true,
+            cancelButtonText: '',
+            confirmButtonText: 'Aceptar',
+          }
+
+          // Abrimos la alerta con el mensaje
+          this.dialogService.CmmAlertModal(messagesData);
+
+          this.router.navigate(['dashboard/cataloge']);
         },
         error: (err) => {console.log(err)}
       })

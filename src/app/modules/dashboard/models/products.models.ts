@@ -1,3 +1,5 @@
+import { Subscription } from "rxjs";
+
 /**
  * Interface de todods los productos que puede tener el usuario
  */
@@ -14,6 +16,7 @@ export interface ProductCatalogModel {
     visible:         boolean;
     variant:         boolean;
     stock:           string;
+    type:           string;
     limitStock:      string;
     discount:        number | null;
     idProduct?:       string;
@@ -34,4 +37,12 @@ export interface VariantModel {
     image:        string[];
     idVariant?:    string;
     infoSelect:    any
+}
+
+/**
+ * Modelo para los tipos de productos
+ */
+export const typeProducts = {
+  digital: '66071cb992f309c9a63017d8',
+  physical: '66080e2371beef4a9cc4c0e4',
 }

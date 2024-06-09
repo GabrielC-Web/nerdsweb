@@ -49,6 +49,17 @@ export class DashboardService {
   }
 
   /**
+   * @description Servicio para optener todos los productos del vendedor
+   * @param filterData Datos utiles para la funcion de busqueda de productos
+   * @returns
+   */
+  getProductsTypeList(): Observable<any> {
+
+    return this.http.get(this.gatewayUrl + '/v1/list/catalog?catalog=type');
+
+  }
+
+  /**
    * @description Servicio para agregar un producto del vendedor
    * @param formData Datos del producto en cuestion
    * @returns
