@@ -1,10 +1,11 @@
-<footer class="d-flex flex-column" style="height: 25vh; box-shadow: 0px 0px 40px 40px #ffffff !important;">
+<footer class="d-flex flex-column align-items-center" style="box-shadow: 0px 0px 40px 40px #ffffff !important;">
 
   <!-- menu del footer -->
-  <div class="d-flex align-items-center w-100" style="height: 80%;" >
+  <div class="d-flex flex-column flex-sm-row justify-content-center align-items-center w-100"
+    style="height: 80%;max-width: 1200px;">
 
     <!-- Conenedor de la imagenes -->
-    <div class="d-flex flex-column col-4 px-2 my-3 border-end h-100">
+    <div class="d-flex flex-column col-sm-4 px-2 my-3 border_footer h-100">
 
       <!-- Logos -->
       <img [src]="nerdsWebIsotipo" alt="Logo de nerdsweb" style="max-width: 230px;">
@@ -21,36 +22,41 @@
     </div>
 
     <!-- Contenedor de Soluciones -->
-    <div class="col-4 px-2 my-3 border-end h-100">
+    <div class="col-sm-4 px-2 my-3 border_footer h-100">
 
       <div class="d-flex flex-column mx-auto" style="max-width: fit-content;">
 
-        <p class="ps-3 fw-bold fs-18">Soluciones</p>
+        <p class="ps-3 fw-bold fs-18 text-center text-sm-start">Soluciones</p>
 
-        <a class="ps-3 text-decoration-none cmm-txt" [routerLink]="'products/ecommerce'">Ecommerce</a>
+        <a class="ps-3 text-decoration-none text-center text-sm-start cmm-txt"
+          [routerLink]="'products/ecommerce'">Ecommerce</a>
 
-        <a class="ps-3 text-decoration-none cmm-txt" [routerLink]="'products/social_media'">Redes sociales</a>
+        <a class="ps-3 text-decoration-none text-center text-sm-start cmm-txt"
+          [routerLink]="'products/social_media'">Redes sociales</a>
 
-        <a class="ps-3 text-decoration-none cmm-txt" [routerLink]="'products/social_media'">Diseho gråfico ¿Qué necesitas?</a>
+        <a class="ps-3 text-decoration-none text-center text-sm-start cmm-txt"
+          [routerLink]="'products/social_media'">Diseho gråfico ¿Qué
+          necesitas?</a>
 
-        <a class="ps-3 text-decoration-none cmm-txt" [routerLink]="'products/ecommerce'">Plantillas</a>
+        <a class="ps-3 text-decoration-none text-center text-sm-start cmm-txt"
+          [routerLink]="'products/ecommerce'">Plantillas</a>
 
       </div>
 
     </div>
 
     <!-- Contenedor de Informacion de la empresa -->
-    <div class="col-4 px-2 my-3 border-end h-100">
+    <div class="col-sm-4 px-2 my-3 h-100">
 
       <div class="d-flex flex-column mx-auto" style="max-width: fit-content;">
 
-        <p class="ps-3 fw-bold fs-18">Compañía</p>
+        <p class="ps-3 fw-bold fs-18 text-center text-sm-start">Compañía</p>
 
-        <a class="ps-3 text-decoration-none cmm-txt" [routerLink]="'home'">Nosotros</a>
+        <a class="ps-3 text-decoration-none text-center text-sm-start cmm-txt" [routerLink]="'home'">Nosotros</a>
 
-        <a class="ps-3 text-decoration-none cmm-txt" [routerLink]="'home'">Compromisos</a>
+        <a class="ps-3 text-decoration-none text-center text-sm-start cmm-txt" [routerLink]="'home'">Compromisos</a>
 
-        <a class="ps-3 text-decoration-none cmm-txt" [routerLink]="'home'">Centro de ayuda</a>
+        <a class="ps-3 text-decoration-none text-center text-sm-start cmm-txt" [routerLink]="'home'">Centro de ayuda</a>
 
       </div>
 
@@ -59,10 +65,13 @@
   </div>
 
   <!-- Barra del final -->
-  <div class="w-100 d-flex align-items-center position-relative cmm-bg-gradient" style="overflow: hidden; height: 20%;">
+  <div class="w-100 d-flex align-items-center position-relative cmm-bg-gradient"
+    style="overflow: hidden; height: 20%;min-height: 50px;">
 
-    <div class="position-relative" style="box-shadow: -4em 0em 7em 14em white !important; height: 20px; top: 0; left: 0;"></div>
-    <div class="position-relative" style="box-shadow: 4em 0em 7em 14em white !important; height: 20px; top: 0; left: 100%;"></div>
+    <div class="position-relative"
+      style="box-shadow: -4em 0em 7em 14em white !important; height: 20px; top: 0; left: 0;"></div>
+    <div class="position-relative"
+      style="box-shadow: 4em 0em 7em 14em white !important; height: 20px; top: 0; left: 100%;"></div>
 
   </div>
 
