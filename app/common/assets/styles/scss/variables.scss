@@ -1,0 +1,79 @@
+//--------------------------------------------------------------------------------------------------------------------------------------
+//  Variables de colores
+//--------------------------------------------------------------------------------------------------------------------------------------
+
+
+// Paleta de colores del proyecto
+$v-primary: #336ab2;
+$v-primary-disabled: #7b96ba;
+$v-primary-selected: #7846fc;
+$v-secondary: #c26ca9;
+$v-secondary-disabled: #c094b3;
+$v-secondary-selected: #ac5694;
+$v-tertiary: #f3954d;
+$v-tertiary-disabled: #edb081;
+$v-tertiary-selected: #f47b1f;
+$v-gradient: linear-gradient(90deg, rgba(194, 108, 169, 1) 0%, rgba(51, 106, 178, 1) 100%);
+$v-gradient-selected: linear-gradient(90deg, rgba(194, 108, 169, 1) 0%, rgba(51, 106, 178, 1) 38%);
+$v-gradient-secondary: linear-gradient(90deg, rgba(194, 108, 169, 1) 0%, rgb(243, 149, 77) 49%, rgba(244, 150, 75, 1) 50%, rgba(232, 147, 81, 1) 59%, rgba(51, 106, 178, 1) 100%);
+$v-gradient-tertiary: linear-gradient(90deg, rgb(243, 149, 77) 0%, rgba(244, 150, 75, 1) 50%, rgba(232, 147, 81, 1) 59%, rgba(51, 106, 178, 1) 100%);
+
+
+// Notificaciones
+$v-success: #14c6a4;
+$v-error: #ff0000;
+$v-warning: #fdc713;
+$v-info: #03a9f4;
+
+// Textos
+$v-txt: #28285B;
+$v-back-txt: #434362;
+$v-title-txt: #404070;
+
+// Fondos
+$v-background-page: #ffffff;
+$v-menu: #ffffff;
+$v-navbar: #444444;
+
+// Colores neutros de uso especifico
+$v-white: #ffffff;
+$v-light-white: #f6f6f6;
+$v-black: #000000;
+$v-dark-gray: #595959;
+$v-medium-gray: #a09f9f;
+$v-light-gray: #cccaca;
+
+// Seteo este color como una variable para que pueda ser seteado de forma dinámica
+$dynamic_border_radios_button: 20px;
+
+// Seteo este color como una variable para que pueda ser seteado de forma dinámica
+$dynamic_border_radius: 10px;
+
+// Creo variables que puedan ser modificadas en JS
+:root {
+
+  // Variable que indica el color principal al seleccionar
+  --v-dynamic-primary: #336ab2;
+
+  // Variable que indoca el color principal al estar seleccionado
+  --v-dynamic-primary-selected: #2e5f9e;
+
+  // Variable que indica el color secundario del proyecto
+  --v-dynamic-secundary: #2e5f9e;
+
+  // Variable de color terciario
+  --v-dynamic-tertiary: #2e5f9e;
+
+  // Variable que define el radio del borde para los botones
+  --mdc-text-button-container-shape: #{$dynamic_border_radios_button};
+
+  // Variable que define el radio del borde para los botones protegidos
+  --mdc-protected-button-container-shape: #{$dynamic_border_radios_button};
+
+  // Variable que define el radio del borde para la clase de bootstrap
+  --bs-border-radius: #{$dynamic_border_radius};
+
+}
+
+// background: rgb(255,255,255);
+// background: linear-gradient(45deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 48%, rgba(217,204,237,1) 75%, rgba(244,211,186,1) 100%);

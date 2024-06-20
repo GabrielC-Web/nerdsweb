@@ -1,0 +1,427 @@
+/*--------------------------------------------------------------------------------------------------------------------------------------
+ Fuentes
+--------------------------------------------------------------------------------------------------------------------------------------*/
+
+@import "./variables.scss";
+
+// @import '~bootstrap/dist/css/bootstrap.min.css';
+*:not(.material-icons) {
+  font-family: "poppins" !important;
+  font-weight: 600;
+  box-shadow: none !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: "poppins-Regular";
+}
+
+@media (max-width: 767px) {
+  .mat-paginator-range-label {
+    margin: 0px !important;
+  }
+
+  .mat-paginator-container {
+    padding: 0px !important;
+  }
+
+  .pbutton-0 {
+    padding: 0px !important;
+  }
+
+  .align-text-left {
+    width: 100% !important;
+  }
+
+  .align-text-right {
+    width: 100% !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .align-text-left {
+    float: right !important;
+    width: max-content;
+  }
+
+  .align-text-right {
+    float: initial;
+    width: max-content;
+  }
+}
+
+@media screen and (max-width: 925px) {
+  .gwd-reCAPTCHA_2 {
+    transform: scale(0.74);
+    transform-origin: 0 0;
+    padding-left: 0px;
+  }
+}
+
+@media screen and (min-width: 925px) {
+  .gwd-reCAPTCHA_2 {
+    transform: initial;
+  }
+}
+
+@font-face {
+  font-family: "Material Icons";
+  font-style: normal;
+  font-display: block;
+  font-weight: 400;
+  src: url(../../fonts/material/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format("woff2");
+}
+
+@font-face {
+  font-family: "poppins";
+  src: url("../../fonts/poppins/poppins-Regular.ttf") format("truetype");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "poppins";
+  src: url("../../fonts/poppins/poppins-Bold.ttf") format("truetype");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "poppins";
+  src: url("../../fonts/poppins/poppins-Black.ttf") format("truetype");
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: "poppins";
+  src: url("../../fonts/poppins/poppins-Light.ttf") format("truetype");
+  font-weight: lighter;
+}
+
+/*--------------------------------------------------------------------------------------------------------------------------------------
+  Tono del texto (negrita, normal, claro)
+--------------------------------------------------------------------------------------------------------------------------------------*/
+
+.cmm-txt-normal {
+  font-weight: 600 !important;
+}
+
+.cmm-txt-thin-bold {
+  font-weight: 700 !important;
+}
+
+.cmm-txt-bold {
+  font-weight: 900 !important;
+}
+
+.cmm-txt-light {
+  font-weight: lighter;
+}
+
+.cmm-txt-a {
+  text-decoration: none;
+}
+
+.cmm-txt-break {
+  word-break: break-all;
+}
+
+/*--------------------------------------------------------------------------------------------------------------------------------------
+  Tamaños de texto
+--------------------------------------------------------------------------------------------------------------------------------------*/
+
+.fs-8 {
+  font-size: 8px !important;
+}
+
+.fs-10 {
+  font-size: 10px !important;
+}
+
+.fs-12 {
+  font-size: 12px !important;
+}
+
+.fs-14 {
+  font-size: 14px !important;
+}
+
+.fs-16 {
+  font-size: 16px !important;
+}
+
+.fs-18 {
+  font-size: 18px !important;
+}
+
+.fs-20 {
+  font-size: 20px !important;
+}
+
+.fs-22 {
+  font-size: 22px !important;
+}
+
+.fs-24 {
+  font-size: 24px !important;
+}
+
+.fs-26 {
+  font-size: 26px !important;
+}
+
+.fs-28 {
+  font-size: 28px !important;
+}
+
+.fs-30 {
+  font-size: 30px !important;
+}
+
+.fs-32 {
+  font-size: 32px !important;
+}
+
+.fs-34 {
+  font-size: 34px !important;
+}
+
+.fs-36 {
+  font-size: 36px !important;
+}
+
+.fs-38 {
+  font-size: 38px !important;
+}
+
+.fs-40 {
+  font-size: 40px !important;
+}
+
+.fs-50 {
+  font-size: 50px !important;
+}
+
+.fs-60 {
+  font-size: 60px !important;
+}
+
+.fs-70 {
+  font-size: 70px !important;
+}
+
+/*--------------------------------------------------------------------------------------------------------------------------------------
+  Tamaño del texto en responsive
+--------------------------------------------------------------------------------------------------------------------------------------*/
+
+@media screen and (max-width: 380px) {
+  .cmm-txt-sm-h5 {
+    font-size: 0.9rem;
+  }
+
+  .cmm-txt-sm-p {
+    font-size: 0.85rem;
+  }
+}
+
+/*--------------------------------------------------------------------------------------------------------------------------------------
+  Text colors
+--------------------------------------------------------------------------------------------------------------------------------------*/
+
+// Primary
+.cmm-txt-primary {
+  color: $v-primary;
+}
+
+.cmm-txt-primary-disabled {
+  color: $v-primary-disabled;
+}
+
+.cmm-txt-primary-selected {
+  color: $v-primary-selected;
+}
+
+// Secondary
+.cmm-txt-secondary {
+  color: $v-secondary;
+}
+
+.cmm-txt-secondary-disabled {
+  color: $v-secondary-disabled;
+}
+
+.cmm-txt-secondary-selected {
+  color: $v-secondary-selected;
+}
+
+// terciario
+.cmm-txt-tertiary {
+  color: $v-tertiary;
+}
+
+.cmm-txt-tertiary-disabled {
+  color: $v-tertiary-disabled;
+}
+
+.cmm-txt-tertiary-selected {
+  color: $v-tertiary-selected;
+}
+
+// gradient
+.cmm-txt-gradient {
+  /* Fallback: Set a background color. */
+  background-color: $v-primary;
+
+  /* Create the gradient. */
+  background-image: $v-gradient;
+
+  /* Set the background size and repeat properties. */
+  background-size: 100%;
+  background-repeat: repeat;
+
+  /* Use the text as a mask for the background. */
+  /* This will show the gradient as a text color rather than element bg. */
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+}
+
+.cmm-txt-gradient-hover {
+
+  /* Fallback: Set a background color. */
+  background-color: $v-primary;
+
+  /* Create the gradient. */
+  background-image: $v-txt;
+
+  /* Set the background size and repeat properties. */
+  background-size: 100%;
+  background-repeat: repeat;
+
+  /* Use the text as a mask for the background. */
+  /* This will show the gradient as a text color rather than element bg. */
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+
+  mat-icon {
+    /* Fallback: Set a background color. */
+    background-color: $v-primary;
+
+    /* Create the gradient. */
+    background-image: $v-txt;
+
+    /* Set the background size and repeat properties. */
+    background-size: 100%;
+    background-repeat: repeat;
+
+    /* Use the text as a mask for the background. */
+    /* This will show the gradient as a text color rather than element bg. */
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent;
+  }
+
+  &:hover {
+
+    /* Create the gradient. */
+    background-image: $v-gradient;
+    transition: all linear 250ms;
+
+    mat-icon {
+
+      /* Create the gradient. */
+      background-image: $v-gradient;
+      transition: all linear 250ms;
+
+    }
+
+  }
+}
+
+// Notificaciones
+.cmm-txt-success {
+  color: $v-success !important;
+}
+
+.cmm-txt-error {
+  color: $v-error !important;
+}
+
+.cmm-txt-warning {
+  color: $v-warning !important;
+}
+
+.cmm-txt-info {
+  color: $v-info !important;
+}
+
+// Colores de textos
+.cmm-txt {
+  color: $v-txt !important;
+}
+
+.back-txt {
+  color: $v-back-txt !important;
+}
+
+.title-txt {
+  color: $v-title-txt !important;
+
+  p {
+    color: $v-back-txt !important;
+  }
+}
+
+.cmm-txt-white {
+  color: $v-white !important;
+}
+
+.cmm-txt-project-primary {
+  color: var(--v-dynamic-primary);
+}
+
+.cmm-txt-project-secundary {
+  color: var(--v-dynamic-secundary);
+}
+
+.cmm-txt-project-tertiary {
+  color: var(--v-dynamic-tertiary);
+}
+
+/*--------------------------------------------------------------------------------------------------------------------------------------
+Mayúsculas, minúsculas y más
+--------------------------------------------------------------------------------------------------------------------------------------*/
+
+.cmm-txt-uppercase {
+  text-transform: uppercase !important;
+}
+
+.cmm-txt-lowercase {
+  text-transform: lowercase !important;
+}
+
+.cmm-txt-capitalize {
+  text-transform: capitalize !important;
+}
+
+.text_hover_primary:hover {
+  color: var(--v-dynamic-primary) !important;
+}
+
+.text_hover_secundary:hover {
+  color: var(--v-dynamic-secundary) !important;
+}
+
+.text_hover_tertiary:hover {
+  color: var(--v-dynamic-tertiary) !important;
+}
+
+/*--------------------------------------------------------------------------------------------------------------------------------------
+END TEXT colors
+--------------------------------------------------------------------------------------------------------------------------------------*/

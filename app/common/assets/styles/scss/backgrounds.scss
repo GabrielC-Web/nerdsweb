@@ -1,0 +1,169 @@
+/*--------------------------------------------------------------------------------------------------------------------------------------
+ BACKGROUND
+--------------------------------------------------------------------------------------------------------------------------------------*/
+
+@import "./variables.scss";
+
+/*--------------------------------------------------------------------------------------------------------------------------------------
+  Environments colors
+--------------------------------------------------------------------------------------------------------------------------------------*/
+
+.cmm-bg-environmentDev {
+  background-color: $v-error;
+}
+
+.cmm-bg-environmentSandbox {
+  background-color: $v-primary;
+}
+
+.cmm-bg-environmentQA {
+  background-color: #f0df48a9;
+}
+
+.cmm-bg-environmentPreProd {
+  background-color: #673c7d;
+}
+
+/*--------------------------------------------------------------------------------------------------------------------------------------
+   Paleta de colores del proyecto
+--------------------------------------------------------------------------------------------------------------------------------------*/
+
+// Primary
+.cmm-bg-primary {
+  background: $v-primary;
+}
+
+.cmm-bg-primary-disabled {
+  background: $v-primary-disabled;
+}
+
+.cmm-bg-primary-selected {
+  background: $v-primary-selected;
+}
+
+// Secondary
+.cmm-bg-secondary {
+  background: $v-secondary;
+}
+
+.cmm-bg-secondary-disabled {
+  background: $v-secondary-disabled;
+}
+
+.cmm-bg-secondary-selected {
+  background: $v-secondary-selected;
+}
+
+// Primary
+.cmm-bg-gradient {
+  background: $v-gradient;
+}
+
+.cmm-bg-gradient-secondary {
+  background: $v-gradient-secondary;
+}
+
+.cmm-bg-gradient-tertiary {
+  background: $v-gradient-tertiary;
+}
+
+// Notificaciones
+.cmm-bg-success {
+  background: $v-success;
+}
+
+.cmm-bg-success-outline {
+  background: $v-white;
+  border: 0.1px solid $v-success;
+  color: $v-success;
+}
+
+.cmm-bg-error {
+  background: $v-error;
+}
+
+.cmm-bg-error-outline {
+  background: $v-white;
+  border: 0.1px solid $v-error;
+  color: $v-error;
+}
+
+.cmm-bg-warning {
+  background: $v-warning;
+}
+
+.cmm-bg-warning-outline {
+  background: $v-white;
+  border: 0.1px solid $v-warning;
+  color: $v-warning;
+}
+
+.cmm-bg-info {
+  background: $v-info;
+}
+
+.cmm-bg-info-outline {
+  background: $v-white;
+  border: 0.1px solid $v-info;
+  color: $v-info;
+}
+
+.cmm-bg-medium-gray {
+  background: $v-medium-gray;
+}
+
+.cmm-bg-medium-gray-outline {
+  background: $v-white;
+  border: 0.1px solid $v-txt;
+  color: $v-txt;
+}
+
+// Fondos
+.cmm-bg-background-page {
+  background: $v-background-page;
+}
+
+.cmm-bg-menu {
+  background: $v-menu;
+}
+
+.cmm-bg-navbar {
+  background: $v-navbar;
+}
+
+// Colores neutros de uso especifico
+.cmm-bg-white {
+  background: $v-white;
+}
+
+.cmm-bg-light-white {
+  background: $v-light-white;
+}
+
+.cmm-bg-black {
+  background: $v-black;
+}
+
+.cmm-bg-dark-gray {
+  background: $v-dark-gray;
+}
+
+.cmm-bg-medium-gray {
+  background: $v-medium-gray;
+}
+
+.cmm-bg-light-gray {
+  background: $v-light-gray;
+}
+
+.cmm-bg-project-primary {
+  background: var(--v-dynamic-primary) !important;
+}
+
+.cmm-bg-project-secundary {
+  background: var(--v-dynamic-secundary) !important;
+}
+
+.cmm-bg-project-tertiary {
+  background: var(--v-dynamic-tertiary) !important;
+}

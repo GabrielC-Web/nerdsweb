@@ -1,0 +1,643 @@
+/*--------------------------------------------------------------------------------------------------------------------------------------
+ Importacion de variables
+--------------------------------------------------------------------------------------------------------------------------------------*/
+
+@import "./variables.scss";
+
+button:focus {
+  outline: 0px dotted !important;
+  outline-color: -webkit-focus-ring-color;
+  outline-style: auto;
+  outline-width: 5px;
+  margin: 0;
+  font-family: "Lato";
+}
+
+.row:before,
+.row:after {
+  display: none !important;
+}
+
+h1 {
+  font-size: 35px !important;
+}
+
+p {
+  font-size: 13px !important;
+  color: $v-txt;
+}
+
+::-webkit-scrollbar-track {
+  background-color: $v-white;
+}
+
+//Aqui se oculto para no afectar el input select
+::-webkit-scrollbar {
+  width: 2px;
+  height: 2px;
+  background-color: #f5f5f5;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $v-primary; //Color del scrol
+  border-radius: 1px;
+}
+
+/*---------------------------------------------------------------------------------------------------------------------------------
+ BUTTONS
+--------------------------------------------------------------------------------------------------------------------------------------*/
+
+// Primary
+.btn-primary {
+  background-color: $v-primary !important;
+  color: $v-white !important;
+
+  &:hover {
+    background-color: $v-primary-selected !important;
+  }
+}
+
+.btn-primary-outline {
+  background-color: $v-white !important;
+  color: $v-primary !important;
+  border: 2px solid $v-primary !important;
+
+  &:hover {
+    background-color: $v-primary !important;
+    color: $v-white !important;
+  }
+}
+
+.btn-primary-disabled {
+  background-color: $v-primary-disabled;
+  color: $v-white;
+}
+
+// Secondary
+.btn-secondary {
+  background-color: $v-secondary !important;
+  color: $v-white !important;
+
+  &:hover {
+    background-color: $v-secondary-selected !important;
+  }
+}
+
+.btn-secondary-outline {
+  background-color: $v-white;
+  color: $v-secondary;
+  border: 2px solid $v-secondary;
+
+  &:hover {
+    background-color: $v-secondary;
+    color: $v-white;
+  }
+}
+
+.btn-secondary-disabled {
+  background-color: $v-secondary-disabled;
+  color: $v-white;
+}
+
+// Secondary
+.btn-gradient {
+  // background: linear-gradient(90deg, $v-secondary 0%, $v-primary 38%, rgba(51,106,178,0) 66%) $v-primary !important;
+  // transition: background-color 1s;
+  position: relative;
+  z-index: 10;
+  display: block;
+  background: transparent;
+  overflow: hidden !important;
+  color: $v-white !important;
+}
+
+.btn-gradient:before {
+  content: "";
+  position: absolute;
+  transition: transform 250ms ease;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background: -webkit-linear-gradient(90deg, $v-secondary, $v-primary);
+  background: -moz-linear-gradient(90deg, $v-secondary, $v-primary);
+  background: -o-linear-gradient(90deg, $v-secondary, $v-primary);
+  background: linear-gradient(90deg, $v-secondary, $v-primary);
+}
+
+.btn-gradient:hover:before {
+  transform: scale(2, 1);
+}
+
+// tertiary
+.btn-gradient-tertiary {
+  position: relative;
+  z-index: 10;
+  display: block;
+  background: transparent;
+  overflow: hidden !important;
+  color: $v-white !important;
+}
+
+.btn-gradient-tertiary:before {
+  content: "";
+  position: absolute;
+  transition: transform 250ms ease;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background: -webkit-linear-gradient(90deg, $v-tertiary, $v-primary);
+  background: -moz-linear-gradient(90deg, $v-tertiary, $v-primary);
+  background: -o-linear-gradient(90deg, $v-tertiary, $v-primary);
+  background: linear-gradient(90deg, $v-tertiary, $v-primary);
+}
+
+.btn-gradient-tertiary:hover:before {
+  transform: scale(2, 1);
+}
+
+// Notificaciones
+.btn-success {
+  background-color: $v-success;
+  color: $v-white;
+
+  &:hover {
+    background-color: $v-primary-selected;
+  }
+}
+
+.btn-error {
+  background-color: $v-error !important;
+  color: $v-white !important;
+}
+
+.btn-error-outline {
+  background-color: $v-white !important;
+  color: $v-error !important;
+  border: 2px solid $v-error !important;
+
+  &:hover {
+    background-color: $v-error !important;
+    color: $v-white !important;
+  }
+}
+
+.btn-warning {
+  background-color: $v-warning !important;
+  color: $v-white !important;
+}
+
+.btn-warning-outline {
+  background-color: $v-white !important;
+  color: $v-warning !important;
+  border: 2px solid $v-warning !important;
+
+  &:hover {
+    background-color: $v-warning !important;
+    color: $v-white !important;
+  }
+}
+
+.btn-info {
+  background-color: $v-info;
+  color: $v-white;
+}
+
+// Colores neutros de uso especifico
+.btn-white {
+  background-color: $v-white;
+  color: $v-txt;
+}
+
+.btn-light-white {
+  background-color: $v-light-white;
+  color: $v-txt;
+}
+
+.btn-dark-gray {
+  background-color: $v-dark-gray;
+  color: $v-white;
+}
+
+.btn-light-gray {
+  background-color: $v-light-gray;
+  color: $v-white;
+}
+
+.btn-medium-gray {
+  background-color: $v-medium-gray;
+  color: $v-white;
+}
+
+.btn-medium-gray-outline {
+  background-color: $v-white !important;
+  color: $v-medium-gray !important;
+  border: 2px solid $v-medium-gray !important;
+
+  &:hover {
+    background-color: $v-medium-gray !important;
+    color: $v-white !important;
+  }
+}
+
+.btn-project-primary-outline {
+  background-color: $v-white !important;
+  color: var(--v-dynamic-primary) !important;
+  border: 2px solid var(--v-dynamic-primary) !important;
+
+  &:hover {
+    background-color: var(--v-dynamic-primary) !important;
+    color: $v-white !important;
+  }
+}
+
+.btn-project-secundary-outline {
+  background-color: $v-white !important;
+  color: var(--v-dynamic-secundary) !important;
+  border: 2px solid var(--v-dynamic-secundary) !important;
+
+  &:hover {
+    background-color: var(--v-dynamic-secundary) !important;
+    color: $v-white !important;
+  }
+}
+
+.btn-project-tertiary-outline {
+  background-color: $v-white !important;
+  color: var(--v-dynamic-tertiary) !important;
+  border: 2px solid var(--v-dynamic-tertiary) !important;
+
+  &:hover {
+    background-color: var(--v-dynamic-tertiary) !important;
+    color: $v-white !important;
+  }
+}
+
+/*---------------------------------------------------------------------------------------------------------------------------------
+END BUTTON
+--------------------------------------------------------------------------------------------------------------------------------------*/
+
+// TODO DE AQUI PARA ABAJO REVISAR BIEN Y BORRAR LOS INNECESARIO
+
+/*--------------------------------------------------------------------------------------------------------------------------------------
+ CARDS
+--------------------------------------------------------------------------------------------------------------------------------------*/
+
+.card {
+  border: none;
+}
+
+.card:focus {
+  outline-color: transparent;
+}
+
+.card-content {
+  font-size: 25px;
+  padding: 10px;
+  width: 100%;
+}
+
+.wallet-card {
+  padding: 0 !important;
+  overflow: hidden;
+  border-radius: 10px;
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-self: flex-end;
+  transition: transform 0.5s;
+}
+
+.wallet-card:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+/*--------------------------------------------------------------------------------------------------------------------------------------
+END CARDS
+--------------------------------------------------------------------------------------------------------------------------------------*/
+
+.dark-backdrop {
+  background: $v-secondary !important;
+  opacity: 0.9 !important;
+}
+
+.overflow-text-p-ellipsis {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 100%;
+  display: block;
+  overflow: hidden;
+}
+
+.hiddeScrollBar::-webkit-scrollbar {
+  display: none;
+}
+
+.position-absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.shadowBorder {
+  box-shadow: 0px 0px 5px 1px rgb(0 0 0 / 12%) !important;
+}
+
+/*--------------------------------------------------------------------------------------------------------------------------------------
+ CLASES PARA LOS tamaños
+--------------------------------------------------------------------------------------------------------------------------------------*/
+.w-0 {
+  width: 0% !important;
+}
+
+.w-5 {
+  width: 5% !important;
+}
+
+.w-10 {
+  width: 10% !important;
+}
+
+.w-15 {
+  width: 15% !important;
+}
+
+.w-20 {
+  width: 20% !important;
+}
+
+.w-25 {
+  width: 25% !important;
+}
+
+.w-30 {
+  width: 30% !important;
+}
+
+.w-35 {
+  width: 35% !important;
+}
+
+.w-40 {
+  width: 40% !important;
+}
+
+.w-45 {
+  width: 40% !important;
+}
+
+.w-50 {
+  width: 50% !important;
+}
+
+.w-55 {
+  width: 55% !important;
+}
+
+.w-60 {
+  width: 60% !important;
+}
+
+.w-65 {
+  width: 65% !important;
+}
+
+.w-70 {
+  width: 70% !important;
+}
+
+.w-75 {
+  width: 75% !important;
+}
+
+.w-80 {
+  width: 80% !important;
+}
+
+.w-85 {
+  width: 85% !important;
+}
+
+.w-90 {
+  width: 90% !important;
+}
+
+.w-95 {
+  width: 95% !important;
+}
+
+.w-fit {
+  width: fit-content !important;
+}
+
+.h-fit {
+  height: fit-content !important;
+}
+
+/*--------------------------------------------------------------------------------------------------------------------------------------
+ END CLASES PARA LOS tamaños
+--------------------------------------------------------------------------------------------------------------------------------------*/
+
+.alertPrincipalStyle>div {
+  background-color: transparent !important;
+}
+
+.sectionTable {
+  border-radius: 10px;
+  margin-bottom: 23px !important;
+  overflow: hidden;
+  padding: 0 !important;
+}
+
+.cursor-pointer {
+  cursor: pointer !important;
+}
+
+.scale-1 {
+  transform: scale(1.1);
+}
+
+.scale-2 {
+  transform: scale(1.2);
+}
+
+.scale-3 {
+  transform: scale(1.3);
+}
+
+.scale-4 {
+  transform: scale(1.4);
+}
+
+.scale-5 {
+  transform: scale(1.5);
+}
+
+.small-scale:hover {
+  scale: 1.05;
+}
+
+.purple-shadow {
+  box-shadow: 0px 0px 800px 60px $v-secondary !important;
+}
+
+.curuba-shadow {
+  box-shadow: 0px 0px 800px 60px $v-tertiary !important;
+}
+
+.input-borderless {
+
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline .mdc-notched-outline__leading,
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline .mdc-notched-outline__notch,
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline .mdc-notched-outline__trailing {
+    border-width: 0 !important;
+  }
+
+}
+
+.input-large {
+
+  .mat-mdc-form-field:not(.mat-form-field-no-animations) .mdc-text-field__input {
+    font-size: large !important;
+  }
+
+  .mat-mdc-select-value-text {
+    font-size: large !important;
+  }
+
+}
+
+.input-X-large {
+
+  .mat-mdc-form-field:not(.mat-form-field-no-animations) .mdc-text-field__input {
+    font-size: x-large !important;
+  }
+
+  .mat-mdc-select-value-text {
+    font-size: x-large !important;
+  }
+
+}
+
+/*--------------------------------------------------------------------------------------------------------------------------------------
+ New carousel
+--------------------------------------------------------------------------------------------------------------------------------------*/
+
+.item_active {
+  display: block !important;
+}
+
+.item_inactive {
+  display: none !important;
+}
+
+.carousel_item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (min-width: 992px) {
+
+  .carousel_item {
+    min-width: 33.33333333% !important
+  }
+
+}
+
+@media (max-width: 992px) {
+
+  .carousel_item {
+    min-width: 100% !important;
+    // min-width: none;
+    // max-width: 300px;
+  }
+
+}
+
+/*--------------------------------------------------------------------------------------------------------------------------------------
+ Efecto de flip card
+--------------------------------------------------------------------------------------------------------------------------------------*/
+
+.flip_box {
+  perspective: 1000px;
+}
+
+/* This container is needed to position the front and back side */
+.flip_box_inner {
+  position: relative !important;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+/* Do an horizontal flip when you move the mouse over the flip box container */
+.flip_box:hover .flip_box_inner {
+  transform: rotateY(180deg);
+}
+
+.flip_front,
+.flip_back {
+  width: 100%;
+  position: absolute;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  /* Safari */
+  backface-visibility: hidden;
+}
+
+.flip_back {
+  transform: rotateY(180deg);
+}
+
+/*--------------------------------------------------------------------------------------------------------------------------------------
+ Para el popup de búsqueda y header
+--------------------------------------------------------------------------------------------------------------------------------------*/
+
+.header_icon {
+  width: 30px !important;
+  height: 30px !important;
+  font-size: 30px !important;
+  margin: 0 !important;
+}
+
+.input_default,
+.input_default:focus,
+.input_default:active {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  outline: none !important;
+  border: none;
+  background: transparent;
+}
+
+.input_default::placeholder {
+  color: var(--v-dynamic-primary) !important;
+}
+
+// Efecto para elevar item al hacerle hover
+.hover_translateY:hover {
+  transform: translateY(-5px);
+}
+
+.rounded_30 {
+  border-radius: 30px !important;
+}
+
+.svg_primary {
+  fill: var(--v-dynamic-primary) !important;
+}
+
+.svg_secundary {
+  fill: var(--v-dynamic-secundary) !important;
+}
+
+.svg_tertiary {
+  fill: var(--v-dynamic-tertiary) !important;
+}
