@@ -1,3 +1,4 @@
+import { ViewportScroller } from '@angular/common';
 import { Component } from '@angular/core';
 import { arrowIcon, bullStadisticsIcon, cameraIcon, cameraImg, instagramPhoneImg, instagramPostsImg, listIcon, loudspeakerIcon, penIcon, rocketIcon, socialmediaAlly1, socialmediaAlly2, socialmediaAlly3, socialmediaAlly4, socialmediaAlly5, socialmediaAlly6, socialmediaAlly7, whatsappIcon, writeIcon } from 'src/assets/images/images-routes';
 
@@ -41,6 +42,9 @@ export class ProductsSocialmediaComponent {
    */
   allyImageSelected: number = 0;
 
+  constructor(
+    private viewportScroller: ViewportScroller
+  ) { }
 
   /**
    * Funcion que selescciona el Templateo que se muestra en detalle segun la imagen que se seleccione
@@ -50,6 +54,15 @@ export class ProductsSocialmediaComponent {
 
     // Guardo el id de la imagen seleccionada
     this.allyImageSelected = idImg;
+
+  }
+
+  /**
+   * Me scrollea hasta el formulario de contacto
+   */
+  scrollToForm() {
+
+    this.viewportScroller.scrollToAnchor('contactForm')
 
   }
 }

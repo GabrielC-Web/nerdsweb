@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build --aot --vendor-chunk --common-chunk --delete-output-path --build-optimizer --configuration production",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "deploy": "ng deploy --base-href=/nerdsweb/ --no-silent"
   },
   "private": true,
   "dependencies": {

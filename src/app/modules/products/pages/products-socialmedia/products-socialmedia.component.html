@@ -413,6 +413,10 @@
 
       </div>
 
+      <!-- Botón de solicitar pauta -->
+      <cmm-cmp-b-button class="w-100" [buttonclass]="'fs-20'" style="max-width: 400px;"
+        [button_text]="'Solicitar pauta'" [buttonType]="'gradient'" (submit)="scrollToForm()"></cmm-cmp-b-button>
+
     </div>
 
   </section>
@@ -538,7 +542,7 @@
       </div>
 
       <!-- Contenedor de imagen -->
-      <div class="col-12 col-md-6 position-relative text-center">
+      <div id="contactForm" class="col-12 col-md-6 position-relative text-center">
 
         <!-- Formulario de contacto -->
         <cmp-contact-form></cmp-contact-form>
