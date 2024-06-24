@@ -32,22 +32,23 @@ export class ShoppingCartService {
   }
 
   /**
-   * @description Servicio para listar los productos que se encuentran en el carrito
+   * @description Servicio para listar los metodos de pagos para que el usuario escoja que como pagar
    * @returns
    */
   getPayMethodsList(): Observable<any> {
 
-    return this.http.get(this.gatewayUrl + '/v1/profile/getCart');
+    return this.http.get(this.gatewayUrl + '/v1/list/paymethods');
 
   }
 
   /**
-   * @description Servicio para listar los productos que se encuentran en el carrito
+   * @description Servicio para crear una orden con los datos de pago
+   * @param payData datos del pago
    * @returns
    */
-  postPaymentData(): Observable<any> {
+  createOrder(payData: any): Observable<any> {
 
-    return this.http.get(this.gatewayUrl + '/v1/profile/getCart');
+    return this.http.post(this.gatewayUrl + '/v1/operation/order', {payData});
 
   }
 

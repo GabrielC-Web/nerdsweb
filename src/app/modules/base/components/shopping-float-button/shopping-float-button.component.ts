@@ -52,7 +52,8 @@ export class ShoppingFloatButtonComponent implements OnInit {
       next: (response: any) => {
 
         // Guardamos el listado de bancos en la variable indicada
-        this.productsList = response.data;
+        this.productsList = response.data.row;
+        console.log(this.productsList);
 
       },
       error: (error: any) => {}

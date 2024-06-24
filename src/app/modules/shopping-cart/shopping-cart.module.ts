@@ -6,6 +6,7 @@ import { CartProductsComponent } from './components/cart-products/cart-products.
 import { ShoppingCartRoutingModule } from './shopping-cart-rounting.module';
 import { CmmModule } from 'src/app/common/common.module';
 import { DeliveryMethodComponent } from './components/delivery-method/delivery-method.component';
+import { OrderDetailComponent } from './components/order-detail/order-detail.component';
 
 
 
@@ -14,7 +15,8 @@ import { DeliveryMethodComponent } from './components/delivery-method/delivery-m
     ShoppingCartLayoutComponent,
     PaymentsMetodsComponent,
     CartProductsComponent,
-    DeliveryMethodComponent
+    DeliveryMethodComponent,
+    OrderDetailComponent
   ],
   imports: [
     CommonModule,

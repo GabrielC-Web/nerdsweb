@@ -229,7 +229,7 @@ export class DashboardProductComponent implements CmmComponentFormModel {
       discount: [this.product.discount],
       visible: [this.product.visible, Validators.required],
       status: [this.product.status, Validators.required],
-      stock: [this.product.stock],
+      stock: [this.product.stock ?? 0],
       type: [this.product.type || typeProducts.physical],
       limitStock: [this.product.limitStock],
       variants: this.fb.array([]),
@@ -404,7 +404,9 @@ export class DashboardProductComponent implements CmmComponentFormModel {
     .subscribe({
       next: (response: any) => {
         console.log(response);
-
+        isVariant
+          ? this.variants.controls[index].setValue(response.data[0])
+          : this.images.controls[index].setValue(response.data[0]);
       },
       error: (err: any) => {
         this.images.controls[index].setValue('');

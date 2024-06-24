@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { ShoppingCartService } from '../../services/shopping-cart.service';
 import { ProductVariantModel } from '../../models/shopping-cart.model';
@@ -22,7 +22,12 @@ export class CartProductsComponent implements OnInit {
   /**
    * Listado de bancos
    */
-  productsList: ProductVariantModel[] = []
+  productsList: ProductVariantModel[] = [];
+
+  /**
+   * indica cuando pasar al siguiente paso
+   */
+  @Output() nextStep: EventEmitter<boolean> = new EventEmitter();
 
   constructor(
     private cmmDialogsService: CmmDialogService,
@@ -89,6 +94,27 @@ export class CartProductsComponent implements OnInit {
       error: (error: any) => {}
     });
 
+  }
+
+  /**
+   * Funcion para reducir la cantidad por uno
+   */
+  minus(index: number) {
+
+    if(this.productsList[index].quantity > 1) {
+      this.productsList[index].quantity = this.productsList[index].quantity - 1;
+    };
+
+  }
+
+  /**
+   * Funcion para aumentar la cantidad
+   */
+  plus(index: number) {
+
+    if(this.productsList[index].quantity) {
+      this.productsList[index].quantity = this.productsList[index].quantity + 1;
+    }
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { CmmDialogService } from 'src/app/common/services/dialogs.service';
 import { ShoppingCartService } from '../../services/shopping-cart.service';
@@ -7,6 +7,7 @@ import { CmmDataService } from 'src/app/common/services/data.service';
 import { FormBuilder, FormControl, FormGroup, UntypedFormGroup, Validators } from '@angular/forms';
 import { CmmComponentFormModel } from 'src/app/common/data/forms/models/form.model';
 import { CmmAlertToastrModel } from 'src/app/common/data/dialogs/models/dialogs.model';
+import { ImagesService } from 'src/app/core/services/images.service';
 
 @Component({
   selector: 'cmp-payments-metods',
@@ -25,70 +26,7 @@ export class PaymentsMetodsComponent  implements CmmComponentFormModel{
   /**
    * Listado de metodos de pagos
    */
-  paymentMethodsList: any[] = [
-    {
-      "id": "12124124123",
-      "name": "Pago movil",
-      "description": "Transferencia bancaria rápida y eficaz a través de la red de pagos móviles",
-      "status": "ACTIVO",
-      "extraInfo": [
-        {
-          "name": 'Banco',
-          "value": 'Banco Activo'
-        },
-        {
-          "name": 'Telefono',
-          "value": '04241231234'
-        },
-        {
-          "name": 'Documento',
-          "value": 'J-1234567890'
-        },
-
-      ],
-      "idStatus": "",
-      "bol_delete": false,
-      "requeriments": [],
-      "config": {
-
-        "text": [
-          {
-            "form": "phone",
-            "label": "Teléfono",
-            "placeholder": "Ej: 04241231234",
-            "regex": "(0424|0414|0412|0426|0416|424|414|412|426|416)+([0-9]{6,7})",
-            "onlyNumber": true,
-            "minLength": 11,
-            "maxLength": 12,
-            "required": true,
-            "value": ""
-          },
-          {
-            "form": "reference",
-            "label": "N° de referencia",
-            "placeholder": "Ej: 1234",
-            "regex": "",
-            "onlyNumber": true,
-            "minLength": 4,
-            "maxLength": 4,
-            "required": true,
-            "value": ""
-          }
-        ],
-
-        "file": [
-          {
-            "form": "verification",
-            "label": "Comprobante",
-            "placeholder": "Ej: 04241231234",
-            "required": true,
-            "value": ""
-          }
-        ]
-
-      }
-    }
-  ]
+  paymentMethodsList: any[] = []
 
   /**
    * Metodo de pago seleccionado
@@ -107,10 +45,16 @@ export class PaymentsMetodsComponent  implements CmmComponentFormModel{
    */
   $unsubscribe = new Subject<void>();
 
+  /**
+   * indica cuando pasar al siguiente paso
+   */
+  @Output() nextStep: EventEmitter<boolean> = new EventEmitter();
+
   constructor(
     private store: Store,
     private shoppingCartServices: ShoppingCartService,
     public dialogService: CmmDialogService,
+    public imagesService: ImagesService,
     public dataService: CmmDataService,
     private fb: FormBuilder,
   ) {}
@@ -135,6 +79,9 @@ export class PaymentsMetodsComponent  implements CmmComponentFormModel{
     )
     .subscribe({
       next: (response: any) => {
+
+        // Guardamos los metodos de pago
+        this.paymentMethodsList = response.data;
 
         // Guardamos el listado de bancos en la variable indicada
         this.methodSelected = this.paymentMethodsList[0];
@@ -184,6 +131,8 @@ export class PaymentsMetodsComponent  implements CmmComponentFormModel{
           ValidatorsArray.push(Validators.maxLength(input_template.maxLength))
         };
 
+        ValidatorsArray.push(Validators.required);
+
         // Le asigno al arreglo de controles un nuevo paramtero con el nombre del control
         (group as any)[input_template.form] = new FormControl(
           // Le coloco el valor inicial que venga, si viene
@@ -199,7 +148,8 @@ export class PaymentsMetodsComponent  implements CmmComponentFormModel{
     if (cardInputs.selects) {
       cardInputs.selects.forEach((input_template: any) => {
         (group as any)[input_template.form] = new FormControl(
-          input_template.value
+          input_template.value,
+          Validators.required
         );
       });
     }
@@ -208,7 +158,8 @@ export class PaymentsMetodsComponent  implements CmmComponentFormModel{
     if (cardInputs.dates) {
       cardInputs.dates.forEach((input_template: any) => {
         (group as any)[input_template.form] = new FormControl(
-          input_template.value
+          input_template.value,
+          Validators.required
         );
       });
     }
@@ -217,16 +168,35 @@ export class PaymentsMetodsComponent  implements CmmComponentFormModel{
     if (cardInputs.file) {
       cardInputs.file.forEach((input_template: any) => {
         (group as any)[input_template.form] = new FormControl(
-          input_template.value
+          input_template.value,
+          Validators.required
         );
       });
     }
 
     //* Inicializo el formulario
     this.componentForm = new UntypedFormGroup(group);
+    console.log(this.componentForm);
 
-    // Guardamos el valor inicial del formualrio para futuras comparaciones
-    this.initialFormvalue = this.componentForm.value;
+  }
+
+  /**
+   * Funcion para setear la url de una imagen cargada
+   */
+  setImage(controlName: string, file: any){
+
+    if(!file) return;
+
+    this.imagesService.postImage(file)
+    .pipe(takeUntil(this.$unsubscribe))
+    .subscribe({
+      next: (response: any) => {
+        this.componentForm.controls[controlName].setValue(response.data[0]);
+      },
+      error: (err: any) => {
+        this.componentForm.controls[controlName].reset();
+      }
+    })
 
   }
 
@@ -241,13 +211,11 @@ export class PaymentsMetodsComponent  implements CmmComponentFormModel{
 
       //* Activo la validación de required
       this.componentForm.markAllAsTouched();
-
+      return
     };
-    console.log(this.componentForm);
-    return
 
     // Hacemos la peticion a la api
-    this.shoppingCartServices.postPaymentData()
+    this.shoppingCartServices.createOrder(this.componentForm.value)
     .pipe(
       // Indicamos que esta funcion se ejecutara hasta que el indique lo contario
       takeUntil(this.$unsubscribe)
@@ -261,20 +229,11 @@ export class PaymentsMetodsComponent  implements CmmComponentFormModel{
           text: response.message,
         };
 
+        this.nextStep.emit(response.data);
 
       },
       error: (err: any) => {}
     })
-
-  }
-
-  /**
-   * Funcion para verificar cambio hecho en la data dle formulario
-   */
-  checkChanges(): boolean{
-
-    // Comparo el valor inicial del formualrio con su valor actual
-    return JSON.stringify(this.initialFormvalue) !== JSON.stringify(this.componentForm.value);
 
   }
 

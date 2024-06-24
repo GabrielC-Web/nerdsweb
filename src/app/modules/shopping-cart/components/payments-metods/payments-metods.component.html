@@ -3,31 +3,49 @@
   <!-- Titulo del contenedor -->
   <p class="fs-30 w-100">Paga con</p>
 
-  <!-- Contenedor de seleccion d emetodos de pagos disponibles -->
-  <div *ngIf="methodSelected" class="d-flex align-items-center gap-3 p-0 col-12 overflow-auto">
+  <div class="d-flex flex-wrap w-100">
 
-    <!-- OPcion de metodo de pago disponible -->
-    <div *ngFor="let paymentMethod of paymentMethodsList"
-    [ngClass]="methodSelected.id == paymentMethod.id ? 'nd-btn-primary' : 'nd-btn-primary-outline'"
-    class="cmm-bg-white rounded shadowBorder p-3 d-flex align-items-center">
+    <!-- Contenedor de seleccion d emetodos de pagos disponibles -->
+    <div *ngIf="methodSelected" class="dropend mb-0 d-flex align-items-center gap-3 pe-3 col-12 col-lg-4">
 
-      {{paymentMethod.name}}
+      <div class="border p-3 rounded d-flex align-items-center justify-content-around dropdown-toggle w-100 h-100 shadowBorder"
+      data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+
+        <mat-icon style="height: 50px !important; width: 50px !important; font-size: 50px !important;"
+        class="cmm-txt-primary">account_balance</mat-icon>
+
+        <p class="m-0 fw-semibold fs-20">{{methodSelected.name}}</p>
+
+      </div>
+
+      <div class="dropdown-menu p-3">
+
+        <!-- Opcion de metodo de pago disponible -->
+        <div *ngFor="let paymentMethod of paymentMethodsList" (click)="methodSelected = paymentMethod"
+        class="px-3 d-flex align-items-center cmm-txt-gradient-hover">
+
+          {{paymentMethod.name}}
+
+        </div>
+
+      </div>
+
 
     </div>
 
-  </div>
+    <!-- Contenedor de los datos extras necesarios para el metodo de pago -->
+    <div *ngIf="methodSelected" class="border p-3 rounded shadowBorder d-flex flex-wrap col-12 col-lg-8">
 
-  <!-- Contenedor de los datos extras necesarios para el metodo de pago -->
-  <div *ngIf="methodSelected" class="border p-3 rounded shadowBorder d-flex flex-wrap col-12">
+      <!-- Dato extra necesario para realizar el pago -->
+      <div *ngFor="let info of methodSelected.extraInfo" class="w-100 d-flex gap-3">
 
-    <!-- Dato extra necesario para realizar el pago -->
-    <div *ngFor="let info of methodSelected.extraInfo" class="w-100 d-flex">
+         <!--Nombre del dato  -->
+        <p>{{info.name}}: </p>
 
-       <!--Nombre del dato  -->
-      <p>{{info.name}}</p>
+        <!-- Valor del dato -->
+        <p>{{info.value}}</p>
 
-      <!-- Valor del dato -->
-      <p>{{info.value}}</p>
+      </div>
 
     </div>
 
@@ -51,7 +69,7 @@
     <div class="w-100 m-0 p-0" *ngFor="let input of methodSelected.config.text">
 
       <!-- input de texto -->
-      <cmm-cmp-i-text class="col-sm-12" [formControlName]="input.form" [label]="input.label" [placeholder]="input.placeholder" [maxLength]="input.maxLength"></cmm-cmp-i-text>
+      <cmm-cmp-i-text class="col-sm-12" [formControlName]="input.form" [label]="input.label" [placeholder]="input.placeholder" [minLength]="input.minLength" [maxLength]="input.maxLength"></cmm-cmp-i-text>
 
     </div>
 
@@ -75,13 +93,13 @@
     <div class="w-100 m-0 p-0" *ngFor="let input of methodSelected.config.file">
 
       <!-- Input de archivo -->
-      <cmm-cmp-i-smfile [formControlName]="input.form" [label]="input.label" [maxFileSize]="2"></cmm-cmp-i-smfile>
+      <cmm-cmp-i-smfile [formControlName]="input.form" [label]="input.label" [maxFileSize]="2"
+      (inputChange)="setImage(input.form, $event)"></cmm-cmp-i-smfile>
 
     </div>
 
     <!-- Botón de submit -->
-    <cmm-cmp-b-button *ngIf="checkChanges()" class="col-12" @inOutAnimation (submit)="onSubmit()">
-    </cmm-cmp-b-button>
+    <cmm-cmp-b-button class="col-12" (submit)="onSubmit()"></cmm-cmp-b-button>
 
   </form>
 
