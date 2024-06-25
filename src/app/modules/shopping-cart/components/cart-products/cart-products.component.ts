@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { ShoppingCartService } from '../../services/shopping-cart.service';
 import { ProductVariantModel } from '../../models/shopping-cart.model';
@@ -20,9 +20,9 @@ export class CartProductsComponent implements OnInit {
   //? Información de utilidad
 
   /**
-   * Listado de bancos
+   * Listado de productos que se encuentran en el carrito
    */
-  productsList: ProductVariantModel[] = [];
+  @Input() productsList: ProductVariantModel[] = [];
 
   /**
    * indica cuando pasar al siguiente paso
@@ -34,38 +34,9 @@ export class CartProductsComponent implements OnInit {
     private shoppingCartServices: ShoppingCartService
     ){}
 
-  ngOnInit(): void {
-
-    // Ejecutamos la funcion para obtener el listado de productos
-    this.getProductsList();
-
-  }
+  ngOnInit(): void {}
 
   //? Métodos para obtener información de utilidad
-
-  /**
-   * Obtiene el listado de bancos
-   */
-  getProductsList() {
-
-    // Hacemos la peticion a la api
-    this.shoppingCartServices.getCartProductsList()
-    .pipe(
-      // Indicamos que esta funcion se ejecutara hasta que el indique lo contario
-      takeUntil(this.$unsubscribe)
-    )
-    .subscribe({
-      next: (response: any) => {
-
-        // Guardamos el listado de bancos en la variable indicada
-        this.productsList = response.data.row;
-        console.log(this.productsList);
-
-      },
-      error: (error: any) => {}
-    });
-
-  }
 
   deleteProduct(id: string){
 
@@ -87,8 +58,8 @@ export class CartProductsComponent implements OnInit {
         // Abrimos la alerta con el mensaje
         this.cmmDialogsService.CmmAlertToastr(messagesData);
 
-        // Volvemos a pedir el listado de productos
-        this.getProductsList();
+
+
 
       },
       error: (error: any) => {}
@@ -101,8 +72,8 @@ export class CartProductsComponent implements OnInit {
    */
   minus(index: number) {
 
-    if(this.productsList[index].quantity > 1) {
-      this.productsList[index].quantity = this.productsList[index].quantity - 1;
+    if(Number(this.productsList[index].quantity) > 1) {
+      this.productsList[index].quantity = Number(this.productsList[index].quantity) - 1;
     };
 
   }
@@ -113,7 +84,7 @@ export class CartProductsComponent implements OnInit {
   plus(index: number) {
 
     if(this.productsList[index].quantity) {
-      this.productsList[index].quantity = this.productsList[index].quantity + 1;
+      this.productsList[index].quantity = Number(this.productsList[index].quantity) + 1;
     }
   }
 

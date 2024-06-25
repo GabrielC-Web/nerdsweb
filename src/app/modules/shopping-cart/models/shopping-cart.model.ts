@@ -2,22 +2,26 @@
  * INterface para los products que se listan en el carrito de compra
  */
 export interface ProductVariantModel {
-  brand:           string;
-  description:     string;
-  characteristics: string[];
-  category:        string[];
-  productName:     string;
-  idProduct:       string;
-  name:            string;
-  color:           null;
-  startDate:       null;
-  endDate:         null;
-  image:           string[];
-  idVariant:       string;
-  variant:         boolean;
-  quantity:        number;
-  amount:          number;
-  extraAmount?:          number;
-  template:        string;
-  cupon:           string;
+    productName:     string;
+    brand:           string;
+    description:     string;
+    amount:          number;
+    extraAmount:     number;
+    characteristics: string[];
+    type:            string;
+    category:        string[];
+    discount:        number;
+    image:           string[];
+    visible:         boolean;
+    status:          string;
+    idProduct:       string;
+    name:            string;
+    color:           string;
+    startDate:       null;
+    endDate:         null;
+    idVariant:       string;
+    variant:         boolean;
+    quantity:        string | number;
+    template:        string;
+    cupon:           string;
 }

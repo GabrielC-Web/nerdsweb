@@ -46,9 +46,12 @@ export class ShoppingCartService {
    * @param payData datos del pago
    * @returns
    */
-  createOrder(payData: any): Observable<any> {
+  createOrder(payData: any, sendMethod: any): Observable<any> {
 
-    return this.http.post(this.gatewayUrl + '/v1/operation/order', {payData});
+    return this.http.post(this.gatewayUrl + '/v1/operation/order', {
+      payData,
+      sendMethod
+    });
 
   }
 

@@ -40,11 +40,13 @@
 
   <div class="container mx-auto p-3 d-flex flex-wrap justify-content-around align-items-center">
 
-    <cmp-cart-products *ngIf="step == 1" class="col-12 p-2" (nextStep)="$event && step = 2"> </cmp-cart-products>
+    <cmp-cart-products *ngIf="step == 1" class="col-12 p-2" [productsList]="productsList"
+    (nextStep)="$event && step = 2"> </cmp-cart-products>
 
     <!-- <cmp-delivery-method *ngIf="step == 2"  class="col-12 p-2"></cmp-delivery-method> -->
 
-    <cmp-payments-metods *ngIf="step == 2" class="col-12 p-2" (nextStep)="$event && step = 3"></cmp-payments-metods>
+    <cmp-payments-metods *ngIf="step == 2" class="col-12 p-2" [deliveryMethodsList]="deliveryMethodsList"
+    (nextStep)="$event && step = 3" [deliveryRequired]="deliveryRequired"></cmp-payments-metods>
 
     <cmp-order-detail *ngIf="step == 3" class="col-12 p-2" ></cmp-order-detail>
 

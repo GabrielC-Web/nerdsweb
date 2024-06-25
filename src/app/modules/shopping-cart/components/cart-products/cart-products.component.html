@@ -43,8 +43,8 @@
                 <p class="fs-28 fw-bold m-0">
                   ${{
                     product.extraAmount
-                    ? (product.amount * product.quantity) + product.extraAmount
-                    : (product.amount * product.quantity)
+                    ? (product.amount * +product.quantity) + product.extraAmount
+                    : (product.amount * +product.quantity)
                   }}
                 </p>
 
@@ -108,7 +108,7 @@
             </button>
 
             <p class="fs-26 m-0">
-              {{product.quantity}}
+              {{+product.quantity}}
             </p>
 
             <button class="border-0 cmm-bg-white d-flex align-items-center" (click)="plus(i)">
@@ -120,7 +120,7 @@
           </div>
 
           <!-- Monto -->
-          <p class="fs-20 fw-bold m-0">{{product.amount * product.quantity}} USD</p>
+          <p class="fs-20 fw-bold m-0">{{product.amount * +product.quantity}} USD</p>
 
         </div>
 
@@ -134,8 +134,8 @@
           <p class="fs-20 fw-bold m-0">
             {{
               product.extraAmount
-              ? (product.amount * product.quantity) + product.extraAmount
-              : (product.amount * product.quantity)
+              ? (product.amount * +product.quantity) + product.extraAmount
+              : (product.amount * +product.quantity)
             }} USD
           </p>
 
