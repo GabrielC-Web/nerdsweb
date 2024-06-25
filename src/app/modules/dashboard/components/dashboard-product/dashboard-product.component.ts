@@ -468,6 +468,9 @@ export class DashboardProductComponent implements CmmComponentFormModel {
 
     let finalProduct = {
       ... this.componentForm.value,
+      amount: this.dataServices.CmmAmountBackendFormat(this.componentForm.controls['amount'].value.toString()),
+      extraAmount: this.dataServices.CmmAmountBackendFormat(this.componentForm.controls['extraAmount'].value.toString()),
+      discount: this.dataServices.CmmAmountBackendFormat(this.componentForm.controls['discount'].value.toString()),
       category: this.productCategories,
       characteristics: this.productCharacteristics,
       variant: Boolean(this.variants.controls.length),
