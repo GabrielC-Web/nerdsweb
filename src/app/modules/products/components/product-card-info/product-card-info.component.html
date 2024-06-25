@@ -1,30 +1,33 @@
 <div class="container d-flex flex-wrap p-0 justify-content-around align-items-center">
 
   <div *ngFor="let product of productsList" class="col-12 col-sm-8 p-3"
-    [ngClass]="productsList.length <= 2 ? 'col-lg-5' : 'col-lg-4'" style="max-width: 400px;">
+   [ngClass]="productsList.length <= 2 ? 'col-lg-5' : 'col-lg-4'" style="max-width: 400px;">
 
-    <div class="cmm-bg-white border d-flex flex-column justify-content-around align-items-center
-    px-4 pt-3 mb-5 product-cart" style="border-radius: 4rem;max-height: 720px;" data-aos="flip-left"
-      data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+    <div class="border d-flex flex-column justify-content-around align-items-center
+    px-4 pt-3 product-cart" style="border-radius: 4rem;max-height: 720px;" data-aos="flip-left"
+    (click)="navigateToProductDetail(product.idProduct)" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
 
-      <h4 class="text-center cmm-txt-primary-selected fw-bold pt-3">{{product.productName}}</h4>
+      <p class="text-center cmm-txt-primary-selected fw-bold fs-24">{{product.productName}}</p>
 
       <div class="d-flex" style="height: 60px;">
 
-        <p class="text-center fs-13 align-self-center">{{product.description}}</p>
+        <p class="text-center fs-16 align-self-center">{{product.description}}</p>
 
       </div>
 
-      <h2 class="fw-bold cmm-txt">${{product.amount}}</h2>
+      <p class="fw-bold fs-40">${{product.amount}}</p>
 
-      <p *ngIf="product.extraAmount" class="text-center fs-13 fw-bold">Precio de contratación {{product.extraAmount}}
+      <p *ngIf="product.extraAmount" class="text-center fs-16 fw-bold m-0">Precio de contratación {{product.extraAmount}}
       </p>
 
-      <p class="fw-bold back-txt fs-24 w-100 mb-0">Esto Incluye:</p>
+      <cmm-cmp-b-button class="my-3 col-10" [button_text]="'¡Contratar!'" [buttonType]="'gradient'"
+      [buttonclass]="'fs-20'"></cmm-cmp-b-button>
+
+      <p class="fw-bold fs-24 w-100 mb-0">Esto Incluye:</p>
 
       <div class="w-100 d-flex flex-column" style="height: 490px;">
 
-        <p *ngFor="let characteristic of product.characteristics" class="col-12 fs-13 my-1 fw-bold">
+        <p *ngFor="let characteristic of product.characteristics" class="col-12 fs-16 my-1 fw-bold">
 
           <mat-icon class="pt-1 cmm-txt-gradient">done</mat-icon>
 
@@ -35,10 +38,6 @@
       </div>
 
     </div>
-
-    <cmm-cmp-b-button class="my-3" [button_text]="'Contratar'" [buttonType]="'gradient'" [buttonclass]="'fs-20'"
-      data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="300" data-aos-offset="0"
-      style=" max-width: 200px;" (click)="navigateToProductDetail(product.idProduct)"></cmm-cmp-b-button>
 
   </div>
 
