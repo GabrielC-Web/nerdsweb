@@ -1,4 +1,4 @@
-<div class="d-flex flex-column align-items-center shoppingCartProduts">
+<div *ngIf="productsList.length else cover" class="d-flex flex-column align-items-center shoppingCartProduts">
 
   <!-- Productos -->
   <mat-expansion-panel *ngFor="let product of productsList; index as i"
@@ -91,8 +91,8 @@
 
             <p class="fs-20 fw-bold m-0">Mensualidades a pagar:</p>
 
-            <p *ngIf="product.extraAmount" class="text-center fs-14">
-              Al comprar una suscripción mensual <br>
+            <p *ngIf="product.extraAmount" class="text-center fs-12 m-0">
+              Al contratar tu primer servicio <br>
               <span class="fw-bold">obtienes tu primer mes gratis.</span>
             </p>
 
@@ -124,6 +124,17 @@
 
         </div>
 
+        <!-- Precio de contratacion -->
+        <div *ngIf="product.discount" class="w-100 d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
+
+          <!-- titulo -->
+          <p class="fs-20 fw-bold m-0">Descuento de un mes gratis:</p>
+
+          <!-- Monto -->
+          <p class="fs-20 fw-bold m-0">-{{product.discount}} USD</p>
+
+        </div>
+
         <!-- Monto total -->
         <div class="w-100 d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
 
@@ -131,13 +142,7 @@
           <p class="fs-20 fw-bold m-0">Costo del plan:</p>
 
           <!-- Monto -->
-          <p class="fs-20 fw-bold m-0">
-            {{
-              product.extraAmount
-              ? (product.amount * +product.quantity) + product.extraAmount
-              : (product.amount * +product.quantity)
-            }} USD
-          </p>
+          <p class="fs-20 fw-bold m-0">{{productAmount(i)}} USD</p>
 
         </div>
 
@@ -149,3 +154,25 @@
   class="d-flex mx-auto w-100 mt-4" style="max-width: 500px;"></cmm-cmp-b-button>
 
 </div>
+
+<!-- Contenedor principal del cover -->
+<ng-template #cover>
+
+  <div class="cmm-bg-white shadowBorder rounded">
+
+    <!-- cover de la tabla -->
+    <cmm-cmp-c-cover title="No tiene productos en su carrito" message="Puede ver entre nuestros productos disponibles si desea agregarlos a su carrito o puede refrescar la vista para actualizar su carrito"></cmm-cmp-c-cover>
+
+    <div class="w-100 d-flex flex-wrap justify-content-around px-3 pb-3">
+
+      <cmm-cmp-b-button class="p-1 w-100" style="max-width: 300px;" button_text="Ver productos"
+      buttonType="gradient" [routerLink]="['products/ecommerce']"></cmm-cmp-b-button>
+
+      <cmm-cmp-b-button class="p-1 w-100" style="max-width: 300px;" button_text="Refrescar carrito"
+      (submit)="nextStep.emit(false)"></cmm-cmp-b-button>
+
+    </div>
+
+  </div>
+
+</ng-template>

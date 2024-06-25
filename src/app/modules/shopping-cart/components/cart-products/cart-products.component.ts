@@ -88,4 +88,29 @@ export class CartProductsComponent implements OnInit {
     }
   }
 
+  /**
+   * Funcion para el calculo del monto a mostrar
+   */
+  productAmount(index: number): number{
+
+    // Buscamos el producto al que queremos calcular el monto
+    let product = this.productsList[index];
+
+    // Calculamos el monto del precio dato por back multiplicado por la cantidad definida por el usuario
+    let totalAmount = product.amount * +product.quantity;
+
+    // Si el producto tiene un precio extra lo sumamos
+    if(product.extraAmount){
+      totalAmount = totalAmount + product.extraAmount;
+    };
+
+    // Si el producto tiene un descuento lo restamos
+    if(product.discount){
+      totalAmount = totalAmount - product.discount;
+    }
+
+    // Retornamos el monto
+    return totalAmount;
+
+  }
 }

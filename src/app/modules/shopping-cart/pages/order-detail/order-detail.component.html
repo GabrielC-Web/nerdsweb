@@ -1,0 +1,218 @@
+<section class="container d-flex flex-column align-items-center">
+
+  <div *ngIf="orderDetail.status !== orderStatus.aprobated" class="d-none d-lg-flex justify-content-center align-items-center position-relative w-100"
+  style="height: 280px; max-width: 1000px;">
+
+    <!-- Fondo -->
+    <img class="position-absolute col-11" [src]="nerdsWebIsotipo" alt="isotipo de nerdsweb"
+    style="top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.1;">
+
+    <!-- Lentes -->
+    <img class="position-absolute col-9" [src]="glassesImg" alt="isotipo de nerdsweb"
+    style="top: 50%; left: 50%; transform: translate(-50%, -50%);">
+
+    <!--  izquierda Orden activa -->
+    <div [ngClass]="
+      orderDetail.status == orderStatus.active
+      ? 'pupilaActive' :
+      orderDetail.status == orderStatus.rejected
+      ? 'pupilaRejectec' :
+      'pupila'
+    " style="left: calc(50% - 16%);"></div>
+
+    <!-- pupila derecha Orden activa -->
+    <div [ngClass]="
+      orderDetail.status == orderStatus.active
+      ? 'pupilaActive' :
+      orderDetail.status == orderStatus.rejected
+      ? 'pupilaRejectec' :
+      'pupila'
+    " style="right: calc(50% - 14%);"></div>
+
+    <!-- lagimal izquierda  -->
+    <div *ngIf="orderDetail.status == orderStatus.rejected" class="lagimal" style="left: calc(50% - 178px);"></div>
+
+    <!-- lagimal derecha  -->
+    <div *ngIf="orderDetail.status == orderStatus.rejected" class="lagimal" style="right: calc(50% - 155px);"></div>
+
+  </div>
+
+  <div *ngIf="orderDetail.status == orderStatus.aprobated" class="d-none d-lg-flex justify-content-center align-items-center position-relative w-100"
+  style="height: 280px; max-width: 1000px;">
+
+    <!-- Fondo -->
+    <img class="position-absolute col-11" [src]="nerdsWebIsotipo" alt="isotipo de nerdsweb"
+    style="top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.1;">
+
+    <!-- Lentes -->
+    <img class="position-absolute col-9" [src]="glassesWinkImg" alt="isotipo de nerdsweb"
+    style="top: 50%; left: 50%; transform: translate(-50%, -50%);">
+
+    <!-- pupila izquierda  -->
+    <div class="pupilaAprobated" style="left: calc(50% - 14%); top: 133px;"></div>
+
+    <!-- Contenedor de ojo derecho -->
+    <div class="ojoWhink" style="right: -140px; top: 17px;">
+
+      <!-- Ojo derecho -->
+      <div class="ojo"></div>
+
+      <!-- lagimal izquierda  -->
+      <div class="pupilaAprobated" style="top: 22px; left: 22px;"></div>
+
+    </div>
+
+  </div>
+
+  <p class="fs-40 text-center fw-semibold">{{
+    orderDetail.status == orderStatus.active
+    ? 'Tu pago está en verificación'
+    : orderDetail.status == orderStatus.rejected
+    ? 'Pago Fallido'
+    : 'Pago Exitoso'
+  }}</p>
+
+  <p class="fs-24 text-center">
+    {{
+      orderDetail.status == orderStatus.active
+      ? 'Su está siendo verificado en un período de 24 horas obtendrá la respuesta del mismo'
+      : orderDetail.descriptionInfo.message
+    }}
+  </p>
+
+  <div style="height: 60px;"></div>
+
+  <!-- Contenedor de los productos -->
+  <div class="d-flex flex-column w-100 overflow-auto border rounded">
+
+    <!-- Encabezado de la tabla -->
+    <div class="w-100 d-flex justify-content-around border-bottom" style="min-width: 700px;">
+
+      <!-- Imagen de la variante -->
+      <div class="w-100 text-center" style="min-width: 80px;">
+        <p class="text-center text-nowrap my-2 fs-18 cmm-txt-primary">IMAGEN</p>
+      </div>
+
+      <!-- Nombre -->
+      <div class="w-100 text-center" style="min-width: 240px;">
+        <p class="text-center text-nowrap my-2 fs-18 cmm-txt-primary">NOMBRE</p>
+      </div>
+
+      <!-- Precio base del producto -->
+      <p class="w-100 text-center text-nowrap my-2 fs-18 cmm-txt-primary" style="max-width: 240px;">PRECIO</p>
+
+      <!-- Precio extra del producto -->
+      <p class="w-100 text-center text-nowrap my-2 fs-18 cmm-txt-primary" style="max-width: 240px;">PRECIO EXTR</p>
+
+      <!-- La cantidad de variantes -->
+      <p class="w-100 text-center text-nowrap my-2 fs-18 cmm-txt-primary" style="max-width: 240px;">CANT</p>
+
+      <!-- Descuento del producto -->
+      <p class="w-100 text-center text-nowrap my-2 fs-18 cmm-txt-primary" style="max-width: 240px;">DESC</p>
+
+      <!-- La cantidad de variantes -->
+      <p class="w-100 text-center text-nowrap my-2 fs-18 cmm-txt-primary" style="max-width: 240px;">TOTAL</p>
+
+    </div>
+
+    <!-- Filas de la tabla -->
+    <div *ngFor="let product of orderDetail.productList; index as i" style="min-width: 700px;"
+    class="w-100 d-flex justify-content-around align-items-center py-2" >
+
+      <!-- Imagen del preview -->
+      <div class="w-100 d-flex justify-content-center align-items-center" style="min-width: 80px;">
+        <img [src]="product.image[0]" class="p-0 rounded" alt="imagen del producto"
+        style="width: 80px; aspect-ratio: 1/1;">
+      </div>
+
+      <div class="w-100 d-flex align-items-center" style="min-width: 240px;">
+        <p class="fs-18 text-truncate m-0 ps-2">{{product.name}}</p>
+      </div>
+
+      <p class="fs-18 text-truncate text-center m-0 w-100" style="max-width: 240px;">${{product.amount| cmm_p_amount_format}}</p>
+
+      <p class="fs-18 text-truncate text-center m-0 w-100" style="max-width: 240px;">${{product.extraAmount| cmm_p_amount_format}}</p>
+
+      <p class="fs-18 text-truncate text-center m-0 w-100" style="max-width: 240px;">x{{product.quantity}}</p>
+
+      <p class="fs-18 text-truncate text-center m-0 w-100 cmm-txt-error">-{{product.discount | cmm_p_amount_format}}</p>
+
+      <p class="fs-18 text-truncate text-center m-0 w-100" style="max-width: 240px;">${{productAmount(i) | cmm_p_amount_format}}</p>
+
+    </div>
+
+    <div class="w-100 d-flex justify-content-end align-items-center border-top py-1 px-3" style="min-width: 700px;">
+
+      <p class="pe-3 fs-20 fw-bold m-0">Monto pagado</p>
+
+      <p class="my-2 fs-26 fw-bold text-center" style="width: 10%;">${{orderDetail.amount | cmm_p_amount_format}} </p>
+    </div>
+
+  </div>
+
+  <div style="height: 60px;"></div>
+
+  <!-- COntenedor de la informacion de envio -->
+  <div *ngIf="showSendInfo && orderDetail.sendMethod" class="w-100 d-flex flex-wrap justify-content-around my-4">
+
+
+    <div class="col-12 col-md-4 d-flex flex-column align-items-center px-md-1 flex-grow-1">
+
+      <p class="fs-26 fw-semibold">Metodo de Envío</p>
+
+      <p class="fs-20 fw-bold">
+        {{
+          orderDetail.sendMethod.agency
+          ? 'Envio Nacional'
+          : orderDetail.sendMethod.directionMap
+          ? 'Buscar en el Local'
+          : 'Delivery(Caracas)'
+        }}
+      </p>
+
+    </div>
+
+    <div *ngIf="shippingAgency" class="col-12 col-md-4 d-flex flex-column align-items-center px-md-1 flex-grow-1">
+
+      <p class="fs-26 fw-semibold">Agencia de Envío</p>
+
+      <img [src]="shippingAgency.logo" alt="logo de la enpresa {{shippingAgency.name}}"
+      class="col-10" style="max-width: 250px;" matTooltip="{{shippingAgency.name}}">
+
+    </div>
+
+    <div *ngIf="orderDetail.sendMethod.direction" class="col-12 col-md-4 d-flex flex-column align-items-center px-md-1 flex-grow-1">
+
+      <p class="fs-26 fw-semibold">Dirección de Envío</p>
+
+      <p class="fs-20 fw-bold">{{orderDetail.sendMethod.direction}}</p>
+
+    </div>
+
+  </div>
+
+  <!-- Mapa con la ubicacion del local -->
+  <iframe @inOutAnimation *ngIf="showSendInfo && orderDetail.sendMethod.directionMap"
+  [src]="orderDetail.sendMethod.directionMap | cmm_p_safe_url" class="my-3 mx-auto rounded"
+  width="773" height="441" style="border:0;" allowfullscreen="" loading="lazy"
+  referrerpolicy="no-referrer-when-downgrade"></iframe>"
+
+  <!-- Disclaimare -->
+  <div *ngIf="showSendInfo && shippingAgency" class="w-100 d-flex flex-column justify-content-center align-items-center my-4">
+
+    <p class="fs-18 fw-semibold text-center">
+      Una vez envíado a la oficina de {{shippingAgency.name}} que fue seleccionada, la responsabilidad de la entrega quedará en sus
+      manos, Recomendamos hacer seguimiento del envío directamente en la plataforma de {{shippingAgency.name}},
+    </p>
+
+    <p class="fs-18 fw-semibold text-center">
+      El número de guía creado por la empresa {{shippingAgency.name}} le será enviado por atención al cliente a su correo electrónico ó
+      número de WhasApp, si tiene alguna duda comuniquese con su vendedor.
+    </p>
+
+    <cmm-cmp-b-button button_text="Contactar a mi vendedor" buttonType="gradient"
+    class="col-12 px-3" style="max-width: 360px;"></cmm-cmp-b-button>
+
+  </div>
+
+</section>

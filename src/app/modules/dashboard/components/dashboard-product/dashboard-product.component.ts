@@ -462,8 +462,6 @@ export class DashboardProductComponent implements CmmComponentFormModel {
 
     this.componentForm.markAllAsTouched();
 
-    console.log(this.componentForm);
-
     if(!this.componentForm.valid) return;
 
     let finalProduct = {
@@ -475,8 +473,6 @@ export class DashboardProductComponent implements CmmComponentFormModel {
       characteristics: this.productCharacteristics,
       variant: Boolean(this.variants.controls.length),
     }
-
-    console.log(finalProduct);
 
     if(this.product.idProduct){
       this.dashboardService.putUserProduct(finalProduct)

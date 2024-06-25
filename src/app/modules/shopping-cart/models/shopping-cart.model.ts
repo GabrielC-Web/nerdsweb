@@ -25,3 +25,27 @@ export interface ProductVariantModel {
     template:        string;
     cupon:           string;
 }
+
+/**
+ * modelo del detalle de la orden
+ */
+export interface OrderDetailModel {
+    userId:          string;
+    clientId:        string;
+    productList:     ProductVariantModel[];
+    amount:          number;
+    expiration_date: null;
+    created_date:    string;
+    bol_delete:      boolean;
+    status:          string;
+    payData:         any;
+    sendMethod:      any;
+    _id:             string;
+    descriptionInfo: any;
+}
+
+export enum OrderStatus {
+  active = 'ACTIVE',
+  rejected = 'REJECTED',
+  aprobated = 'APROBATED',
+}

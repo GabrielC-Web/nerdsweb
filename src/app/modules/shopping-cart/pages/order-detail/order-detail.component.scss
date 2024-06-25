@@ -1,0 +1,115 @@
+.pupila {
+  position: absolute;
+  width: 40px;
+  aspect-ratio: 1/1;
+  background-color: #fff;
+  border-radius: 50%;
+  top: 130px;
+}
+
+.pupilaActive {
+  position: absolute;
+  width: 40px;
+  aspect-ratio: 1/1;
+  background-color: #fff;
+  border-radius: 50%;
+  top: 130px;
+  animation-name: search;
+  animation-duration: 0.8s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+.pupilaRejectec {
+  position: absolute;
+  width: 60px;
+  aspect-ratio: 1/1;
+  background-color: #fff;
+  border-radius: 50%;
+  top: 115px;
+}
+
+.lagimal {
+  position: absolute;
+  width: 15px;
+  aspect-ratio: 1/1;
+  background-color: #fff;
+  border-radius: 50%;
+  top: 163px;
+  animation-name: cry;
+  animation-duration: 70ms;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+.pupilaAprobated{
+  position: absolute;
+  width: 35px;
+  aspect-ratio: 1/1;
+  background-color: #fff;
+  border-radius: 50%;
+}
+
+.ojoWhink{
+  position: relative;
+  height: 86px;
+  width: 86px;
+  overflow: hidden;
+  animation-name: whink;
+  animation-duration: 400ms;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+  animation-delay: 3s;
+}
+
+.ojo{
+  position: absolute;
+  width: 86px;
+  height: 86px;
+  background-color: #000;
+  border-radius: 50%;
+}
+
+@keyframes search {
+  0% {
+    transform: translatex(1.5rem);
+  }
+
+  50% {
+    transform: translatex(0);
+  }
+
+  100% {
+
+    transform: translatex(-1.5rem);
+  }
+}
+
+@keyframes cry {
+  0% {
+    transform: translatex(1.2);
+  }
+
+  50% {
+    transform: translatex(0);
+  }
+
+  100% {
+
+    transform: translatex(0.2rem);
+  }
+}
+
+@keyframes whink {
+  0% {
+    height: 86px;
+    top: 17px;
+  }
+
+  100% {
+    top: -5px;
+    height: 20px;
+  }
+}

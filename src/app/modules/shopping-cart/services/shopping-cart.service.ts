@@ -70,4 +70,21 @@ export class ShoppingCartService {
 
   }
 
+  /**
+   * @description Servicio para obtener el detalle de una orden
+   * @param idOrder id de la orde de la cual se quiere obtener el detalle
+   * @returns
+   */
+  getOrderDetail(idOrder: string): Observable<any> {
+
+    return this.http.get(this.gatewayUrl + '/v1/operation/order/detail', {
+      params: {
+        idOrder
+      }
+    });
+
+  }
+
+
+
 }

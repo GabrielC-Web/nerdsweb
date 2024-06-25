@@ -380,6 +380,10 @@ export class PaymentsMetodsComponent implements OnChanges {
           input_template.value,
           Validators.required
         );
+        (group as any)[input_template.form + 'Map'] = new FormControl(
+          input_template.value,
+          Validators.required
+        );
       });
     }
 
@@ -442,7 +446,8 @@ export class PaymentsMetodsComponent implements OnChanges {
       this.urlMap = this.deliveryMethodSelected.config.map[index].list.find(
         (urlOptions: any) => urlOptions.direction == value
       ).url;
-      console.log(this.urlMap);
+
+      this.deliveryForm.controls[controlName+'Map'].setValue(this.urlMap);
 
     }
     else{
@@ -490,14 +495,14 @@ export class PaymentsMetodsComponent implements OnChanges {
     }
 
     // Si el formulario es invalido me detengo aqui
-    if(!this.paymentForm.valid || !this.deliveryForm.valid ) {
+    if(!this.paymentForm.valid || ( this.deliveryRequired && !this.deliveryForm.valid) ) {
       return
     };
 
     // Hacemos la peticion a la api
     this.shoppingCartServices.createOrder(
       this.paymentForm.value,
-      this.deliveryForm.value
+      this.deliveryRequired ? this.deliveryForm.value : ''
     )
     .pipe(
       // Indicamos que esta funcion se ejecutara hasta que el indique lo contario
