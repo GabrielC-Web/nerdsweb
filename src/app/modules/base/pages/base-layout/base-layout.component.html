@@ -2,8 +2,9 @@
 
   <cmm-cmp-spinner class="vh-100" *ngIf="spinner"></cmm-cmp-spinner>
 
-  <cmp-shopping-float-button *ngIf="!actualPath.includes('shopping-cart') && token" class="position-fixed"
+  <cmp-shopping-float-button *ngIf="token" class="position-fixed"
     style="width: 60px; bottom: 10vh; right: 2em; z-index: 999;"></cmp-shopping-float-button>
+
   <!-- Navbar -->
   <cmp-base-header></cmp-base-header>
 

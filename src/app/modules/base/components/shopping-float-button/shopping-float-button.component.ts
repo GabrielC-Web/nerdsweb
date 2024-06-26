@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ChildActivationEnd, ChildActivationStart, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, RouteConfigLoadEnd, RouteConfigLoadStart, Router, RoutesRecognized } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { ProductModel } from 'src/app/modules/products/models/products.model';
 import { ShoppingCartService } from 'src/app/modules/shopping-cart/services/shopping-cart.service';
@@ -19,14 +19,31 @@ export class ShoppingFloatButtonComponent implements OnInit {
   //? Información de utilidad
 
   /**
+   * Indica si es una ruta en la que mostar el icono de carrito de compras
+   */
+  showShoppingCartButton: boolean = true;
+
+  /**
    * Listado de bancos
    */
-  productsList: ProductModel[] = []
+  productsList!: ProductModel[]
 
   constructor(
     public router: Router,
     private shoppingCartServices: ShoppingCartService
-  ){}
+  ){
+    router.events.subscribe((event) => {
+
+      if (event instanceof RoutesRecognized) {
+
+        event.url.includes('shopping-cart') || event.url.includes('dashboard')
+        ? this.showShoppingCartButton = false
+        : this.showShoppingCartButton = true;
+
+      };
+
+    });
+  }
 
   ngOnInit(): void {
 
@@ -53,7 +70,6 @@ export class ShoppingFloatButtonComponent implements OnInit {
 
         // Guardamos el listado de bancos en la variable indicada
         this.productsList = response.data.row;
-        console.log(this.productsList);
 
       },
       error: (error: any) => {}
