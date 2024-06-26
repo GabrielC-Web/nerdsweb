@@ -36,6 +36,10 @@
 
       </a> -->
 
+      <!-- Botón de cerrar sesión -->
+      <mat-icon *ngIf="isLoggedIn" class="d-none d-md-block me-3 cursor-pointer" matTooltip="Cerrar sesión"
+        (click)="logout()">logout</mat-icon>
+
     </ul>
 
     <!-- Icono menu -->
@@ -54,7 +58,7 @@
 
         <a class="cmm-txt-gradient-hover fs-24 text-center" [routerLink]="['dashboard']">
 
-          {{userInfo?.name ? '@'+userInfo?.name : 'Mi Cuenta'}}
+          {{userInfo?.name? '@'+userInfo?.name : 'Mi Cuenta'}}
 
         </a>
 
@@ -64,6 +68,12 @@
         <a class="cmm-txt-gradient-hover fs-24 mb-3" [routerLink]="['products/ecommerce']">Ecommerce</a>
 
         <a class="cmm-txt-gradient-hover fs-24 mb-3" [routerLink]="['products/social_media']">Redes Sociales</a>
+
+        <!-- Divider -->
+        <div class="my-3 w-100 cmm-bg-gradient-secondary" style="height: 3px; border-radius: 50%;"></div>
+
+        <span *ngIf="isLoggedIn" class="cmm-txt-gradient-hover cursor-pointer fs-24 mb-3" (click)="logout()">Cerrar
+          sesión</span>
 
       </div>
 

@@ -21,6 +21,11 @@ export class BaseHeaderComponent implements OnInit {
    */
   userInfo: any;
 
+  /**
+   * Indica si el usuario está logueado
+   */
+  isLoggedIn: boolean = false
+
   constructor(
     private router: Router,
     public dataServices: CmmDataService
@@ -33,11 +38,17 @@ export class BaseHeaderComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if(sessionStorage.getItem(userLoggedVariable)){
+    if (sessionStorage.getItem(userLoggedVariable)) {
 
       // Saco la info del usuario desde el ls para usar en mi objeto
       this.userInfo = JSON.parse(this.dataServices.CmmB64DecodeUnicode(sessionStorage.getItem(userLoggedVariable)!));
 
+    }
+
+    if (sessionStorage.getItem('auth')) {
+      this.isLoggedIn = true
+    } else {
+      this.isLoggedIn = false
     }
 
   }
@@ -52,6 +63,13 @@ export class BaseHeaderComponent implements OnInit {
       if (event instanceof NavigationEnd) {
         // Al navegar reiniciar el scroll de la vista
         window.scrollTo(0, 0);
+
+        if (sessionStorage.getItem('auth')) {
+          this.isLoggedIn = true
+        } else {
+          this.isLoggedIn = false
+        }
+
       };
 
       // On NavigationError
@@ -62,6 +80,16 @@ export class BaseHeaderComponent implements OnInit {
 
     });
 
+  }
+
+  /**
+   * Cierra la sesión
+   */
+  logout() {
+    sessionStorage.clear()
+    this.router.navigate(['/home'])
+    this.isLoggedIn = false
+    this.userInfo = null
   }
 
 }
