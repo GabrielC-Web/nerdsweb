@@ -1,9 +1,10 @@
 <section class="container p-3 d-flex flex-column justify-content-center">
 
-  <div class="d-flex justify-content-around align-items-center gap-2 w-100 mb-4">
+  <div class="d-flex flex-column flex-lg-row justify-content-around align-items-center gap-2 w-100 mb-4">
 
     <!-- Contenedor de productos -->
-    <div class="rounded cmm-bg-white borderShadow p-4 d-flex flex-column justify-content-between align-items-center gap-2">
+    <div
+      class="rounded cmm-bg-white borderShadow p-4 d-flex flex-column justify-content-between align-items-center gap-2">
 
       <div class="d-flex align-items-center gap-2">
 
@@ -26,7 +27,8 @@
     </div>
 
     <!-- Contenedor de Ordenes -->
-    <div class="rounded cmm-bg-white borderShadow p-4 d-flex flex-column justify-content-between align-items-center gap-2">
+    <div
+      class="rounded cmm-bg-white borderShadow p-4 d-flex flex-column justify-content-between align-items-center gap-2">
 
       <div class="d-flex align-items-center gap-2">
 
@@ -49,7 +51,8 @@
     </div>
 
     <!-- Contenedor de Usuarios -->
-    <div class="rounded cmm-bg-white borderShadow p-4 d-flex flex-column justify-content-between align-items-center gap-2">
+    <div
+      class="rounded cmm-bg-white borderShadow p-4 d-flex flex-column justify-content-between align-items-center gap-2">
 
       <div class="d-flex align-items-center gap-2">
 
@@ -73,13 +76,8 @@
 
   </div>
 
-  <ngx-charts-number-card
-    [view]="view"
-    [scheme]="colorScheme"
-    [results]="single"
-    [cardColor]="cardColor"
-    (select)="onSelect($event)"
-    class="cmm-bg-white rounded borderShadow d-flex justify-content-around">
+  <ngx-charts-number-card [view]="view" [scheme]="colorScheme" [results]="single" [cardColor]="cardColor"
+    (select)="onSelect($event)" class="cmm-bg-white w-100 rounded borderShadow d-flex justify-content-around">
   </ngx-charts-number-card>
 
 </section>

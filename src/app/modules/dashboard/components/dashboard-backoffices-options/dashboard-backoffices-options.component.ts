@@ -17,31 +17,31 @@ export class DashboardBackofficesOptionsComponent {
     name: string,
     value: number
   }[] = [
-    {
-      "name": "Germany",
-      "value": 8940000
-    },
-    {
-      "name": "USA",
-      "value": 5000000
-    },
-    {
-      "name": "France",
-      "value": 7200000
-    },
-    {
-      "name": "UK",
-      "value": 5200000
-    },
-    {
-      "name": "Italy",
-      "value": 7700000
-    },
-    {
-      "name": "Spain",
-      "value": 4300000
-    }
-  ];
+      {
+        "name": "Germany",
+        "value": 8940000
+      },
+      {
+        "name": "USA",
+        "value": 5000000
+      },
+      {
+        "name": "France",
+        "value": 7200000
+      },
+      {
+        "name": "UK",
+        "value": 5200000
+      },
+      {
+        "name": "Italy",
+        "value": 7700000
+      },
+      {
+        "name": "Spain",
+        "value": 4300000
+      }
+    ];
   view: [number, number] = [700, 400];
 
   colorScheme: any = {
@@ -49,7 +49,19 @@ export class DashboardBackofficesOptionsComponent {
   };
   cardColor: string = '#28285B';
 
+  windowMatchMedia = window.matchMedia('(min-width: 767px)')
+
   constructor() {
+  }
+
+  ngOnInit() {
+
+    this.windowMatchMedia.addEventListener('change', (event) => {
+      console.log('asd');
+      if (event.matches) {
+      }
+    })
+
   }
 
   onSelect(event: any) {
