@@ -1,0 +1,9 @@
+.text-md-nowrap {
+    white-space: nowrap;
+}
+
+@media (max-width: 567px) {
+    .text-md-nowrap {
+        white-space: wrap;
+    }
+}
