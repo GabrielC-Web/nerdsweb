@@ -50,15 +50,31 @@ export class DashboardBackofficesOptionsComponent {
   cardColor: string = '#28285B';
 
   windowMatchMedia = window.matchMedia('(min-width: 767px)')
+  windowMatchMedia1 = window.matchMedia('(max-width: 500px)')
+  windowMatchMedi2 = window.matchMedia('(min-width: 767px)')
 
   constructor() {
   }
 
   ngOnInit() {
 
+    if (window.innerWidth <= 500) {
+      this.view = [300, 400];
+    }
+
+    if (window.innerWidth <= 767 && window.innerWidth > 500) {
+      this.view = [500, 400];
+    }
+
     this.windowMatchMedia.addEventListener('change', (event) => {
-      console.log('asd');
       if (event.matches) {
+        this.view = [500, 400];
+      }
+    })
+
+    this.windowMatchMedia1.addEventListener('change', (event) => {
+      if (event.matches) {
+        this.view = [300, 400];
       }
     })
 
