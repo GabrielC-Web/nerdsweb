@@ -152,6 +152,12 @@ export const documentImages = {
  * IMAGES
  */
 
+export const glassesImg =
+  'assets/images/img/nd_glasses.svg';
+
+export const glassesWinkImg =
+  'assets/images/img/nd_glasses_wink.svg';
+
 export const cameraImg =
   'assets/images/img/nd_camera_picture.png';
 
