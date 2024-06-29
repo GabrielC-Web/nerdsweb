@@ -48,4 +48,4 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: [CmmAuthGuard],
 })
-export class BaseRoutingModule {}
+export class BaseRoutingModule { }

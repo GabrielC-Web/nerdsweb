@@ -1,4 +1,5 @@
-<form [formGroup]="componentForm" class="d-flex flex-wrap justify-content-end align-items-center gap-2 px-4">
+<form [formGroup]="componentForm"
+  class="d-flex flex-wrap justify-content-center justify-content-sm-end align-items-center gap-2 px-4">
 
   <p *ngIf="titulo" class="fs-36 mb-0 me-auto">{{titulo}}</p>
 
@@ -6,8 +7,10 @@
 
     <div *ngIf="filter.filterType == 'multiSelect'" class="dropdown">
 
-      <button class="border px-3 py-2 cmm-bg-white rounded d-flex align-items-center justify-content-around dropdown-toggle"
-      style="width: 150px; height: 50px; " data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+      <button
+        class="border px-3 py-2 cmm-bg-white rounded d-flex align-items-center justify-content-around dropdown-toggle"
+        style="width: 150px; height: 50px; " data-bs-toggle="dropdown" aria-expanded="false"
+        data-bs-auto-close="outside">
 
         <mat-icon *ngIf="filter.icon">{{filter.icon}}</mat-icon>
 
@@ -20,21 +23,22 @@
         <li *ngFor="let option of filter.options">
 
           <mat-checkbox *ngIf="!option.subOptions?.length" class="dropdown-item" color="primary"
-          (change)="componentForm.controls[option.nameForm].setValue($event.checked)">
+            (change)="componentForm.controls[option.nameForm].setValue($event.checked)">
             {{option.nameOption}}
           </mat-checkbox>
 
           <div *ngIf="option.subOptions?.length" class="dropstart d-flex justify-content-center">
 
-            <mat-checkbox class="dropdown-toggle" color="primary" style="width: 125px;" data-bs-toggle="dropdown" data-bs-auto-close="inside">
+            <mat-checkbox class="dropdown-toggle" color="primary" style="width: 125px;" data-bs-toggle="dropdown"
+              data-bs-auto-close="inside">
               {{option.nameOption}}
             </mat-checkbox>
 
             <ul class="dropdown-menu p-3">
 
               <li *ngFor="let subOption of option.subOptions">
-                <mat-checkbox class="dropdown-item" [checked]="checkSubOptionState(option.nameForm, subOption.value)" color="primary"
-                (change)="addSubOptionMultiselect(option.nameForm, subOption.value)">
+                <mat-checkbox class="dropdown-item" [checked]="checkSubOptionState(option.nameForm, subOption.value)"
+                  color="primary" (change)="addSubOptionMultiselect(option.nameForm, subOption.value)">
                   {{subOption.nameSubOption}}
                 </mat-checkbox>
               </li>
@@ -53,8 +57,10 @@
 
     <div *ngIf="filter.filterType == 'quantity'" class="dropdown">
 
-      <button class="border px-3 py-2 cmm-bg-white rounded dropdown-toggle d-flex align-items-center justify-content-around"
-      style="width: 150px; height: 50px; " data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+      <button
+        class="border px-3 py-2 cmm-bg-white rounded dropdown-toggle d-flex align-items-center justify-content-around"
+        style="width: 150px; height: 50px; " data-bs-toggle="dropdown" aria-expanded="false"
+        data-bs-auto-close="outside">
 
         <mat-icon *ngIf="filter.icon">{{filter.icon}}</mat-icon>
 
@@ -65,7 +71,7 @@
       <div class="dropdown-menu p-3">
 
         <cmm-cmp-i-amount *ngFor="let option of filter.options" [label]="option.nameOption"
-        [formControlName]="option.nameForm"></cmm-cmp-i-amount>
+          [formControlName]="option.nameForm"></cmm-cmp-i-amount>
 
         <cmm-cmp-b-button class="w-100" [button_text]="'Filtrar'" (click)="onSubmit()"></cmm-cmp-b-button>
 
@@ -75,15 +81,16 @@
 
     <div *ngIf="filter.filterType == 'input'">
 
-      <cmm-cmp-i-text *ngFor="let option of filter.options" [label]="option.nameOption" [formControlName]="option.nameForm"
-      [subscriptSizing]="'dynamic'">
-        <mat-icon *ngIf="filter.icon" dinamycPreffix >{{filter.icon}}</mat-icon>
+      <cmm-cmp-i-text *ngFor="let option of filter.options" [label]="option.nameOption"
+        [formControlName]="option.nameForm" [subscriptSizing]="'dynamic'">
+        <mat-icon *ngIf="filter.icon" dinamycPreffix>{{filter.icon}}</mat-icon>
       </cmm-cmp-i-text>
 
     </div>
 
   </div>
 
-  <cmm-cmp-b-button *ngIf="actionButtonText" [button_text]="actionButtonText" (click)="buttonAction.emit()" ></cmm-cmp-b-button>
+  <cmm-cmp-b-button *ngIf="actionButtonText" [button_text]="actionButtonText"
+    (click)="buttonAction.emit()"></cmm-cmp-b-button>
 
 </form>
