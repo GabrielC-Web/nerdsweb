@@ -8,9 +8,9 @@ import { FormBuilder, FormControl, FormGroup, UntypedFormGroup, Validators } fro
 import { CmmComponentFormModel } from 'src/app/common/data/forms/models/form.model';
 import { CmmAlertToastrModel } from 'src/app/common/data/dialogs/models/dialogs.model';
 import { ImagesService } from 'src/app/core/services/images.service';
-import { MrwCatalog } from 'src/app/common/data/list/catalogs/mrw.catalog';
-import { ZoomCatalog } from 'src/app/common/data/list/catalogs/zoom.catalog';
-import { DomesaCatalog } from 'src/app/common/data/list/catalogs/domesa.catalog';
+// import { MrwCatalog } from 'src/app/common/data/list/catalogs/mrw.catalog';
+// import { ZoomCatalog } from 'src/app/common/data/list/catalogs/zoom.catalog';
+// import { DomesaCatalog } from 'src/app/common/data/list/catalogs/domesa.catalog';
 import { transition, trigger, style, animate } from '@angular/animations';
 
 @Component({
@@ -108,9 +108,9 @@ export class PaymentsMetodsComponent implements OnChanges {
     public imagesService: ImagesService,
     public dataService: CmmDataService,
     private fb: FormBuilder,
-  ) {}
+  ) { }
 
-  ngOnInit(): void{
+  ngOnInit(): void {
 
     // Ejecutamos la funcion para recibir el listado de metodos de pago
     this.getPaymentMethods();
@@ -119,7 +119,7 @@ export class PaymentsMetodsComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     // Si el valor de deliveryRequired lo indica
-    if(changes['deliveryRequired'].currentValue){
+    if (changes['deliveryRequired'].currentValue) {
       // Creamos el control de envio
       this.deliveryMethodControl = new FormControl('', Validators.required);
     }
@@ -132,25 +132,25 @@ export class PaymentsMetodsComponent implements OnChanges {
 
     // Hacemos la peticion a la api
     this.shoppingCartServices.getPayMethodsList()
-    .pipe(
-      // Indicamos que esta funcion se ejecutara hasta que el indique lo contario
-      takeUntil(this.$unsubscribe)
-    )
-    .subscribe({
-      next: (response: any) => {
+      .pipe(
+        // Indicamos que esta funcion se ejecutara hasta que el indique lo contario
+        takeUntil(this.$unsubscribe)
+      )
+      .subscribe({
+        next: (response: any) => {
 
-        // Guardamos los metodos de pago
-        this.paymentMethodsList = response.data;
+          // Guardamos los metodos de pago
+          this.paymentMethodsList = response.data;
 
-        // Guardamos el listado de bancos en la variable indicada
-        this.paymentMethodSelected = this.paymentMethodsList[0];
+          // Guardamos el listado de bancos en la variable indicada
+          this.paymentMethodSelected = this.paymentMethodsList[0];
 
-        // Ejecutamos la funcion para crear el formulario de reporte de pago
-        this.createPaymentForm();
+          // Ejecutamos la funcion para crear el formulario de reporte de pago
+          this.createPaymentForm();
 
-      },
-      error: (error: any) => {}
-    });
+        },
+        error: (error: any) => { }
+      });
 
     // // Guardamos los metodos de pago
     // this.paymentMethodsList = [
@@ -226,7 +226,7 @@ export class PaymentsMetodsComponent implements OnChanges {
   /**
    * Inicializa pageForm
    */
-  createPaymentForm():void{
+  createPaymentForm(): void {
 
     // Accedemos a llos inputs que corresponde a la tarjeta que se quiere editar
     const cardInputs = this.paymentMethodSelected.config;
@@ -243,17 +243,17 @@ export class PaymentsMetodsComponent implements OnChanges {
         let ValidatorsArray = [];
 
         // Si el input tiene un patron regex especifico
-        if(input_template.regex){
+        if (input_template.regex) {
           ValidatorsArray.push(Validators.pattern(input_template.regex))
         };
 
         // Si el input tiene un minimo de largo
-        if(input_template.minLength){
+        if (input_template.minLength) {
           ValidatorsArray.push(Validators.minLength(input_template.minLength))
         };
 
         // Si el input tiene un maximo de largo
-        if(input_template.maxLength){
+        if (input_template.maxLength) {
           ValidatorsArray.push(Validators.maxLength(input_template.maxLength))
         };
 
@@ -308,7 +308,7 @@ export class PaymentsMetodsComponent implements OnChanges {
   /**
    * Inicializa pageForm
    */
-  createDeliveryForm():void{
+  createDeliveryForm(): void {
 
     // Accedemos a llos inputs que corresponde a la tarjeta que se quiere editar
     const cardInputs = this.deliveryMethodSelected.config;
@@ -325,17 +325,17 @@ export class PaymentsMetodsComponent implements OnChanges {
         let ValidatorsArray = [];
 
         // Si el input tiene un patron regex especifico
-        if(input_template.regex){
+        if (input_template.regex) {
           ValidatorsArray.push(Validators.pattern(input_template.regex))
         };
 
         // Si el input tiene un minimo de largo
-        if(input_template.minLength){
+        if (input_template.minLength) {
           ValidatorsArray.push(Validators.minLength(input_template.minLength))
         };
 
         // Si el input tiene un maximo de largo
-        if(input_template.maxLength){
+        if (input_template.maxLength) {
           ValidatorsArray.push(Validators.maxLength(input_template.maxLength))
         };
 
@@ -395,20 +395,20 @@ export class PaymentsMetodsComponent implements OnChanges {
   /**
    * Funcion para setear la url de una imagen cargada
    */
-  setImage(controlName: string, file: any){
+  setImage(controlName: string, file: any) {
 
-    if(!file) return;
+    if (!file) return;
 
     this.imagesService.postImage(file)
-    .pipe(takeUntil(this.$unsubscribe))
-    .subscribe({
-      next: (response: any) => {
-        this.paymentForm.controls[controlName].setValue(response.data[0]);
-      },
-      error: (err: any) => {
-        this.paymentForm.controls[controlName].reset();
-      }
-    })
+      .pipe(takeUntil(this.$unsubscribe))
+      .subscribe({
+        next: (response: any) => {
+          this.paymentForm.controls[controlName].setValue(response.data[0]);
+        },
+        error: (err: any) => {
+          this.paymentForm.controls[controlName].reset();
+        }
+      })
 
   }
 
@@ -416,7 +416,7 @@ export class PaymentsMetodsComponent implements OnChanges {
    * Funcion para setear el metodo de envio
    * @param idMethod Id del metodo de envio seleccionado
    */
-  setDeliveryMethod(){
+  setDeliveryMethod() {
 
     // Obtengo el id del metodo de envio
     const idMethod = this.deliveryMethodControl.value;
@@ -426,7 +426,7 @@ export class PaymentsMetodsComponent implements OnChanges {
       (deliveryMethod: any) => deliveryMethod.idMethod == idMethod
     );
 
-    if(!this.deliveryMethodSelected) return;
+    if (!this.deliveryMethodSelected) return;
 
     // Creo el formulario
     this.createDeliveryForm();
@@ -440,17 +440,17 @@ export class PaymentsMetodsComponent implements OnChanges {
 
     let value = this.deliveryForm.controls[controlName].value;
 
-    if(value) {
+    if (value) {
 
       // Busco la url correspondiente
       this.urlMap = this.deliveryMethodSelected.config.map[index].list.find(
         (urlOptions: any) => urlOptions.direction == value
       ).url;
 
-      this.deliveryForm.controls[controlName+'Map'].setValue(this.urlMap);
+      this.deliveryForm.controls[controlName + 'Map'].setValue(this.urlMap);
 
     }
-    else{
+    else {
 
       this.urlMap = '';
 
@@ -464,19 +464,19 @@ export class PaymentsMetodsComponent implements OnChanges {
    */
   setDirectionList(controlname: string) {
 
-    let agencyId = this.deliveryForm.controls[controlname].value;
+    // let agencyId = this.deliveryForm.controls[controlname].value;
 
-    switch (agencyId) {
-      case "1":
-        this.directionsList = MrwCatalog;
-        break;
-      case "2":
-        this.directionsList = ZoomCatalog;
-        break;
-      case "3":
-        this.directionsList = DomesaCatalog;
-        break;
-    }
+    // switch (agencyId) {
+    //   case "1":
+    //     this.directionsList = MrwCatalog;
+    //     break;
+    //   case "2":
+    //     this.directionsList = ZoomCatalog;
+    //     break;
+    //   case "3":
+    //     this.directionsList = DomesaCatalog;
+    //     break;
+    // }
 
   }
 
@@ -484,18 +484,18 @@ export class PaymentsMetodsComponent implements OnChanges {
    * Valida el formulario y decide si puede enviarse al endpoint
    * En el error ejecutamos CmmdataService.CmmSetApiError con el objeto de error del formulario
    */
-  onSubmit(): void{
+  onSubmit(): void {
 
     //* Activo la validación de required
     this.paymentForm.markAllAsTouched();
 
-    if(this.deliveryRequired){
+    if (this.deliveryRequired) {
       this.deliveryMethodControl.markAsTouched();
       this.deliveryForm.markAllAsTouched();
     }
 
     // Si el formulario es invalido me detengo aqui
-    if(!this.paymentForm.valid || ( this.deliveryRequired && !this.deliveryForm.valid) ) {
+    if (!this.paymentForm.valid || (this.deliveryRequired && !this.deliveryForm.valid)) {
       return
     };
 
@@ -504,31 +504,31 @@ export class PaymentsMetodsComponent implements OnChanges {
       this.paymentForm.value,
       this.deliveryRequired ? this.deliveryForm.value : ''
     )
-    .pipe(
-      // Indicamos que esta funcion se ejecutara hasta que el indique lo contario
-      takeUntil(this.$unsubscribe)
-    )
-    .subscribe({
-      next: (response: any) => {
+      .pipe(
+        // Indicamos que esta funcion se ejecutara hasta que el indique lo contario
+        takeUntil(this.$unsubscribe)
+      )
+      .subscribe({
+        next: (response: any) => {
 
-        // Armamos la data de la alerta
-        const messagesData: CmmAlertToastrModel = {
-          typeIcon: 'success',
-          text: response.message,
-        };
+          // Armamos la data de la alerta
+          const messagesData: CmmAlertToastrModel = {
+            typeIcon: 'success',
+            text: response.message,
+          };
 
-        this.nextStep.emit(response.data);
+          this.nextStep.emit(response.data);
 
-      },
-      error: (err: any) => {}
-    })
+        },
+        error: (err: any) => { }
+      })
 
   }
 
   /**
    * Ejecutamos el $unsubscribe
    */
-  ngOnDestroy(): void{
+  ngOnDestroy(): void {
 
     // terminamos cualquier proceso que estuviera pendiente
     this.$unsubscribe.next();
