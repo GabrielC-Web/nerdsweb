@@ -1,14 +1,15 @@
 import { Action } from "@ngrx/store";
-import { DepositFilterModel, CatalogFilterModel } from "./module.models";
+import { OrdersFilterModel, CatalogFilterModel } from "./module.models";
+import { OrderDetailModel } from "src/app/modules/shopping-cart/models/shopping-cart.model";
 
 export enum ModulesActionsTypes {
   // modulo de retiro
   CatalogFilter = '[Catalog filter] Catalog filter',
   ClearCatalogFilter = '[Clear Catalog filter] Clear Catalog filter',
 
-  // modulo de deposito
-  DepositFilter = '[Deposit filter] Deposit filter',
-  ClearDepositwFilter = '[Clear deposit filter] Clear deposit filter',
+  // modulo de Ordenes
+  OrdersFilter = '[Orders filter] Orders filter',
+  ClearOrdersFilter = '[Clear Orders filter] Clear Orders filter',
 
   //reducer genereal
   ModulesFilterClear = '[Modules filterClear] Modules filterClear'
@@ -27,14 +28,14 @@ export class clearCatalogFilter implements Action {
 }
 
 
-// Acciones del modulo de deposito
-export class setDepositFilter implements Action {
-  readonly type = ModulesActionsTypes.DepositFilter;
+// Acciones del modulo de Ordenes
+export class setOrdersFilter implements Action {
+  readonly type = ModulesActionsTypes.OrdersFilter;
 
-  constructor(public payload: { deposit: DepositFilterModel }) {}
+  constructor(public payload: { orders: OrdersFilterModel }) {}
 }
-export class clearDepositFilter implements Action {
-  readonly type = ModulesActionsTypes.ClearDepositwFilter;
+export class clearOrdersFilter implements Action {
+  readonly type = ModulesActionsTypes.ClearOrdersFilter;
 
   constructor() {}
 }
@@ -49,7 +50,7 @@ export class modulesFilterClear implements Action {
 export type ModulesActions =  setCatalogFilter |
                               clearCatalogFilter |
 
-                              setDepositFilter |
-                              clearDepositFilter|
+                              setOrdersFilter |
+                              clearOrdersFilter|
 
                               modulesFilterClear;

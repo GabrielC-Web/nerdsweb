@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil, find } from 'rxjs';
 import { CmmDialogService } from 'src/app/common/services/dialogs.service';
 import { ShoppingCartService } from '../../services/shopping-cart.service';
 import { Store } from '@ngrx/store';
@@ -12,6 +12,7 @@ import { ImagesService } from 'src/app/core/services/images.service';
 // import { ZoomCatalog } from 'src/app/common/data/list/catalogs/zoom.catalog';
 // import { DomesaCatalog } from 'src/app/common/data/list/catalogs/domesa.catalog';
 import { transition, trigger, style, animate } from '@angular/animations';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'cmp-payments-metods',
@@ -89,6 +90,16 @@ export class PaymentsMetodsComponent implements OnChanges {
    */
   directionsList: any[] = [];
 
+  /**
+   * Variable que tiene la información del pago de la orden en el formato de valor nombre
+   */
+  paymentInfo: any[] = [];
+
+  /**
+   * Variable que tiene la información del envio de la orden en el formato de valor nombre
+   */
+  deliveryInfo: any[] = [];
+
   //? Lógica de lifecicle
 
   /**
@@ -103,6 +114,7 @@ export class PaymentsMetodsComponent implements OnChanges {
 
   constructor(
     private store: Store,
+    private router: Router,
     private shoppingCartServices: ShoppingCartService,
     public dialogService: CmmDialogService,
     public imagesService: ImagesService,
@@ -267,36 +279,66 @@ export class PaymentsMetodsComponent implements OnChanges {
           ValidatorsArray
         );
 
+        this.paymentInfo.push({
+          form: input_template.form,
+          name: input_template.label,
+          value: input_template.value
+        });
+
       });
     }
 
     // Por cada objeto.form que venga de dates se crea un nuevo formcontrol
     if (cardInputs.selects) {
       cardInputs.selects.forEach((input_template: any) => {
+
         (group as any)[input_template.form] = new FormControl(
           input_template.value,
           Validators.required
         );
+
+        this.paymentInfo.push({
+          form: input_template.form,
+          name: input_template.label,
+          value: input_template.value
+        });
+
       });
     }
 
     // Por cada objeto.form que venga de dates se crea un nuevo formcontrol
     if (cardInputs.dates) {
       cardInputs.dates.forEach((input_template: any) => {
+
         (group as any)[input_template.form] = new FormControl(
           input_template.value,
           Validators.required
         );
+
+        this.paymentInfo.push({
+          form: input_template.form,
+          name: input_template.label,
+          value: input_template.value
+        });
+
       });
     }
 
     // Por cada objeto.form que venga de dates se crea un nuevo formcontrol
     if (cardInputs.file) {
       cardInputs.file.forEach((input_template: any) => {
+
         (group as any)[input_template.form] = new FormControl(
           input_template.value,
           Validators.required
         );
+
+        this.paymentInfo.push({
+          form: input_template.form,
+          name: input_template.label,
+          value: input_template.value
+        });
+
       });
     }
 
@@ -349,6 +391,12 @@ export class PaymentsMetodsComponent implements OnChanges {
           ValidatorsArray
         );
 
+        this.deliveryInfo.push({
+          form: input_template.form,
+          name: input_template.label,
+          value: input_template.value
+        });
+
       });
 
     }
@@ -356,34 +404,59 @@ export class PaymentsMetodsComponent implements OnChanges {
     // Por cada objeto.form que venga de dates se crea un nuevo formcontrol
     if (cardInputs.selects) {
       cardInputs.selects.forEach((input_template: any) => {
+
         (group as any)[input_template.form] = new FormControl(
           input_template.value,
           Validators.required
         );
+
+        this.deliveryInfo.push({
+          form: input_template.form,
+          name: input_template.label,
+          value: input_template.value
+        });
+
       });
     }
 
     // Por cada objeto.form que venga de directions se crea un nuevo formcontrol
     if (cardInputs.directions) {
       cardInputs.directions.forEach((input_template: any) => {
+
         (group as any)[input_template.form] = new FormControl(
           input_template.value,
           Validators.required
         );
+
+        this.deliveryInfo.push({
+          form: input_template.form,
+          name: input_template.label,
+          value: input_template.value
+        });
+
       });
     }
 
     // Por cada objeto.form que venga de map se crea un nuevo formcontrol
     if (cardInputs.map) {
       cardInputs.map.forEach((input_template: any) => {
+
         (group as any)[input_template.form] = new FormControl(
           input_template.value,
           Validators.required
         );
+
         (group as any)[input_template.form + 'Map'] = new FormControl(
           input_template.value,
           Validators.required
         );
+
+        this.deliveryInfo.push({
+          form: input_template.form,
+          name: input_template.label,
+          value: input_template.value
+        });
+
       });
     }
 
@@ -499,10 +572,65 @@ export class PaymentsMetodsComponent implements OnChanges {
       return
     };
 
+    // objeto de informacion de pago para enviar
+    let PaymentObjectToSend: any = {};
+
+    // objeto a informacion de envio para enviar
+    let DeliveryObjectToSend: any = {};
+
+    // Itero por cada uno de los parametros del formulario
+    for( const [key, value] of Object.entries(this.paymentForm.value)) {
+
+      // Busco el parametro correspondiente en lis lista de parametors del filrto
+      let param = this.paymentInfo.find(
+        (paymentInfo: any) => paymentInfo.form == key
+      );
+
+      // Validamos que exista el parametro
+      if(param) {
+
+        // Se asigna al objeto a enviar un objeto con el valor y el nombre
+        Object.assign(PaymentObjectToSend, {
+          [key]: {
+            value: value,
+            name: param['name']
+          }
+        });
+
+      };
+
+    };
+
+    if(this.deliveryRequired){
+
+    // Itero por cada uno de los parametros del formulario
+    for( const [key, value] of Object.entries(this.paymentForm.value)) {
+
+      // Busco el parametro correspondiente en lis lista de parametors del filrto
+      let param = this.deliveryInfo.find(
+        (deliveryInfo: any) => deliveryInfo.form == key
+      );
+
+      // Validamos que exista el parametro
+      if(param) {
+
+        // Se asigna al objeto a enviar un objeto con el valor y el nombre
+        Object.assign(DeliveryObjectToSend, {
+          [key]: {
+            value: value,
+            name: param['name']
+          }
+        });
+
+      };
+
+    };
+    }
+
     // Hacemos la peticion a la api
     this.shoppingCartServices.createOrder(
-      this.paymentForm.value,
-      this.deliveryRequired ? this.deliveryForm.value : ''
+      PaymentObjectToSend,
+      this.deliveryRequired ? DeliveryObjectToSend : ''
     )
       .pipe(
         // Indicamos que esta funcion se ejecutara hasta que el indique lo contario
@@ -517,7 +645,7 @@ export class PaymentsMetodsComponent implements OnChanges {
             text: response.message,
           };
 
-          this.nextStep.emit(response.data);
+        this.router.navigate(['shopping-cart/order/' + response.data._id]);
 
         },
         error: (err: any) => { }

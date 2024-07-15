@@ -17,37 +17,37 @@ export class DashboardBackofficesOptionsComponent {
     name: string,
     value: number
   }[] = [
-      {
-        "name": "Germany",
-        "value": 8940000
-      },
-      {
-        "name": "USA",
-        "value": 5000000
-      },
-      {
-        "name": "France",
-        "value": 7200000
-      },
-      {
-        "name": "UK",
-        "value": 5200000
-      },
-      {
-        "name": "Italy",
-        "value": 7700000
-      },
-      {
-        "name": "Spain",
-        "value": 4300000
-      }
-    ];
+    {
+      "name": "Ventas Totales",
+      "value": 894
+    },
+    {
+      "name": "Ventas este Mes",
+      "value": 50
+    },
+    {
+      "name": "Total de Ganancias",
+      "value": 7200
+    },
+    {
+      "name": "Inventario total",
+      "value": 52000
+    },
+    {
+      "name": "Productos Vendidos",
+      "value": 8700
+    },
+    {
+      "name": "Usuarios registrados",
+      "value": 430000
+    }
+  ];
   view: [number, number] = [700, 400];
 
   colorScheme: any = {
     domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
   };
-  cardColor: string = '#28285B';
+  cardColor: string = '#ffffff';
 
   windowMatchMedia = window.matchMedia('(min-width: 767px)')
   windowMatchMedia1 = window.matchMedia('(max-width: 500px)')

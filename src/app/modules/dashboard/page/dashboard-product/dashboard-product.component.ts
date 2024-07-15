@@ -14,7 +14,7 @@ import { CmmAlertModalModel } from 'src/app/common/data/dialogs/models/dialogs.m
 import { CmmDialogService } from 'src/app/common/services/dialogs.service';
 
 @Component({
-  selector: 'app-dashboard-product',
+  selector: 'pag-dashboard-product',
   templateUrl: './dashboard-product.component.html',
   styleUrls: ['./dashboard-product.component.scss'],
     animations: [

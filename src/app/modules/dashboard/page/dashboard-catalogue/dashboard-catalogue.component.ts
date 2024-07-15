@@ -13,7 +13,7 @@ import { clearCatalogFilter, setCatalogFilter } from 'src/app/core/reducer/modul
 import { FilterObjectModel } from 'src/app/core/shared/models/filter-form.model';
 
 @Component({
-  selector: 'cmp-dashboard-catalogue',
+  selector: 'pag-dashboard-catalogue',
   templateUrl: './dashboard-catalogue.component.html',
   styleUrls: ['./dashboard-catalogue.component.scss'],
 })
@@ -240,8 +240,6 @@ export class DashboardCatalogueComponent implements CmmComponentTableModel {
     this.$filter.pipe(takeUntil(this.$unsubscribe)).subscribe({
       next: (data: any) => {
         this.filterFull = data;
-        console.log(this.filterFull);
-
       },
     });
   }
@@ -249,7 +247,7 @@ export class DashboardCatalogueComponent implements CmmComponentTableModel {
   ngOnInit(): void {
 
     //* Obtengo el listado de estatus
-    this.getListStatusTypes();
+    // this.getListStatusTypes();
 
     //* Obtengo la data de los pagosmóviles
     this.getTableData();
@@ -447,35 +445,6 @@ export class DashboardCatalogueComponent implements CmmComponentTableModel {
     this.router.navigate(['dashboard/cataloge/product'], {
       queryParams: { product: productB64 },
     });
-
-  }
-
-  //? Información de utilidad
-
-  /**
-   * Llama al servicio de listar tipos de estatus de pagomovil
-   */
-  getListStatusTypes() {
-
-    // //* Me suscribo al servicio para obtener el listado de tipos de estatus
-    // this.dashboardService.getListMobilePaymentsStatus().pipe(takeUntil(this.$unsubscribe)).subscribe({
-    //   next: (response: any) => {
-    //     this.statusList = response.data;
-
-    //     //* Seteo los filtros si ya tengo todos los listados
-    //     if (this.bankList.length) {
-    //       this.utilityListsLoaded = true;
-    //       this.setFilterFull();
-    //     }
-
-    //     //* Desactivo el spinner
-
-    //   },
-    //   error: (error) => {
-    //     //* Desactivo el spinner
-    //     ;
-    //   },
-    // });
 
   }
 

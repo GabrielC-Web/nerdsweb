@@ -8,7 +8,7 @@ export const catalogFilter = createSelector(
   ModulesState => ModulesState.filters.catalog
 )
 
-export const depositFilter = createSelector(
+export const ordersFilter = createSelector(
   SelectModulesState,
-  ModulesState => ModulesState.filters.deposit
+  ModulesState => ModulesState.filters.orders
 )

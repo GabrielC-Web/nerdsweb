@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CatalogFilterModel } from 'src/app/core/reducer/module.models';
+import { CatalogFilterModel, OrdersFilterModel } from 'src/app/core/reducer/module.models';
 import { environment } from 'src/environments/environment';
 import { ProductCatalogModel } from '../models/products.models';
 
@@ -83,13 +83,66 @@ export class DashboardService {
 
   /**
    * @description Servicio para optener todas las ordenes del vendedor
-   * @param formLogin Datos del usuario necesarios para hacer login
+   * @param filterData Datos utiles para la funcion de busqueda de productos
    * @returns
    */
-  getUserOrders(): Observable<any> {
+  getUserOrders(filterData: OrdersFilterModel): Observable<any> {
 
-    return this.http.get(this.gatewayUrl + '/v1/profile/getCart');
+    let params = {}
 
+    // Itero por cada uno de los mensajes de error que se indiquen
+    for( const [key, value] of Object.entries(filterData)) {
+
+      if(value) {
+
+        // Se asigna al objeto que se desea mandar en los parametros
+        Object.assign(params, {[key]: value});
+
+      }
+
+    }
+
+    return this.http.get(this.gatewayUrl + '/v1/operation/user/order', {params});
+
+  }
+
+  /**
+   * @description Servicio para obtener el detalle de una orden
+   * @param idOrder id de la orde de la cual se quiere obtener el detalle
+   * @returns
+   */
+  getOrderDetail(idOrder: string): Observable<any> {
+
+    return this.http.get(this.gatewayUrl + '/v1/operation/order/detail', {
+      params: {
+        idOrder
+      }
+    });
+  }
+
+  /**
+   * Funcion para validar/rexhazar una orden
+   * @param idOrder Id de la orden a evaluar
+   * @param aprove Resultado de la evaluacion
+   * @returns
+   */
+  validateOrder(formData: any): Observable<any> {
+
+    let params = {}
+
+    // Itero por cada uno de los mensajes de error que se indiquen
+    for( const [key, value] of Object.entries(formData)) {
+
+      if(value) {
+
+        // Se asigna al objeto que se desea mandar en los parametros
+        Object.assign(params, {[key]: value});
+
+      }
+
+    }
+
+    return this.http.put(this.gatewayUrl + '/v1/operation/order/update', params)
   }
 
   /**

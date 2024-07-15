@@ -1,9 +1,9 @@
 import { ModulesActions, ModulesActionsTypes } from "./module.actions";
-import { DepositFilterModel, CatalogFilterModel } from './module.models';
+import { CatalogFilterModel, OrdersFilterModel } from './module.models';
 export interface ModulesState {
   filters: {
     catalog: CatalogFilterModel,
-    deposit: DepositFilterModel,
+    orders: OrdersFilterModel,
   };
 }
 
@@ -19,22 +19,22 @@ export const initialCatalogFilterModel: CatalogFilterModel = {
   visibility: false,
 };
 
-export const initialDepositFilter: DepositFilterModel = {
+export const initialOrdersFilterModel: OrdersFilterModel = {
   limit: '10',
   page: '0',
   search: '',
-  startDate: '',
-  endDate: '',
+  stockStart: '',
+  stockEnd: '',
   amountStart: '',
   amountEnd: '',
-  idDepositStatus: '',
-  idDepositCurrency: '',
+  idStatus: '',
+  visibility: false,
 };
 
 export const initialModuleFilter: ModulesState = {
   filters: {
     catalog: initialCatalogFilterModel,
-    deposit: initialDepositFilter,
+    orders: initialOrdersFilterModel,
   }
 }
 
@@ -44,7 +44,7 @@ export function ModulesReducer(
 ) {
   switch (action.type) {
 
-    // Acciones de retiro
+    // Acciones de catalogo de productos
     case ModulesActionsTypes.CatalogFilter:
       return {
         filters: {
@@ -60,19 +60,19 @@ export function ModulesReducer(
         }
       }
 
-    // Acciones de deposito
-    case ModulesActionsTypes.DepositFilter:
+    // Acciones de Orderso
+    case ModulesActionsTypes.OrdersFilter:
       return {
         filters: {
           ...state.filters,
-          deposit: action.payload.deposit
+          orders: action.payload.orders
         }
       }
-    case ModulesActionsTypes.ClearDepositwFilter:
+    case ModulesActionsTypes.ClearOrdersFilter:
       return {
         filters: {
           ...state.filters,
-          deposit: initialDepositFilter
+          orders: initialOrdersFilterModel
         }
       }
 
@@ -80,7 +80,7 @@ export function ModulesReducer(
     case ModulesActionsTypes.ModulesFilterClear:
       return {
         filters: {
-          deposit: initialDepositFilter,
+          orders: initialOrdersFilterModel,
           catalog: initialCatalogFilterModel
         }
       }

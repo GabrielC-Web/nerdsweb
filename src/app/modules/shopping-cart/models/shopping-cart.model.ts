@@ -40,7 +40,7 @@ export interface OrderDetailModel {
     status:          string;
     payData:         any;
     sendMethod:      any;
-    _id:             string;
+    idOrder:             string;
     descriptionInfo: any;
 }
 

@@ -29,21 +29,103 @@
 
           <div *ngIf="option.subOptions?.length" class="dropstart d-flex justify-content-center">
 
-            <mat-checkbox class="dropdown-toggle" color="primary" style="width: 125px;" data-bs-toggle="dropdown"
-              data-bs-auto-close="inside">
+            <p class="dropdown-toggle my-2 fs-14" style="width: 125px;"
+            data-bs-toggle="dropdown" data-bs-auto-close="inside">
               {{option.nameOption}}
-            </mat-checkbox>
+            </p>
 
             <ul class="dropdown-menu p-3">
 
               <li *ngFor="let subOption of option.subOptions">
-                <mat-checkbox class="dropdown-item" [checked]="checkSubOptionState(option.nameForm, subOption.value)"
-                  color="primary" (change)="addSubOptionMultiselect(option.nameForm, subOption.value)">
+                <mat-radio-button class="dropdown-item" [checked]="checkSubOptionState(option.nameForm, subOption.value)"
+                (change)="addSubOptionMultiselect(option.nameForm, subOption.value)" [value]="subOption.value">
                   {{subOption.nameSubOption}}
-                </mat-checkbox>
+                </mat-radio-button>
               </li>
 
               <cmm-cmp-b-button class="w-100" [button_text]="'Filtrar'" (click)="onSubmit()"></cmm-cmp-b-button>
+
+            </ul>
+
+          </div>
+
+        </li>
+
+      </ul>
+
+    </div>
+
+    <div *ngIf="filter.filterType == 'radioSelect'" class="dropdown">
+
+      <button class="border px-3 py-2 cmm-bg-white rounded d-flex align-items-center justify-content-around dropdown-toggle"
+      style="width: 150px; height: 50px; " data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+
+        <mat-icon *ngIf="filter.icon">{{filter.icon}}</mat-icon>
+
+        <p class="m-0">{{filter.nameFilter}}</p>
+
+      </button>
+
+      <ul class="dropdown-menu">
+
+        <li *ngFor="let option of filter.options">
+
+          <div class="dropstart d-flex justify-content-center">
+
+            <p class="dropdown-toggle my-2 fs-14" style="width: 125px;"
+            data-bs-toggle="dropdown" data-bs-auto-close="inside">
+              {{option.nameOption}}
+            </p>
+
+            <ul class="dropdown-menu p-3">
+
+              <li *ngFor="let subOption of option.subOptions">
+                <mat-radio-button class="dropdown-item" [checked]="checkSubOptionState(option.nameForm, subOption.value)"
+                (change)="this.componentForm.controls[option.nameForm].setValue(subOption.value); onSubmit()">
+                  {{subOption.nameSubOption}}
+                </mat-radio-button>
+              </li>
+
+            </ul>
+
+          </div>
+
+        </li>
+
+      </ul>
+
+    </div>
+
+    <div *ngIf="filter.filterType == 'radioSelect'" class="dropdown">
+
+      <button class="border px-3 py-2 cmm-bg-white rounded d-flex align-items-center justify-content-around dropdown-toggle"
+      style="width: 150px; height: 50px; " data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+
+        <mat-icon *ngIf="filter.icon">{{filter.icon}}</mat-icon>
+
+        <p class="m-0">{{filter.nameFilter}}</p>
+
+      </button>
+
+      <ul class="dropdown-menu">
+
+        <li *ngFor="let option of filter.options">
+
+          <div class="dropstart d-flex justify-content-center">
+
+            <p class="dropdown-toggle my-2 fs-14" style="width: 125px;"
+            data-bs-toggle="dropdown" data-bs-auto-close="inside">
+              {{option.nameOption}}
+            </p>
+
+            <ul class="dropdown-menu p-3">
+
+              <li *ngFor="let subOption of option.subOptions">
+                <mat-radio-button class="dropdown-item" [checked]="checkSubOptionState(option.nameForm, subOption.value)"
+                (change)="this.componentForm.controls[option.nameForm].setValue(subOption.value); onSubmit()">
+                  {{subOption.nameSubOption}}
+                </mat-radio-button>
+              </li>
 
             </ul>
 
@@ -88,9 +170,44 @@
 
     </div>
 
+    <div *ngIf="filter.filterType == 'date'">
+
+      <div *ngFor="let option of filter.options" class="position-relative">
+
+        <mat-form-field class="position-absolute invisible">
+          <input matInput [matDatepicker]="picker" [formControlName]="option.nameForm">
+          <mat-datepicker #picker ></mat-datepicker>
+        </mat-form-field>
+
+        <button class="border px-3 py-2 cmm-bg-white rounded d-flex align-items-center justify-content-around position-relative"
+        style="width: 150px; height: 50px; " mat-raised-button (click)="picker.open()">
+
+          <mat-icon *ngIf="filter.icon">{{filter.icon}}</mat-icon>
+
+          <p class="m-0">{{filter.nameFilter}}</p>
+
+        </button>
+
+      </div>
+
+    </div>
+
   </div>
 
   <cmm-cmp-b-button *ngIf="actionButtonText" [button_text]="actionButtonText"
     (click)="buttonAction.emit()"></cmm-cmp-b-button>
+
+  <div class="w-100 d-flex flex-wrap gap-2 align-items-center justify-content-end my-2">
+
+    <div *ngFor="let item of componentForm.value | keyvalue">
+
+      <p *ngIf="item.value" class="m-0 p-3 rounded fs-14 btn-primary cursor-pointer text-center" style="min-width: 115px;"
+      (click)="this.componentForm.controls[item.key!.toString()].setValue(''); onSubmit()">
+        {{item.value}}
+      </p>
+
+    </div>
+
+  </div>
 
 </form>

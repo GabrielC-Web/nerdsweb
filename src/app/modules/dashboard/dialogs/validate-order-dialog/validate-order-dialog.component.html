@@ -1,0 +1,41 @@
+<div class="w-100 h-100 d-flex flex-column justify-content-center align-items-center p-3">
+
+  <!-- Titulo -->
+  <p class="fs-26 fw-semibold text-center mb-3">
+    {{
+      data.aprove
+      ? '¿Esta seguro de confirmar la orden?'
+      : '¿Esta seguro de declinar la orden?'
+    }}
+  </p>
+
+  <!-- Desclaimer -->
+  <p class="fs-16 text-center">
+    Al {{data.aprove ? 'confirmar?' : 'declinar?'}} la orden, no podras modificarla <br>
+    y se compromete a realizar la entrega del producto
+  </p>
+
+  <!-- Formulario -->
+  <form *ngIf="componentForm" [formGroup]="componentForm" class="w-100 d-flex flex-column py-3" style="max-width: 470px;">
+
+    <cmm-cmp-i-select *ngIf="optionsList" formControlName="description" label="Evaluacion de la orden"
+    [optionsList]="optionsList" [optionKey]="'key'" [optionName]="'name'"></cmm-cmp-i-select>
+
+    <!-- Input de monto -->
+    <cmm-cmp-i-amount @inOutAnimation class="col-12" formControlName="amount" [onlyNumber]="true" [maxLength]="27"
+    [label]="componentForm.controls['description'].value == '2' ? 'Monto sobrante' : 'Monto faltante'"
+    *ngIf="componentForm.controls['description'].value == '2' || componentForm.controls['description'].value == '4'">
+    </cmm-cmp-i-amount>
+
+  </form>
+
+  <!-- Botones -->
+  <div class="w-100 d-flex justify-content-around ">
+    <cmm-cmp-b-button class="w-50 px-1" button_text="CANCELAR" buttonType="warning"
+    mat-dialog-close ></cmm-cmp-b-button>
+
+    <cmm-cmp-b-button class="w-50 px-1" button_text="CONFIRMAR" buttonType="success"
+    (submit)="onSubmit()" ></cmm-cmp-b-button>
+  </div>
+
+</div>

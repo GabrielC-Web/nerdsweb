@@ -77,7 +77,7 @@ export class ShoppingCartService {
    */
   getOrderDetail(idOrder: string): Observable<any> {
 
-    return this.http.get(this.gatewayUrl + '/v1/operation/order/detail', {
+    return this.http.get(this.gatewayUrl + '/v1/operation/user/order/detail', {
       params: {
         idOrder
       }

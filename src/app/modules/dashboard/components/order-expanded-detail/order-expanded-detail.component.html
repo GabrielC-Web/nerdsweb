@@ -1,0 +1,106 @@
+<div *ngIf="orderDetail" class="d-flex flex-wrap justify-content-around p-3">
+
+  <!-- Contenedor de datos de pagos y envios -->
+  <div class="col-12 col-md-7 d-flex flex-wrap">
+
+    <!-- Contenedor con la imagen -->
+    <div *ngIf="image" [style.background-image]="'url(' + image.value + ')'"
+    class="col-12 col-md-6 rounded border shadowBorder" style="min-height: 350px; background-size: 100% 100%;">
+
+    </div>
+
+    <!-- Contenedor de informacion de pagos y envios -->
+    <div class="col-12 col-md-6 d-flex flex-column pt-3">
+
+      <!-- Informacion de pagos -->
+      <p *ngFor="let item of paymentMethodInfo" class="w-100 px-md-3 fw-bold fs-18">
+        {{item.name}}: <span class="w-100 fs-18" >{{item.value}}</span>
+      </p>
+
+      <!-- Metodo de envio -->
+      <p *ngIf="showSendInfo && orderDetail.sendMethod" class="w-100 px-md-3 fw-bold fs-18">
+        Metodo de Envío:
+        <span class="w-100 fs-18">
+          {{
+            orderDetail.sendMethod.agency
+            ? 'Envio Nacional'
+            : orderDetail.sendMethod.directionMap
+            ? 'Buscar en el Local'
+            : 'Delivery(Caracas)'
+          }}
+        </span>
+      </p>
+
+      <!-- Agencia de envio -->
+      <div *ngIf="showSendInfo && shippingAgency" class="col-12 d-flex flex-column px-md-1 flex-grow-1">
+
+        <p class="fs-18 fw-bold">Agencia de Envío:</p>
+
+        <img [src]="shippingAgency.logo" alt="logo de la enpresa {{shippingAgency.name}}"
+        class="col-10" style="max-width: 150px;" matTooltip="{{shippingAgency.name}}">
+
+      </div>
+
+      <!-- Direccion de envio -->
+      <p *ngIf="showSendInfo && orderDetail.sendMethod?.direction" class="w-100 px-md-3 fw-bold fs-18">
+        Dirección de Envío: <span class="w-100 fs-18" >{{orderDetail.sendMethod.direction}}</span>
+      </p>
+
+      <!-- boton de descarga -->
+      <button *ngIf="image"
+      mat-button class="mt-auto mb-3" style="width: fit-content;">
+        <mat-icon class="m-0" style="width: 50px !important; height: 50px !important; font-size: 50px !important;" (click)="downloadImage(image)">save_alt</mat-icon>
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- Contendor de montos -->
+  <div class="col-12 col-md-5 d-flex flex-column py-3 gap-3">
+
+    <!-- <div class="col-12 d-flex justify-content-between px-3">
+
+      <p class="fs-20 fw-semibold">Subtotal</p>
+
+      <p class="fs-20 fw-semibold px-4">${{orderDetail.amount | cmm_p_amount_format}}</p>
+
+    </div> -->
+
+    <!-- <div class="col-12 d-flex justify-content-between px-3">
+
+      <p class="fs-20 fw-semibold">Envío</p>
+
+      <p class="fs-20 fw-semibold px-4">${{orderDetail.amount | cmm_p_amount_format}}</p>
+
+    </div> -->
+
+    <!-- mOnto total -->
+    <div class="col-12 d-flex justify-content-between px-3">
+
+      <p class="fs-20 fw-semibold">Total</p>
+
+      <p class="fs-20 fw-semibold px-3">${{orderDetail.amount | cmm_p_amount_format}}</p>
+
+    </div>
+
+    <!-- Botones -->
+    <div class="col-12 d-flex justify-content-between align-items-center mt-auto">
+
+      <p class="fs-20 fw-semibold m-0 px-3">CAMBIAR ESTATUS</p>
+
+      <div class="d-flex gap-2 flex-grow-1 px-2">
+
+        <cmm-cmp-b-button class="w-50" button_text="DECLINAR" buttonType="cancel"
+        (submit)="validateOrder(false)" ></cmm-cmp-b-button>
+
+        <cmm-cmp-b-button class="w-50" button_text="CONFIRMAR" buttonType="success"
+        (submit)="validateOrder(true)" ></cmm-cmp-b-button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

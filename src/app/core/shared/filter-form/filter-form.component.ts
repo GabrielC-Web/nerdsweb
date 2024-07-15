@@ -23,7 +23,12 @@ export class FilterFormComponent implements CmmComponentFormModel {
   /**
    * Formulario en el que se trabajará (Aplica si el form es de más de un input)
    */
-  componentForm!: FormGroup
+  componentForm!: FormGroup;
+
+  /**
+   *
+   */
+  selected: Date | null = null;
 
   //? Variables con información de utilidad para el form
 
@@ -151,6 +156,38 @@ export class FilterFormComponent implements CmmComponentFormModel {
 
       }
 
+      // En caso de que el campo sea de tipo Seleccion unica entre varias opciones
+      if(filtersObject.filterType == 'radioSelect'){
+
+        // itero por cada uno de las opciones del campo
+        filtersObject.options.forEach( (option: OptionFilterModel) => {
+
+          // Le asigno al arreglo de controles un nuevo paramtero con el nombre del control
+          (group as any)[option.nameForm] = new FormControl(
+            // Le coloco el valor inicial que venga, si viene
+            option.value
+          );
+
+        })
+
+      }
+
+      // En caso de que el campo sea de tipo Seleccion multiple
+      if(filtersObject.filterType == 'date'){
+
+        // itero por cada uno de las opciones del campo
+        filtersObject.options.forEach( (option: OptionFilterModel) => {
+
+          // Le asigno al arreglo de controles un nuevo paramtero con el nombre del control
+          (group as any)[option.nameForm] = new FormControl(
+            // Le coloco el valor inicial que venga, si viene
+            option.value
+          );
+
+        })
+
+      }
+
     })
 
     //* Inicializo el formulario
@@ -186,7 +223,9 @@ export class FilterFormComponent implements CmmComponentFormModel {
    */
   addSubOptionMultiselect(formName: string, value: string) {
 
-    let optionsArray: string[] = (this.componentForm.controls[formName].value as String).split(',');
+    let controlValue: string = this.componentForm.controls[formName].value;
+
+    let optionsArray: string[] = controlValue ? controlValue.split(',') : [];
 
     let index = optionsArray.findIndex((option: string) => option == value);
 
@@ -217,7 +256,9 @@ export class FilterFormComponent implements CmmComponentFormModel {
     if(index >= 0){
       return true;
     }
+
     return false;
+
   }
   /**
    * Valida el formulario y decide si puede enviarse al endpoint

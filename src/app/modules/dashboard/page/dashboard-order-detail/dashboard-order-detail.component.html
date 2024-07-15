@@ -1,0 +1,85 @@
+<section *ngIf="orderDetail" class="container d-flex flex-column align-items-center">
+
+  <div class="d-flex flex-column justify-content-center align-items-center position-relative w-100 mb-4"
+  style="height: 280px; max-width: 1000px;">
+
+    <!-- Fondo -->
+    <img class="position-absolute col-11" [src]="nerdsWebIsotipo" alt="isotipo de nerdsweb"
+    style="top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.1;">
+
+    <p class="fs-40 text-center fw-semibold position-relative">Detalles de la orden</p>
+
+    <p class="fs-18 text-center">
+      Orden número <span class="fs-18 fw-bold text-uppercase position-relative">{{orderDetail.idOrder}}</span>
+    </p>
+
+  </div>
+
+  <!-- Contenedor de los productos -->
+  <div class="d-flex flex-column w-100 overflow-auto border rounded mb-5">
+
+    <div class="d-flex flex-column w-100 overflow-auto">
+
+      <!-- Encabezado de la tabla -->
+      <div class="w-100 d-flex justify-content-around border-bottom px-3 p-md-0" style="min-width: 700px;">
+
+        <!-- Imagen de la variante -->
+        <div class="w-100 text-center" style="min-width: 80px;">
+          <p class="text-center text-nowrap my-2 fs-18 cmm-txt-primary">IMAGEN</p>
+        </div>
+
+        <!-- Nombre -->
+        <div class="w-100 text-center" style="min-width: 240px;">
+          <p class="text-center text-nowrap my-2 fs-18 cmm-txt-primary">NOMBRE</p>
+        </div>
+
+        <!-- Precio base del producto -->
+        <p class="w-100 text-center text-nowrap my-2 fs-18 cmm-txt-primary" style="max-width: 240px;">PRECIO</p>
+
+        <!-- Precio extra del producto -->
+        <p class="w-100 text-center text-nowrap my-2 fs-18 cmm-txt-primary" style="max-width: 240px;">PRECIO EXTR</p>
+
+        <!-- La cantidad de variantes -->
+        <p class="w-100 text-center text-nowrap my-2 fs-18 cmm-txt-primary" style="max-width: 240px;">CANT</p>
+
+        <!-- Descuento del producto -->
+        <p class="w-100 text-center text-nowrap my-2 fs-18 cmm-txt-primary" style="max-width: 240px;">DESC</p>
+
+        <!-- La cantidad de variantes -->
+        <p class="w-100 text-center text-nowrap my-2 fs-18 cmm-txt-primary" style="max-width: 240px;">TOTAL</p>
+
+      </div>
+
+      <!-- Filas de la tabla -->
+      <div *ngFor="let product of orderDetail.productList; index as i" style="min-width: 700px;"
+      class="w-100 d-flex justify-content-around align-items-center py-2 px-3 px-md-0">
+
+        <!-- Imagen del preview -->
+        <div class="w-100 d-flex justify-content-center align-items-center" style="min-width: 80px;">
+          <img [src]="product.image[0]" class="p-0 rounded" alt="imagen del producto"
+          style="width: 80px; aspect-ratio: 1/1;">
+        </div>
+
+        <div class="w-100 d-flex align-items-center" style="min-width: 240px;">
+          <p class="fs-18 text-truncate m-0 ps-2">{{product.name}}</p>
+        </div>
+
+        <p class="fs-18 text-truncate text-center m-0 w-100" style="max-width: 240px;">${{product.amount| cmm_p_amount_format}}</p>
+
+        <p class="fs-18 text-truncate text-center m-0 w-100" style="max-width: 240px;">${{product.extraAmount| cmm_p_amount_format}}</p>
+
+        <p class="fs-18 text-truncate text-center m-0 w-100" style="max-width: 240px;">x{{product.quantity}}</p>
+
+        <p class="fs-18 text-truncate text-center m-0 w-100 cmm-txt-error">-{{product.discount | cmm_p_amount_format}}</p>
+
+        <p class="fs-18 text-truncate text-center m-0 w-100" style="max-width: 240px;">${{productAmount(i) | cmm_p_amount_format}}</p>
+
+      </div>
+
+    </div>
+
+    <cmp-order-expanded-detail [orderDetail]="orderDetail"></cmp-order-expanded-detail>
+
+  </div>
+
+</section>
