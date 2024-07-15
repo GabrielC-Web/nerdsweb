@@ -1,12 +1,12 @@
-<section class="container p-3 mb-5">
+<section class="container p-3" style="margin-bottom: 8rem;">
 
   <!-- Intento de stepper -->
   <div *ngIf="productsList.length" class="container d-flex justify-content-around align-items-center">
 
     <!-- Paso del proceso -->
     <div class="rounded-circle border col-2 d-flex justify-content-center align-items-center cursor-pointer"
-    style="max-width: 100px; aspect-ratio: 1/1;" (click)="step = 1" [matTooltip]="step != 1 ? 'Ir a paso 1' : ''"
-    [ngClass]="step == 1 ? 'actual-step' : stepsCompleted > 1 ? 'step-completed' : 'default-step'">
+      style="max-width: 100px; aspect-ratio: 1/1;" (click)="step = 1" [matTooltip]="step != 1 ? 'Ir a paso 1' : ''"
+      [ngClass]="step == 1 ? 'actual-step' : stepsCompleted > 1 ? 'step-completed' : 'default-step'">
 
       <p class="m-0 fs-30">1</p>
 
@@ -17,8 +17,8 @@
 
     <!-- Paso del proceso -->
     <div class="rounded-circle border col-2 d-flex justify-content-center align-items-center cursor-pointer"
-    style="max-width: 100px; aspect-ratio: 1/1;" (click)="step = 2" [matTooltip]="step != 2 ? 'Ir a paso 2' : ''"
-    [ngClass]="step == 2 ? 'actual-step' : stepsCompleted > 2 ? 'step-completed' : 'default-step'">
+      style="max-width: 100px; aspect-ratio: 1/1;" (click)="step = 2" [matTooltip]="step != 2 ? 'Ir a paso 2' : ''"
+      [ngClass]="step == 2 ? 'actual-step' : stepsCompleted > 2 ? 'step-completed' : 'default-step'">
 
       <p class="m-0 fs-30">2</p>
 
@@ -41,12 +41,12 @@
   <div class="container mx-auto p-3 d-flex flex-wrap justify-content-around align-items-center">
 
     <cmp-cart-products *ngIf="step == 1" class="col-12 p-2" [productsList]="productsList"
-    (nextStep)="$event ? step = 2 : getProductsList()"> </cmp-cart-products>
+      (nextStep)="$event ? step = 2 : getProductsList()"> </cmp-cart-products>
 
     <!-- <cmp-delivery-method *ngIf="step == 2"  class="col-12 p-2"></cmp-delivery-method> -->
 
     <cmp-payments-metods *ngIf="step == 2" class="col-12 p-2" [deliveryMethodsList]="deliveryMethodsList"
-    [deliveryRequired]="deliveryRequired"></cmp-payments-metods>
+      [deliveryRequired]="deliveryRequired"></cmp-payments-metods>
 
   </div>
 

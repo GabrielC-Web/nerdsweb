@@ -1,157 +1,159 @@
 <div *ngIf="productsList.length else cover" class="d-flex flex-column align-items-center shoppingCartProduts">
 
   <!-- Productos -->
-  <mat-expansion-panel *ngFor="let product of productsList; index as i"
-  [expanded]="i === 0" hideToggle class="shadowBorder col-12 my-2 p-2">
+  <mat-expansion-panel *ngFor="let product of productsList; index as i" [expanded]="i === 0" hideToggle
+    class="shadowBorder col-12 my-2 p-2">
 
-      <!-- Fuera (fila) -->
-      <mat-expansion-panel-header>
+    <!-- Fuera (fila) -->
+    <mat-expansion-panel-header>
 
-          <!-- Contenedor del titulo -->
-          <mat-panel-title>
+      <!-- Contenedor del titulo -->
+      <mat-panel-title>
 
-            <div class="d-flex gap-3 align-items-center">
+        <div class="d-flex gap-3 align-items-center">
 
-              <img class="rounded" style="max-width: 150px;" [src]="product.image[0]" alt="Imagen del producto">
+          <img class="rounded" style="max-width: 150px;" [src]="product.image[0]" alt="Imagen del producto">
 
-              <!-- Contenedor del titulo del plan -->
-              <div class="d-flex flex-column">
-
-                <!-- Nombre del plan -->
-                <p class="d-flex align-items-center mb-2 cmm-txt-primary fs-34 fw-bold">
-                  {{product.productName}}
-                </p>
-
-                <!-- Nombre del template -->
-                <p class="m-0 fs-20">
-                  {{product.name}}
-                </p>
-
-              </div>
-
-            </div>
-
-          </mat-panel-title>
-
-
-          <mat-panel-description class="justify-content-end m-0 pe-4" style="flex-grow: initial;">
-
-              <!-- Contenedor del monto y textos descriptivos del monto -->
-              <div class="d-flex flex-column align-items-center" style="min-width: 150px;">
-
-                <!-- Monto -->
-                <p class="fs-28 fw-bold m-0">
-                  ${{
-                    product.extraAmount
-                    ? (product.amount * +product.quantity) + product.extraAmount
-                    : (product.amount * +product.quantity)
-                  }}
-                </p>
-
-                <!-- Solo si es con contratacion -->
-                <p *ngIf="product.extraAmount" class="fs-14 m-0">Contratacio</p>
-
-                <p *ngIf="product.extraAmount" class="fs-14 m-0 text-center">+</p>
-
-                <!-- Plan de mensualidad -->
-                <p *ngIf="product.extraAmount" class="fs-14 m-0">
-                  Plan de prueba
-                </p>
-
-              </div>
-
-          </mat-panel-description>
-
-      </mat-expansion-panel-header>
-
-      <!-- Dentro -->
-      <div class="h-100 d-flex flex-column justify-content-end" style="min-height: 250px;">
-
-        <!-- Descripcion -->
-        <p class="fs-18 text-center mb-auto py-4">
-          {{product.description}}
-        </p>
-
-        <!-- Precio de contratacion -->
-        <div *ngIf="product.extraAmount" class="w-100 d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
-
-          <!-- titulo -->
-          <p class="fs-20 fw-bold m-0">Precio de contratación:</p>
-
-          <!-- Monto -->
-          <p class="fs-20 fw-bold m-0">{{product.extraAmount}} USD</p>
-
-        </div>
-
-        <!-- Precio de mensualidades -->
-        <div class="w-100 d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
-
-          <!-- titulo -->
+          <!-- Contenedor del titulo del plan -->
           <div class="d-flex flex-column">
 
-            <p class="fs-20 fw-bold m-0">Mensualidades a pagar:</p>
+            <!-- Nombre del plan -->
+            <p class="d-flex align-items-center mb-2 cmm-txt-primary fs-34 fw-bold">
+              {{product.productName}}
+            </p>
 
-            <p *ngIf="product.extraAmount" class="text-center fs-12 m-0">
-              Al contratar tu primer servicio <br>
-              <span class="fw-bold">obtienes tu primer mes gratis.</span>
+            <!-- Nombre del template -->
+            <p class="m-0 fs-20">
+              {{product.name}}
             </p>
 
           </div>
 
-          <!-- Botonera -->
-          <div class="d-flex justify-content-around align-items-center border rounded p-2" style="width: 200px;">
+        </div>
 
-            <button class="border-0 cmm-bg-white d-flex align-items-center" (click)="minus(i)">
+      </mat-panel-title>
 
-              <mat-icon>remove</mat-icon>
 
-            </button>
+      <mat-panel-description class="justify-content-end m-0 pe-4" style="flex-grow: initial;">
 
-            <p class="fs-26 m-0">
-              {{+product.quantity}}
-            </p>
-
-            <button class="border-0 cmm-bg-white d-flex align-items-center" (click)="plus(i)">
-
-              <mat-icon>add</mat-icon>
-
-            </button>
-
-          </div>
+        <!-- Contenedor del monto y textos descriptivos del monto -->
+        <div class="d-flex flex-column align-items-center" style="min-width: 150px;">
 
           <!-- Monto -->
-          <p class="fs-20 fw-bold m-0">{{product.amount * +product.quantity}} USD</p>
+          <p class="fs-28 fw-bold m-0">
+            ${{
+            product.extraAmount
+            ? (product.amount * +product.quantity) + product.extraAmount
+            : (product.amount * +product.quantity)
+            }}
+          </p>
+
+          <!-- Solo si es con contratacion -->
+          <p *ngIf="product.extraAmount" class="fs-14 m-0">Contratacio</p>
+
+          <p *ngIf="product.extraAmount" class="fs-14 m-0 text-center">+</p>
+
+          <!-- Plan de mensualidad -->
+          <p *ngIf="product.extraAmount" class="fs-14 m-0">
+            Plan de prueba
+          </p>
 
         </div>
 
-        <!-- Precio de contratacion -->
-        <div *ngIf="product.discount" class="w-100 d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
+      </mat-panel-description>
 
-          <!-- titulo -->
-          <p class="fs-20 fw-bold m-0">Descuento de un mes gratis:</p>
+    </mat-expansion-panel-header>
 
-          <!-- Monto -->
-          <p class="fs-20 fw-bold m-0">-{{product.discount}} USD</p>
+    <!-- Dentro -->
+    <div class="h-100 d-flex flex-column justify-content-end" style="min-height: 250px;">
 
-        </div>
+      <!-- Descripcion -->
+      <p class="fs-18 text-center mb-auto py-4">
+        {{product.description}}
+      </p>
 
-        <!-- Monto total -->
-        <div class="w-100 d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
+      <!-- Precio de contratacion -->
+      <div *ngIf="product.extraAmount"
+        class="w-100 d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
 
-          <!-- titulo -->
-          <p class="fs-20 fw-bold m-0">Costo del plan:</p>
+        <!-- titulo -->
+        <p class="fs-20 fw-bold m-0">Precio de contratación:</p>
 
-          <!-- Monto -->
-          <p class="fs-20 fw-bold m-0">{{productAmount(i)}} USD</p>
-
-        </div>
+        <!-- Monto -->
+        <p class="fs-20 fw-bold m-0">{{product.extraAmount}} USD</p>
 
       </div>
 
+      <!-- Precio de mensualidades -->
+      <div class="w-100 d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
+
+        <!-- titulo -->
+        <div class="d-flex flex-column">
+
+          <p class="fs-20 fw-bold m-0">Mensualidades a pagar:</p>
+
+          <p *ngIf="product.extraAmount" class="text-center fs-12 m-0">
+            Al contratar tu primer servicio <br>
+            <span class="fw-bold">obtienes tu primer mes gratis.</span>
+          </p>
+
+        </div>
+
+        <!-- Botonera -->
+        <div class="d-flex justify-content-around align-items-center border rounded p-2" style="width: 200px;">
+
+          <button class="border-0 cmm-bg-white d-flex align-items-center" (click)="minus(i)">
+
+            <mat-icon>remove</mat-icon>
+
+          </button>
+
+          <p class="fs-26 m-0">
+            {{+product.quantity}}
+          </p>
+
+          <button class="border-0 cmm-bg-white d-flex align-items-center" (click)="plus(i)">
+
+            <mat-icon>add</mat-icon>
+
+          </button>
+
+        </div>
+
+        <!-- Monto -->
+        <p class="fs-20 fw-bold m-0">{{product.amount * +product.quantity}} USD</p>
+
+      </div>
+
+      <!-- Precio de contratacion -->
+      <div *ngIf="product.discount"
+        class="w-100 d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
+
+        <!-- titulo -->
+        <p class="fs-20 fw-bold m-0">Descuento de un mes gratis:</p>
+
+        <!-- Monto -->
+        <p class="fs-20 fw-bold m-0">-{{product.discount}} USD</p>
+
+      </div>
+
+      <!-- Monto total -->
+      <div class="w-100 d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
+
+        <!-- titulo -->
+        <p class="fs-20 fw-bold m-0">Costo del plan:</p>
+
+        <!-- Monto -->
+        <p class="fs-20 fw-bold m-0">{{productAmount(i)}} USD</p>
+
+      </div>
+
+    </div>
+
   </mat-expansion-panel>
 
-  <cmm-cmp-b-button [button_text]="'Continuar'" (submit)="nextStep.emit(true)"
-  class="d-flex mx-auto w-100 mt-4" style="max-width: 500px;"></cmm-cmp-b-button>
+  <cmm-cmp-b-button [button_text]="'Continuar'" (submit)="nextStep.emit(true)" class="d-flex mx-auto w-100 mt-section"
+    style="max-width: 500px;"></cmm-cmp-b-button>
 
 </div>
 
@@ -161,15 +163,16 @@
   <div class="cmm-bg-white shadowBorder rounded">
 
     <!-- cover de la tabla -->
-    <cmm-cmp-c-cover title="No tiene productos en su carrito" message="Puede ver entre nuestros productos disponibles si desea agregarlos a su carrito o puede refrescar la vista para actualizar su carrito"></cmm-cmp-c-cover>
+    <cmm-cmp-c-cover title="No tiene productos en su carrito"
+      message="Puede ver entre nuestros productos disponibles si desea agregarlos a su carrito o puede refrescar la vista para actualizar su carrito"></cmm-cmp-c-cover>
 
     <div class="w-100 d-flex flex-wrap justify-content-around px-3 pb-3">
 
-      <cmm-cmp-b-button class="p-1 w-100" style="max-width: 300px;" button_text="Ver productos"
-      buttonType="gradient" [routerLink]="['products/ecommerce']"></cmm-cmp-b-button>
+      <cmm-cmp-b-button class="p-1 w-100" style="max-width: 300px;" button_text="Ver productos" buttonType="gradient"
+        [routerLink]="['products/ecommerce']"></cmm-cmp-b-button>
 
       <cmm-cmp-b-button class="p-1 w-100" style="max-width: 300px;" button_text="Refrescar carrito"
-      (submit)="nextStep.emit(false)"></cmm-cmp-b-button>
+        (submit)="nextStep.emit(false)"></cmm-cmp-b-button>
 
     </div>
 
