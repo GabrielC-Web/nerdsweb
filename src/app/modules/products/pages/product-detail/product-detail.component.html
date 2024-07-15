@@ -1,10 +1,11 @@
-<div @inOutAnimation *ngIf="product" class="container-full d-flex flex-column justify-content-around align-items-center cmm-bg-white">
+<div @inOutAnimation *ngIf="product"
+  class="container-full d-flex flex-column justify-content-around align-items-center cmm-bg-white">
 
   <!-- Encabezado de ecomerce -->
   <section *ngIf="product.category.includes('ecommerce')" class="w-100 d-flex align-items-center my-5">
 
     <div data-aos="fade-up" data-aos-anchor-placement="center-bottom"
-    class="container mx-auto d-flex flex-column justify-content-around align-items-center p-4 text-white">
+      class="container mx-auto d-flex flex-column justify-content-around align-items-center p-4 text-white">
 
       <h2 class="txt text-center fw-bold">
         <span class="fw-bold cmm-txt-tertiary">Vende</span> las 24 horas del día
@@ -22,15 +23,15 @@
   <section *ngIf="product.category.includes('socialmedia')" class="w-100 d-flex align-items-center my-5">
 
     <div data-aos="fade-up" data-aos-anchor-placement="center-bottom"
-    class="container mx-auto d-flex flex-column justify-content-around align-items-center p-4 text-white">
+      class="container mx-auto d-flex flex-column justify-content-around align-items-center p-4 text-white">
 
-      <h2 class="txt text-center fw-bold">
+      <h2 class="txt text-center fw-bold mb-4">
         ¡Tu éxito de mañama <span class="fw-bold cmm-txt-tertiary">comienza hoy!</span>
       </h2>
 
       <p class="text-center fs-18">
         Las redes sociales son el motor de buúsqueda del futuro, si no estas en ellas es <br>
-          como si no existieras, comienza a llegar a más clientes <span class="fw-bold">¡ahora!</span>
+        como si no existieras, comienza a llegar a más clientes <span class="fw-bold">¡ahora!</span>
       </p>
 
     </div>
@@ -62,7 +63,7 @@
           <p class=" col-12 fs-20 fw-bold title-txt m-0">Esto incluye:</p>
 
           <div *ngFor="let characteristic of product.characteristics"
-          class="col-12 d-flex justify-content-start align-items-center my-1">
+            class="col-12 d-flex justify-content-start align-items-center my-1">
 
             <!-- Icono -->
             <mat-icon class="col-2 cmm-txt-gradient">done</mat-icon>
@@ -81,7 +82,8 @@
       </div>
 
       <!-- Contenedor de plantilla -->
-      <div *ngIf="product.category.includes('ecommerce')" data-aos="fade-right" class="col-12 col-md-6" style="height: 700px;">
+      <div *ngIf="product.category.includes('ecommerce')" data-aos="fade-right" class="col-12 col-md-6"
+        style="height: 700px;">
 
         <!-- Subtitulo -->
         <h4 class="cmm-txt-primary text-center">Ahora selecciona una plantilla</h4>
@@ -94,9 +96,10 @@
             <li *ngFor="let template of templateArray, index as i" [id]="'card_' + (i+1)" class="card">
 
               <!-- Content here -->
-              <div class="card__content w-100 rounded border shadowBorder" style="height: 350px; background-size: cover;"
-              [style.background-image]="'url(' + template.image + ')'" [ngClass]="{'selected': template.idVariant == templateSelected.value}"
-              (click)="setTemplate(template.idVariant)"></div>
+              <div class="card__content w-100 rounded border shadowBorder"
+                style="height: 350px; background-size: cover;" [style.background-image]="'url(' + template.image + ')'"
+                [ngClass]="{'selected': template.idVariant == templateSelected.value}"
+                (click)="setTemplate(template.idVariant)"></div>
 
             </li>
 
@@ -105,8 +108,8 @@
         </div>
 
         <!-- Contenedor del indicad de template seleccionado -->
-        <div @inOutAnimation
-         *ngIf="templateSelectedInfo" class="w-100 d-flex justify-content-around align-items-center mt-3">
+        <div @inOutAnimation *ngIf="templateSelectedInfo"
+          class="w-100 d-flex justify-content-around align-items-center mt-3">
 
           <div class="col-9 d-flex flex-column justify-content-center gap-2">
 
@@ -116,17 +119,18 @@
           </div>
 
           <div class="col-3 cmm-bg-gradient p-1 rounded selected" style="aspect-ratio: 1.2/0.7; background-size: cover;"
-          [style.background-image]="'url(' + templateSelectedInfo.image + ')'"></div>
+            [style.background-image]="'url(' + templateSelectedInfo.image + ')'"></div>
 
         </div>
 
       </div>
 
       <!-- Contenedor de imagen -->
-      <div *ngIf="product.category.includes('socialmedia')" data-aos="fade-right" class="col-12 col-md-6 position-relative text-center">
+      <div *ngIf="product.category.includes('socialmedia')" data-aos="fade-right"
+        class="col-12 col-md-6 position-relative text-center">
 
         <div class="position-absolute col-10 rounded-circle cmm-bg-gradient top-50 start-50 translate-middle"
-        style="aspect-ratio: 1/1;"></div>
+          style="aspect-ratio: 1/1;"></div>
 
         <img [src]="instagramPostsImg" alt="" class="m-auto h-auto position-relative" loading="lazy">
 
@@ -143,12 +147,13 @@
     justify-content-center align-items-center">
 
       <!-- Contenedor de objetivos de la cuenta -->
-      <div *ngIf="product.category[0] == 'socialmedia'"  class="d-flex flex-wrap justify-content-around align-items-start mx-0 my-3 p-3 col-12 col-xl-11">
+      <div *ngIf="product.category[0] == 'socialmedia'"
+        class="d-flex flex-wrap justify-content-around align-items-start mx-0 my-3 p-3 col-12 col-xl-11">
 
         <h4 class="title-txt w-100 mb-3">¿Que quieres lograr con tus redes sociales?</h4>
 
         <mat-checkbox *ngFor="let objective of objectivesArray, index as i" class="col-12 col-sm-10 col-md-6 mb-2"
-        (change)="setObjetive(i, $event.checked)">
+          (change)="setObjetive(i, $event.checked)">
           <p class="fw-bold fs-18 m-0">{{objective.text}}</p>
         </mat-checkbox>
 
@@ -161,11 +166,11 @@
 
         <!-- Contendor de la opcion -->
         <div data-aos="flip-left" data-aos-easing="ease-out-cubic" data-aos-duration="1500"
-        class="col-12 col-lg-4 my-5 d-flex flex-column justify-content-center align-items-center gap-2 p-2">
+          class="col-12 col-lg-4 my-5 d-flex flex-column justify-content-center align-items-center gap-2 p-2">
 
           <label class="shadowBorder rounded cmm-bg-white p-4 text-center cmm-txt fs-26 w-100"
-          style="transition: box-shadow ease-in-out 250ms;"
-          [ngClass]="componentForm.controls['quantity'].value == 1 ? 'selected' : ''">
+            style="transition: box-shadow ease-in-out 250ms;"
+            [ngClass]="componentForm.controls['quantity'].value == 1 ? 'selected' : ''">
             <input id="singleMount" type="radio" name="quantity" value="1" formControlName="quantity" />
             suscripción mensual
           </label>
@@ -174,11 +179,11 @@
 
         <!-- Contendor de la opcion -->
         <div data-aos="flip-left" data-aos-easing="ease-out-cubic" data-aos-duration="1500"
-        class="col-12 col-lg-4 my-5 d-flex flex-column justify-content-center align-items-center gap-2 p-2">
+          class="col-12 col-lg-4 my-5 d-flex flex-column justify-content-center align-items-center gap-2 p-2">
 
           <label class="shadowBorder rounded cmm-bg-white p-4 text-center cmm-txt fs-26 w-100"
-          style="transition: box-shadow ease-in-out 250ms;"
-          [ngClass]="componentForm.controls['quantity'].value == 12 ? 'selected' : ''">
+            style="transition: box-shadow ease-in-out 250ms;"
+            [ngClass]="componentForm.controls['quantity'].value == 12 ? 'selected' : ''">
             <input id="annual" type="radio" name="quantity" value="12" formControlName="quantity" />
             suscripción anual
           </label>
@@ -187,11 +192,11 @@
 
         <!-- Contendor de la opcion -->
         <div data-aos="flip-left" data-aos-easing="ease-out-cubic" data-aos-duration="1500"
-        class="col-12 col-lg-4 my-5 d-flex flex-column justify-content-center align-items-center gap-2 p-2">
+          class="col-12 col-lg-4 my-5 d-flex flex-column justify-content-center align-items-center gap-2 p-2">
 
           <label class="shadowBorder rounded cmm-bg-white p-4 text-center cmm-txt fs-26 w-100"
-          style="transition: box-shadow ease-in-out 250ms;"
-          [ngClass]="componentForm.controls['quantity'].value == 3 ? 'selected' : ''">
+            style="transition: box-shadow ease-in-out 250ms;"
+            [ngClass]="componentForm.controls['quantity'].value == 3 ? 'selected' : ''">
             <input id="quarterly" type="radio" name="quantity" value="3" formControlName="quantity" />
             Trimestral
           </label>
@@ -200,8 +205,9 @@
 
       </div>
 
-      <cmm-cmp-b-button @inOutAnimation *ngIf="componentForm.valid" [button_text]="'Continuar'" [buttonType]="'gradient'" [buttonclass]="'fs-26 fw-bold'"
-      class="col-12 col-md-10 col-xl-5 mb-5" (click)="onSubmit()"></cmm-cmp-b-button>
+      <cmm-cmp-b-button @inOutAnimation *ngIf="componentForm.valid" [button_text]="'Continuar'"
+        [buttonType]="'gradient'" [buttonclass]="'fs-26 fw-bold'" class="col-12 col-md-10 col-xl-5 mb-5"
+        (click)="onSubmit()"></cmm-cmp-b-button>
 
     </form>
 

@@ -29,7 +29,20 @@ img {
 h2,
 .h2 {
   color: $v-txt;
-  font-size: 50px;
+  font-size: 40px;
+}
+
+.my-section {
+  margin-top: 4rem !important;
+  margin-bottom: 4rem !important;
+}
+
+.mb-section {
+  margin-bottom: 4rem !important;
+}
+
+.mt-section {
+  margin-top: 4rem !important;
 }
 
 @media (max-width: 576px) {
