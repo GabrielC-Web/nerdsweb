@@ -1,0 +1,29 @@
+.banner_ad_h {
+    display: flex;
+    flex-direction: row;
+    white-space: nowrap;
+    max-height: 50px;
+}
+
+.text_container {
+    display: flex;
+    animation: horizontalTextScroll 25s infinite linear;
+}
+
+@keyframes horizontalTextScroll {
+    from {
+        transform: translateX(0)
+    }
+
+    to {
+        transform: translateX(-100%)
+    }
+}
+
+@media (max-width: 767px) {
+
+    .banner_ad_h {
+        max-height: 90px;
+    }
+
+}
