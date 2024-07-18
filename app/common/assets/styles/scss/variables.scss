@@ -20,8 +20,8 @@ $v-gradient-tertiary: linear-gradient(90deg, rgb(243, 149, 77) 0%, rgba(244, 150
 
 
 // Notificaciones
-$v-success: #14c6a4;
-$v-error: #ff0000;
+$v-success: #336ab2;
+$v-error: #f6566e;
 $v-warning: #fdc713;
 $v-info: #03a9f4;
 
@@ -47,7 +47,7 @@ $v-light-gray: #cccaca;
 $dynamic_border_radios_button: 20px;
 
 // Seteo este color como una variable para que pueda ser seteado de forma dinámica
-$dynamic_border_radius: 10px;
+$dynamic_border_radius: 20px;
 
 // Creo variables que puedan ser modificadas en JS
 :root {
