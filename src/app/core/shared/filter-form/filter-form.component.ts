@@ -194,7 +194,7 @@ export class FilterFormComponent implements CmmComponentFormModel {
     this.componentForm = new UntypedFormGroup(group);
 
     // Ejecuto la funcion para observar todos los cambios que ocurran en el formulario
-    // this.listenFormChanges();
+    this.listenFormChanges();
 
   };
 

@@ -96,47 +96,6 @@
 
     </div>
 
-    <div *ngIf="filter.filterType == 'radioSelect'" class="dropdown">
-
-      <button class="border px-3 py-2 cmm-bg-white rounded d-flex align-items-center justify-content-around dropdown-toggle"
-      style="width: 150px; height: 50px; " data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
-
-        <mat-icon *ngIf="filter.icon">{{filter.icon}}</mat-icon>
-
-        <p class="m-0">{{filter.nameFilter}}</p>
-
-      </button>
-
-      <ul class="dropdown-menu">
-
-        <li *ngFor="let option of filter.options">
-
-          <div class="dropstart d-flex justify-content-center">
-
-            <p class="dropdown-toggle my-2 fs-14" style="width: 125px;"
-            data-bs-toggle="dropdown" data-bs-auto-close="inside">
-              {{option.nameOption}}
-            </p>
-
-            <ul class="dropdown-menu p-3">
-
-              <li *ngFor="let subOption of option.subOptions">
-                <mat-radio-button class="dropdown-item" [checked]="checkSubOptionState(option.nameForm, subOption.value)"
-                (change)="this.componentForm.controls[option.nameForm].setValue(subOption.value); onSubmit()">
-                  {{subOption.nameSubOption}}
-                </mat-radio-button>
-              </li>
-
-            </ul>
-
-          </div>
-
-        </li>
-
-      </ul>
-
-    </div>
-
     <div *ngIf="filter.filterType == 'quantity'" class="dropdown">
 
       <button

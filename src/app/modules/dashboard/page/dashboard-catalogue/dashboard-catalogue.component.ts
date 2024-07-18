@@ -274,10 +274,10 @@ export class DashboardCatalogueComponent implements CmmComponentTableModel {
             return
           }
 
-          this.lengthList = 120;
+          this.lengthList = response.data.count;
 
           //* Construyo la tabla
-          this.buildTable(response.data);
+          this.buildTable(response.data.items);
 
         },
         error: error => {}

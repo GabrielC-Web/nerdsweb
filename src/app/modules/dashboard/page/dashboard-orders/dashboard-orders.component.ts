@@ -241,10 +241,10 @@ export class DashboardOrdersComponent implements CmmComponentTableModel {
             return
           }
 
-          this.lengthList = 120;
+          this.lengthList = response.data.count;
 
           //* Construyo la tabla
-          this.buildTable(response.data);
+          this.buildTable(response.data.items);
 
         },
         error: error => {}
@@ -323,7 +323,7 @@ export class DashboardOrdersComponent implements CmmComponentTableModel {
 
     let newFilterFull: OrdersFilterModel = {
       ...requestObj,
-        limit: requestObj.limit ?? '5',
+        limit: requestObj.limit ?? '10',
         page: requestObj.page ?? '0',
     };
 

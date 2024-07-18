@@ -121,7 +121,7 @@ export class ProductDetailComponent implements CmmComponentFormModel {
         response = (response as any).data;
 
         // Guardamos el producto obtenido
-        this.product = response[0];
+        this.product = response.items[0];
 
         // Seteo las opciones de variantes del producto
         this.templateArray = this.product.variants;
@@ -214,6 +214,16 @@ export class ProductDetailComponent implements CmmComponentFormModel {
 
     // Si el formulario es invalido me detengo aqui
     if(!this.componentForm.valid){
+
+      // Armamos la data de la alerta
+      const messagesData: CmmAlertToastrModel = {
+        typeIcon: 'error',
+        text: 'Debes seleccionar una plantilla para continuar'
+      };
+
+      // Abrimos la alerta con el mensaje
+      this.cmmDialogsService.CmmAlertToastr(messagesData);
+
       return
     };
 

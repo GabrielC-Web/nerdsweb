@@ -83,7 +83,7 @@
 
       <!-- Contenedor de plantilla -->
       <div *ngIf="product.category.includes('ecommerce')" data-aos="fade-right" class="col-12 col-md-6"
-        style="height: 700px;">
+        style="height: 570px;">
 
         <!-- Subtitulo -->
         <h4 class="cmm-txt-primary text-center">Ahora selecciona una plantilla</h4>
@@ -165,8 +165,7 @@
         <h4 class="cmm-txt-primary fw-bold w-100 text-center">Elige tu período de facturación</h4>
 
         <!-- Contendor de la opcion -->
-        <div data-aos="flip-left" data-aos-easing="ease-out-cubic" data-aos-duration="1500"
-          class="col-12 col-lg-4 my-5 d-flex flex-column justify-content-center align-items-center gap-2 p-2">
+        <div class="col-12 col-lg-4 my-5 d-flex flex-column justify-content-center align-items-center gap-2 p-2">
 
           <label class="shadowBorder rounded cmm-bg-white p-4 text-center cmm-txt fs-26 w-100"
             style="transition: box-shadow ease-in-out 250ms;"
@@ -178,8 +177,7 @@
         </div>
 
         <!-- Contendor de la opcion -->
-        <div data-aos="flip-left" data-aos-easing="ease-out-cubic" data-aos-duration="1500"
-          class="col-12 col-lg-4 my-5 d-flex flex-column justify-content-center align-items-center gap-2 p-2">
+        <div class="col-12 col-lg-4 my-5 d-flex flex-column justify-content-center align-items-center gap-2 p-2">
 
           <label class="shadowBorder rounded cmm-bg-white p-4 text-center cmm-txt fs-26 w-100"
             style="transition: box-shadow ease-in-out 250ms;"
@@ -191,8 +189,7 @@
         </div>
 
         <!-- Contendor de la opcion -->
-        <div data-aos="flip-left" data-aos-easing="ease-out-cubic" data-aos-duration="1500"
-          class="col-12 col-lg-4 my-5 d-flex flex-column justify-content-center align-items-center gap-2 p-2">
+        <div class="col-12 col-lg-4 my-5 d-flex flex-column justify-content-center align-items-center gap-2 p-2">
 
           <label class="shadowBorder rounded cmm-bg-white p-4 text-center cmm-txt fs-26 w-100"
             style="transition: box-shadow ease-in-out 250ms;"
@@ -205,7 +202,7 @@
 
       </div>
 
-      <cmm-cmp-b-button @inOutAnimation *ngIf="componentForm.valid" [button_text]="'Continuar'"
+      <cmm-cmp-b-button @inOutAnimation [button_text]="'Continuar'"
         [buttonType]="'gradient'" [buttonclass]="'fs-26 fw-bold'" class="col-12 col-md-10 col-xl-5 mb-5"
         (click)="onSubmit()"></cmm-cmp-b-button>
 

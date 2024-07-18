@@ -60,7 +60,7 @@ export class ProductCardInfoComponent implements OnInit {
           // Accedemos data de la respuesta
           response = (response as any).data;
 
-          this.productsList = response;
+          this.productsList = response.items;
 
           this.productVariants.emit(this.productsList[0].variants);
 
