@@ -1,6 +1,6 @@
 {
   "name": "nerdsweb",
-  "version": "0.0.081",
+  "version": "0.0.082",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
