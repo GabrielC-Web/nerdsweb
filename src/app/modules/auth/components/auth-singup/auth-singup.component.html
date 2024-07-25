@@ -7,7 +7,7 @@
     <!-- Titulo de form -->
     <h3 class="text-center fw-bold cmm-txt">¡Bienvenido!</h3>
 
-    <div class="my-3 w-100 cmm-bg-gradient-secondary" style="height: 3px; border-radius: 50%;"></div>
+    <div class="my-3 w-100 cmm-bg-gradient" style="height: 3px; border-radius: 50%;"></div>
 
     <!-- Form -->
     <form *ngIf="componentForm" [formGroup]="componentForm" class="d-flex flex-wrap m-0">
@@ -61,7 +61,7 @@
     </div>
 
     <!-- Botón de enviar form -->
-    <cmm-cmp-b-button class="col-12 pb-5 p-lg-0" (submit)="onSubmit()" [buttonType]="'gradient-tertiary'"></cmm-cmp-b-button>
+    <cmm-cmp-b-button class="col-12 pb-5 p-lg-0" (submit)="onSubmit()" [buttonType]="'gradient'"></cmm-cmp-b-button>
 
   </div>
 

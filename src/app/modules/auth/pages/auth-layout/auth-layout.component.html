@@ -31,7 +31,7 @@ background: linear-gradient(345deg, rgba(255,255,255,1) 24%, rgba(217,204,237,1)
       <h4 class="txt">{{isLogin ? '¿Aún no tienes una cuenta?' : '¿Ya estas registrado?'}}</h4>
 
       <cmm-cmp-b-button class="col-5" [button_text]=" isLogin ? 'Regístrarme' : 'Iniciar sesión'"
-      [buttonType]="'gradient-tertiary'"(click)="isLogin = !isLogin"></cmm-cmp-b-button>
+      [buttonType]="isLogin?'gradient-tertiary':'gradient'"(click)="isLogin = !isLogin"></cmm-cmp-b-button>
 
     </div>
 
