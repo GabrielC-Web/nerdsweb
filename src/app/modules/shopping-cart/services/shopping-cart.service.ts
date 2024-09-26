@@ -27,30 +27,22 @@ export class ShoppingCartService {
    */
   getCartProductsList(): Observable<any> {
 
-    return this.http.get(this.gatewayUrl + '/v1/profile/getCart');
+    return this.http.get(this.gatewayUrl + '/v1/list/shoppingcart');
 
   }
 
   /**
-   * @description Servicio para listar los metodos de pagos para que el usuario escoja que como pagar
+   * @description Servicio para editar la cantidad de un producto en el carrito
+   * @param idProducts id del producto que se desea editar
+   * @param count nueva cantidad del producto en el carrito
    * @returns
    */
-  getPayMethodsList(): Observable<any> {
+  editCartProductCount(idProducts: number, count: number): Observable<any> {
 
-    return this.http.get(this.gatewayUrl + '/v1/list/paymethods');
-
-  }
-
-  /**
-   * @description Servicio para crear una orden con los datos de pago
-   * @param payData datos del pago
-   * @returns
-   */
-  createOrder(payData: any, sendMethod: any): Observable<any> {
-
-    return this.http.post(this.gatewayUrl + '/v1/operation/order', {
-      payData,
-      sendMethod
+    return this.http.put(this.gatewayUrl + 'v1/operation/shoppingcart', {
+      body: {
+        idProducts
+      }
     });
 
   }
@@ -60,13 +52,24 @@ export class ShoppingCartService {
    * @param idProducts arreglo de ids de los productos que se desean quitar
    * @returns
    */
-  deleteCartProductsList(idProducts: string[]): Observable<any> {
+  deleteCartProducts(idProducts: string[]): Observable<any> {
 
-    return this.http.delete(this.gatewayUrl + '/v1/profile/deleteCart', {
+    return this.http.delete(this.gatewayUrl + 'v1/operation/shoppingcart', {
       body: {
         idProducts
       }
     });
+
+  }
+
+  /**
+   * TODO - Crear e implementar
+   * @description Servicio para listar los metodos de pagos para que el usuario escoja que como pagar
+   * @returns
+   */
+  getPayMethodsList(): Observable<any> {
+
+    return this.http.get(this.gatewayUrl + '/v1/list/paymethods');
 
   }
 
@@ -85,6 +88,18 @@ export class ShoppingCartService {
 
   }
 
+  /**
+   * @description Servicio para crear una orden con los datos de pago
+   * @param payData datos del pago
+   * @returns
+   */
+  createOrder(payData: any, sendMethod: any): Observable<any> {
 
+    return this.http.post(this.gatewayUrl + '/v1/operation/order', {
+      payData,
+      sendMethod
+    });
+
+  }
 
 }

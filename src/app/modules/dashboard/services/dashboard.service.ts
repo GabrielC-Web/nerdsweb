@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CatalogFilterModel, OrdersFilterModel } from 'src/app/core/reducer/module.models';
+import { ProductListFilterModel, OrdersFilterModel } from 'src/app/core/reducer/module.models';
 import { environment } from 'src/environments/environment';
 import { ProductCatalogModel } from '../models/products.models';
 
@@ -28,7 +28,7 @@ export class DashboardService {
    * @param filterData Datos utiles para la funcion de busqueda de productos
    * @returns
    */
-  getUserProducts(filterData: CatalogFilterModel): Observable<any> {
+  getUserProducts(filterData: ProductListFilterModel): Observable<any> {
 
     let params = {}
 
@@ -45,6 +45,19 @@ export class DashboardService {
     }
 
     return this.http.get(this.gatewayUrl + '/v1/list/products', {params});
+
+  }
+
+  /**
+   * @description Servicio para optener el detalle de un producto
+   * @param idProduct id del producto
+   * @returns
+   */
+  getUserProductDetail(idProduct: string): Observable<any> {
+
+    return this.http.get(this.gatewayUrl + '/v1/details/product', {params:{
+      idProduct: idProduct
+    }});
 
   }
 
@@ -66,7 +79,7 @@ export class DashboardService {
    */
   addUserProduct(formData: ProductCatalogModel): Observable<any> {
 
-    return this.http.post(this.gatewayUrl + '/v1/profile/product', formData);
+    return this.http.post(this.gatewayUrl + '/v1/operation/product', formData);
 
   }
 
@@ -77,7 +90,19 @@ export class DashboardService {
    */
   putUserProduct(formData: ProductCatalogModel): Observable<any> {
 
-    return this.http.put(this.gatewayUrl + '/v1/profile/product', formData);
+    return this.http.put(this.gatewayUrl + '/v1/operation/product', formData);
+
+  }
+
+  /**
+   * TODO - ver requisitos para que funcione
+   * @description Servicio para eliminar un producto del vendedor
+   * @param
+   * @returns
+   */
+  deleteUserProduct(): Observable<any> {
+
+    return this.http.delete(this.gatewayUrl + '/v1/operation/product');
 
   }
 
@@ -102,7 +127,7 @@ export class DashboardService {
 
     }
 
-    return this.http.get(this.gatewayUrl + '/v1/operation/user/order', {params});
+    return this.http.get(this.gatewayUrl + '/v1/list/orders', {params});
 
   }
 
@@ -113,7 +138,7 @@ export class DashboardService {
    */
   getOrderDetail(idOrder: string): Observable<any> {
 
-    return this.http.get(this.gatewayUrl + '/v1/operation/order/detail', {
+    return this.http.get(this.gatewayUrl + '/v1/details/order', {
       params: {
         idOrder
       }
@@ -142,10 +167,11 @@ export class DashboardService {
 
     }
 
-    return this.http.put(this.gatewayUrl + '/v1/operation/order/update', params)
+    return this.http.put(this.gatewayUrl + '/v1/operation/order', params)
   }
 
   /**
+   * TODO - Crear e implementar
    * @description Servicio para optener todos los usuarios del vendedor
    * @param formLogin Datos del usuario necesarios para hacer login
    * @returns

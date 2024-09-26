@@ -1,5 +1,5 @@
 import { Action } from "@ngrx/store";
-import { OrdersFilterModel, CatalogFilterModel } from "./module.models";
+import { OrdersFilterModel, ProductListFilterModel } from "./module.models";
 import { OrderDetailModel } from "src/app/modules/shopping-cart/models/shopping-cart.model";
 
 export enum ModulesActionsTypes {
@@ -19,7 +19,7 @@ export enum ModulesActionsTypes {
 export class setCatalogFilter implements Action {
   readonly type = ModulesActionsTypes.CatalogFilter;
 
-  constructor(public payload: { catalog: CatalogFilterModel }) {}
+  constructor(public payload: { catalog: ProductListFilterModel }) {}
 }
 export class clearCatalogFilter implements Action {
   readonly type = ModulesActionsTypes.ClearCatalogFilter;

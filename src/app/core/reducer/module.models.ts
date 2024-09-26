@@ -1,4 +1,4 @@
-export interface CatalogFilterModel {
+export interface ProductListFilterModel {
   limit: string;
   page: string;
   search: string;

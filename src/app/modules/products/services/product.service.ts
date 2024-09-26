@@ -65,7 +65,7 @@ export class Productservice {
    */
   postNewProductsToShoppingCard(productData?: AddProductToShoppingCardModel): Observable<any> {
 
-    return this.http.post(this.gatewayUrl + '/v1/profile/addTocart', productData);
+    return this.http.post(this.gatewayUrl + '/v1/operation/shoppingcart', productData);
 
   }
 

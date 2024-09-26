@@ -1,13 +1,13 @@
 import { ModulesActions, ModulesActionsTypes } from "./module.actions";
-import { CatalogFilterModel, OrdersFilterModel } from './module.models';
+import { ProductListFilterModel, OrdersFilterModel } from './module.models';
 export interface ModulesState {
   filters: {
-    catalog: CatalogFilterModel,
+    catalog: ProductListFilterModel,
     orders: OrdersFilterModel,
   };
 }
 
-export const initialCatalogFilterModel: CatalogFilterModel = {
+export const initialProductListFilterModel: ProductListFilterModel = {
   limit: '10',
   page: '0',
   search: '',
@@ -33,7 +33,7 @@ export const initialOrdersFilterModel: OrdersFilterModel = {
 
 export const initialModuleFilter: ModulesState = {
   filters: {
-    catalog: initialCatalogFilterModel,
+    catalog: initialProductListFilterModel,
     orders: initialOrdersFilterModel,
   }
 }
@@ -56,7 +56,7 @@ export function ModulesReducer(
       return {
         filters: {
           ...state.filters,
-          catalog: initialCatalogFilterModel
+          catalog: initialProductListFilterModel
         }
       }
 
@@ -81,7 +81,7 @@ export function ModulesReducer(
       return {
         filters: {
           orders: initialOrdersFilterModel,
-          catalog: initialCatalogFilterModel
+          catalog: initialProductListFilterModel
         }
       }
 

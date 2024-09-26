@@ -41,7 +41,7 @@ export class CartProductsComponent implements OnInit {
   deleteProduct(id: string){
 
     // Hacemos la peticion a la api
-    this.shoppingCartServices.deleteCartProductsList([id])
+    this.shoppingCartServices.deleteCartProducts([id])
     .pipe(
       // Indicamos que esta funcion se ejecutara hasta que el indique lo contario
       takeUntil(this.$unsubscribe)

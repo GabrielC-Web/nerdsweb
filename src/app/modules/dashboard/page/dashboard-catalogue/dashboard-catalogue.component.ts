@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { CmmComponentTableModel, CmmStatusTypeGroupsModel, CmmTableColumnErrorMsg, CmmTableHeader, CmmTableRow } from 'src/app/common/data/tables/models/tables.model';
-import { CatalogFilterModel } from 'src/app/core/reducer/module.models';
+import { ProductListFilterModel } from 'src/app/core/reducer/module.models';
 import { DashboardService } from '../../services/dashboard.service';
 import { CmmDataService } from 'src/app/common/services/data.service';
 import { CmmDialogService } from 'src/app/common/services/dialogs.service';
@@ -91,7 +91,7 @@ export class DashboardCatalogueComponent implements CmmComponentTableModel {
   /**
    * Objeto con los filtros de la tabla
    */
-  filterFull!: CatalogFilterModel;
+  filterFull!: ProductListFilterModel;
 
   /**
    * Objeto para crear los inputs de filtros que tendra la tabla
