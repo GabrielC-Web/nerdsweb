@@ -8,6 +8,7 @@ import { CmmAlertToastrModel } from 'src/app/common/data/dialogs/models/dialogs.
 import { CmmComponentFormModel } from 'src/app/common/data/forms/models/form.model';
 import { CmmDataService } from 'src/app/common/services/data.service';
 import { CmmDialogService } from 'src/app/common/services/dialogs.service';
+import { ProfileModel } from 'src/app/core/shared/models/profile.models';
 
 @Component({
   selector: 'cmp-dashboard-user-informaction',
@@ -44,7 +45,7 @@ export class DashboardUserInformactionComponent implements CmmComponentFormModel
   /**
    * Variable que almacena la informacion del usuario
    */
-  userInfo: any;
+  userInfo!: ProfileModel;
 
   /**
    * Variable que almacena el estado base del formulario
@@ -100,7 +101,7 @@ export class DashboardUserInformactionComponent implements CmmComponentFormModel
 
     // Creo el formulario con el constructor agregando los controles necesarios
     this.componentForm = this.fb.group({
-      username: [this.userInfo.name, Validators.required],
+      username: [this.userInfo.username, Validators.required],
       email: [this.userInfo.email, Validators.required],
       level: [this.userInfo.level, Validators.required],
       description: [this.userInfo.description, Validators.required],

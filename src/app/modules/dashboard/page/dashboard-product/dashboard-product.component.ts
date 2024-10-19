@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
+import { debounceTime, distinctUntilChanged, Subject, takeUntil } from 'rxjs';
 import { CmmComponentFormModel } from 'src/app/common/data/forms/models/form.model';
 import { CmmDataService } from 'src/app/common/services/data.service';
 import { FilterObjectModel } from 'src/app/core/shared/models/filter-form.model';
-import { ProductCatalogModel, VariantModel, typeProducts } from '../../models/products.models';
+import { ProductModel, VariantModel, typeProducts } from '../../models/products.models';
 import { Location } from '@angular/common';
 import { ImagesService } from 'src/app/core/services/images.service';
 import { DashboardService } from '../../services/dashboard.service';
@@ -73,12 +73,38 @@ export class DashboardProductComponent implements CmmComponentFormModel {
   /**
    * datos del producto que se quiere editar si es que se recibieron algun producto
    */
-  product!: ProductCatalogModel;
+  product: ProductModel = {
+    name: '',
+    categories: [],
+    price: null,
+    description: '',
+    brand: '',
+    characteristics: '',
+    extraPrice: null,
+    discount: null,
+    visible: true,
+    status: 'Inactivo',
+    stock: '',
+    type: '',
+    gallery: [],
+    products_variants: [],
+  };
 
   /**
    * Lista de categorias que posee el producto
    */
-  productCategories!: String[];
+  categoriesList!: {
+    idCategory: string;
+    name: string;
+  }[];
+
+  /**
+   * Lista de categorias que posee el producto
+   */
+  productCategories!: {
+    idCategory: string;
+    categoryName: string;
+  }[];
 
   /**
    * Tipos de productos
@@ -160,11 +186,6 @@ export class DashboardProductComponent implements CmmComponentFormModel {
   /**
    * Indica el tipo de variable que se va a utilizar para el producto
    */
-  typeVariant: any;
-
-  /**
-   * Indica el tipo de variable que se va a utilizar para el producto
-   */
   productVariants: VariantModel[] = [];
 
   constructor(
@@ -180,36 +201,44 @@ export class DashboardProductComponent implements CmmComponentFormModel {
 
   ngOnInit() {
 
-    this.route.queryParams
-      .subscribe(params => {
-        this.product = params['product'] && JSON.parse(this.dataServices.CmmB64DecodeUnicode(params['product']));
-      }
-    );
+    // Buscamos en la ruta si se indico algun id
+    const idProduct = this.route.snapshot.queryParamMap.get('idProduct');
 
-    if(!this.product){
-      this.product = {
-        productName: '',
-        category: [],
-        amount: null,
-        description: '',
-        brand: '',
-        characteristics: [],
-        extraAmount: null,
-        discount: null,
-        visible: true,
-        status: 'Inactivo',
-        stock: '',
-        type: '',
-        limitStock: '',
-        image: [],
-        variants: [],
-        variant: false
-      }
+    // Si se indico un id
+    if(idProduct) {
+      // obtenemos el detalle del producto
+      this.getProductDetail(idProduct.toString());
     }
 
-    // Ejecutamos al funcion para armar lso filtros
-    this.createForm();
+    // En caso contrario
+    else {
+      // Ejecutamos al funcion para armar el formulario
+      this.createForm();
+    }
 
+    this.getCategoryList()
+
+  }
+
+  /**
+   * Funcion para obetner el detalle del producto
+   */
+  getProductDetail(idProduct: string) {
+
+    this.dashboardService.getUserProductDetail(idProduct)
+    .pipe(takeUntil(this.$unsubscribe))
+    .subscribe({
+      next: (response) => {
+
+        // Guardamos la informacion del producto
+        this.product = response.data;
+
+        // Ejecutamos al funcion para armar el formulario
+        this.createForm();
+
+      },
+      error: (error) => {}
+    })
   }
 
   /**
@@ -219,21 +248,19 @@ export class DashboardProductComponent implements CmmComponentFormModel {
 
     // Creo el formulario con el constructor agregando los controles necesarios
     this.componentForm = this.fb.group({
-      productName: [this.product.productName, Validators.required],
-      category: [''],
-      amount: [this.product.amount, Validators.required],
-      description: [this.product.description, Validators.required],
+      name: [this.product.name, Validators.required],
       brand: [this.product.brand, Validators.required],
-      characteristics: [''],
-      extraAmount: [this.product.extraAmount],
+      price: [this.product.price, Validators.required],
+      extraPrice: [this.product.extraPrice],
       discount: [this.product.discount],
-      visible: [this.product.visible, Validators.required],
-      status: [this.product.status, Validators.required],
+      description: [this.product.description, Validators.required],
+      characteristics: [''],
+      visible: [this.product.status, Validators.required],
       stock: [this.product.stock ?? 0],
       type: [this.product.type || typeProducts.physical],
-      limitStock: [this.product.limitStock],
-      variants: this.fb.array([]),
-      images: this.fb.array([]),
+      category: [''],
+      products_variants: this.fb.array([]),
+      gallery: this.fb.array([]),
     });
 
     if(this.product.idProduct){
@@ -241,39 +268,30 @@ export class DashboardProductComponent implements CmmComponentFormModel {
     }
 
     // Guardamos el array de categorias del producto
-    this.productCategories = this.product.category;
+    this.productCategories = this.product.categories;
 
     // Guardamos el array de caracteristicas del producto
-    this.productCharacteristics = this.product.characteristics;
-
-    if(this.product.variant) {
-      this.typeVariant = {
-        typeVariantId: '4',
-        typeName: 'Modelo',
-        placeholder: 'Ej: Empresarial',
-        infoSelect: []
-      };
-    }
+    this.productCharacteristics = [this.product.characteristics];
 
     // Agrego el arreglo de variantes que haya en productos al fomrulario
-    this.product.variants.forEach((variant: VariantModel) => this.addVariant(variant));
+    this.product.products_variants.forEach((products_variants: VariantModel) => this.addVariant(products_variants));
 
     // gregamos un campo de imagenes
     this.addImage();
 
     // Agrego el arreglo de imagenes que haya en productos al fomrulario
-    this.product.image.forEach((image: string) => this.addImage(image));
+    this.product.gallery.forEach((image: {url: string}) => this.addImage(image.url));
 
-    this.changeAlertStock(this.enableEmptyStockAlert);
+    this.listenFormChanges();
 
   };
 
-  get variants() {
-    return this.componentForm.controls['variants'] as FormArray;
+  get products_variants() {
+    return this.componentForm.controls['products_variants'] as FormArray;
   }
 
-  get images() {
-    return this.componentForm.controls['images'] as FormArray;
+  get gallery() {
+    return this.componentForm.controls['gallery'] as FormArray;
   }
 
   /**
@@ -281,7 +299,21 @@ export class DashboardProductComponent implements CmmComponentFormModel {
    */
   listenFormChanges(){
 
-    this.componentForm.valueChanges.subscribe( (value: any) => {
+    this.componentForm.controls['category'].valueChanges
+    .pipe(
+      takeUntil(this.$unsubscribe),
+      distinctUntilChanged(),
+      debounceTime(500),
+    )
+    .subscribe( (value: any) => {
+
+      // Buscamos si entre las categorias esta la que se busca
+      const result = this.categoriesList.find((category: any) => category.name === value);
+
+      // Si no existe la categoria buscamos filtrando los resultados
+      if(!result){
+        this.getCategoryList(value);
+      }
 
       console.log(value);
 
@@ -298,31 +330,52 @@ export class DashboardProductComponent implements CmmComponentFormModel {
   }
 
   /**
-   * Funcion par acambiar el valor de uno de los campos
+   * Funcion para obtener el listado de categorias
    */
-  changeAlertStock(enable: boolean){
+  getCategoryList(name: string = '') {
 
-    this.enableEmptyStockAlert = enable
+    this.dashboardService.getProductsCategoryList(name)
+    .pipe(takeUntil(this.$unsubscribe))
+    .subscribe({
+      next: (response) => {
+        this.categoriesList = response.data.rows;
+      },
+      error: (error) => {}
+    })
+  }
 
-    if(!enable) {
-      this.componentForm.controls['limitStock'].disable();
-    }
-    else if(this.componentForm.controls['limitStock'].disabled) {
-      this.componentForm.controls['limitStock'].enable();
-    }
+  /**
+   * Funcion para crear una categoria
+   */
+  createCategory(name: string){
 
+    this.dashboardService.createCategoryProduct(name)
+    .pipe(takeUntil(this.$unsubscribe))
+    .subscribe({
+      next: (response) => {
+        this.addCategory()
+      },
+      error: (error) => {}
+    })
   }
 
   /**
    * Funcion para agregar una categoria al arreglo
    */
-  addCategorie(){
+  addCategory(){
+
     let newCategorie = this.componentForm.controls['category'].value;
 
-    if(newCategorie){
-      this.productCategories.push(newCategorie);
-      this.componentForm.controls['category'].setValue('');
+    console.log(newCategorie);
+
+    if (this.categoriesList.find((category) => category.name === newCategorie)) {
+
     }
+
+    else {
+      this.createCategory(newCategorie);
+    }
+
   }
 
   /**
@@ -340,27 +393,18 @@ export class DashboardProductComponent implements CmmComponentFormModel {
   /**
    * Funcion para agregar las variables al arreglo
    */
-  addVariant(variant?: VariantModel) {
-    const arreglo = this.componentForm.get('variants') as FormArray;
+  addVariant(products_variants?: VariantModel) {
+    const arreglo = this.componentForm.get('products_variants') as FormArray;
 
     const grupo = this.fb.group(
-      variant && variant.idVariant
-      ? {
-        idVariant: [variant?.idVariant ?? ''],
-        name: [variant?.name ?? ''],
-        color: [variant?.color ?? ''],
-        variantImage: [variant?.image[0] ?? ''],
-        stock: [variant?.stock ?? ''],
-        variantPrice: [variant?.variantPrice ?? ''],
-        infoSelect: [this.typeVariant?.infoSelect],
-      }
-      : {
-        name: [variant?.name ?? ''],
-        color: [variant?.color ?? ''],
-        variantImage: [variant?.image[0] ?? ''],
-        stock: [variant?.stock ?? ''],
-        variantPrice: [variant?.variantPrice ?? ''],
-        infoSelect: [this.typeVariant?.infoSelect],
+      {
+        idVariant: [products_variants?.idVariant ?? ''],
+        name: [products_variants?.name ?? ''],
+        size: [products_variants?.name ?? ''],
+        color: [products_variants?.color ?? ''],
+        variant_gallery: [products_variants?.variant_gallery[0]?.url ?? ''],
+        referralStock: [products_variants?.referralStock ?? ''],
+        referralPrice: [products_variants?.referralPrice ?? ''],
       }
     )
 
@@ -373,7 +417,7 @@ export class DashboardProductComponent implements CmmComponentFormModel {
    */
   addImage(image: string = '') {
 
-    const arreglo = this.componentForm.get('images') as FormArray;
+    const arreglo = this.componentForm.get('gallery') as FormArray;
 
     const control = new FormControl(image);
 
@@ -387,31 +431,31 @@ export class DashboardProductComponent implements CmmComponentFormModel {
   setImage(index: number, isVariant: boolean = false){
 
     const img = isVariant
-    ? this.variants.controls[index].value
-    : this.images.controls[index].value;
+    ? this.products_variants.controls[index].value
+    : this.gallery.controls[index].value;
 
     if(!img) {
 
       isVariant
-        ? this.variants.controls[index].setValue('')
-        : this.images.controls[index].setValue('');
+        ? this.products_variants.controls[index].setValue('')
+        : this.gallery.controls[index].setValue('');
 
       return;
     };
 
-    this.imagesService.postImage(img)
-    .pipe(takeUntil(this.$unsubscribe))
-    .subscribe({
-      next: (response: any) => {
-        console.log(response);
-        isVariant
-          ? this.variants.controls[index].setValue(response.data[0])
-          : this.images.controls[index].setValue(response.data[0]);
-      },
-      error: (err: any) => {
-        this.images.controls[index].setValue('');
-      }
-    })
+    // this.imagesService.postImage(img)
+    // .pipe(takeUntil(this.$unsubscribe))
+    // .subscribe({
+    //   next: (response: any) => {
+    //     console.log(response);
+    //     isVariant
+    //       ? this.products_variants.controls[index].setValue(response.data[0])
+    //       : this.gallery.controls[index].setValue(response.data[0]);
+    //   },
+    //   error: (err: any) => {
+    //     this.gallery.controls[index].setValue('');
+    //   }
+    // })
 
   }
 
@@ -419,21 +463,21 @@ export class DashboardProductComponent implements CmmComponentFormModel {
    * Funcion para eliminar una variante
    */
   deletedAllVariant() {
-    this.variants.clear();
+    this.products_variants.clear();
   }
 
   /**
    * Funcion para eliminar una variante
    */
   deletedVariant(index: number) {
-    this.variants.removeAt(index);
+    this.products_variants.removeAt(index);
   }
 
   /**
    * Funcion para eliminar una imagen
    */
   deletedImage(index: number) {
-    this.images.removeAt(index);
+    this.gallery.removeAt(index);
   }
 
   /**
@@ -466,12 +510,12 @@ export class DashboardProductComponent implements CmmComponentFormModel {
 
     let finalProduct = {
       ... this.componentForm.value,
-      amount: this.dataServices.CmmAmountBackendFormat(this.componentForm.controls['amount'].value.toString()),
-      extraAmount: this.dataServices.CmmAmountBackendFormat(this.componentForm.controls['extraAmount'].value.toString()),
+      price: this.dataServices.CmmAmountBackendFormat(this.componentForm.controls['amount'].value.toString()),
+      extraPrice: this.dataServices.CmmAmountBackendFormat(this.componentForm.controls['extraAmount'].value.toString()),
       discount: this.dataServices.CmmAmountBackendFormat(this.componentForm.controls['discount'].value.toString()),
       category: this.productCategories,
       characteristics: this.productCharacteristics,
-      variant: Boolean(this.variants.controls.length),
+      products_variants: Boolean(this.products_variants.controls.length),
     }
 
     if(this.product.idProduct){

@@ -209,7 +209,7 @@ export class AuthLoginComponent implements CmmComponentFormModel  {
           // Seteo el token del usuario
           sessionStorage.setItem(
             authTokenVariable,
-            JSON.stringify(response.data.token)
+            JSON.stringify(response.token)
           )
 
           // Recibo la informacion del login y la encripto y la coloco en el ls.

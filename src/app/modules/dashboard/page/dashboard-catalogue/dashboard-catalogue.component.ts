@@ -31,13 +31,13 @@ export class DashboardCatalogueComponent implements CmmComponentTableModel {
     {
       text: 'Nombre',
       action: false,
-      field: 'productName',
+      field: 'name',
       cssClass: 'text-center',
     },
     {
       text: 'Miniatura',
-      action: false,
-      field: 'images',
+      action: true,
+      field: 'image',
       cssClass: 'text-center',
     },
     {
@@ -55,7 +55,7 @@ export class DashboardCatalogueComponent implements CmmComponentTableModel {
     {
       text: 'Precio',
       action: false,
-      field: 'amount',
+      field: 'price',
       cssClass: 'text-center',
     },
     {
@@ -261,7 +261,6 @@ export class DashboardCatalogueComponent implements CmmComponentTableModel {
    */
   getTableData(): void {
 
-
     //* Llamo al servicio para obtener la data
     this.dashboardService.getUserProducts(this.filterFull)
       .pipe(
@@ -277,7 +276,7 @@ export class DashboardCatalogueComponent implements CmmComponentTableModel {
           this.lengthList = response.data.count;
 
           //* Construyo la tabla
-          this.buildTable(response.data.items);
+          this.buildTable(response.data.rows);
 
         },
         error: error => {}
@@ -300,36 +299,36 @@ export class DashboardCatalogueComponent implements CmmComponentTableModel {
 
       //* Creo una fila
       finalRowObj = {
-        productName: row.productName ?? CmmTableColumnErrorMsg,
+        name: row.name ?? CmmTableColumnErrorMsg,
         brand: row.brand ?? CmmTableColumnErrorMsg,
-        description: row.description ?? CmmTableColumnErrorMsg,
-        amount: row.extraAmount ? row.amount+ '$ + ' + row.extraAmount + '$' : row.amount + '$',
-        extraAmount: row.extraAmount ?? CmmTableColumnErrorMsg,
-        characteristics: row.characteristics ?? CmmTableColumnErrorMsg,
-        images: row.image?.length ? {
-          nameAction: 'iconFunctionAction',
-          value: row,
-          icon: 'edit',
-          class: 'cursor-pointer',
-          function: 'goDetailProduct()',
-          tooltip: 'Editar producto',
-        } : CmmTableColumnErrorMsg,
-        category: row.category ?? CmmTableColumnErrorMsg,
+        price: row.extraPrice ? row.price + '$ + ' + row.extraPrice + '$' : row.price + '$',
+        extraPrice: row.extraPrice ?? CmmTableColumnErrorMsg,
         visible: row.visible ? 'Visible' : 'Oculto',
         status: row.status ?? CmmTableColumnErrorMsg,
-        variant: row.variant ?? CmmTableColumnErrorMsg,
         stock: row.stock ?? CmmTableColumnErrorMsg,
         discount: row.discount ?? CmmTableColumnErrorMsg,
         idProduct: row.idProduct ?? CmmTableColumnErrorMsg,
-        variants: row.variants ?? CmmTableColumnErrorMsg,
         editproduct: {
           nameAction: 'iconFunctionAction',
-          value: row,
+          value: row.idProduct,
           icon: 'edit',
           class: 'cursor-pointer',
           function: 'goDetailProduct()',
           tooltip: 'Editar producto',
         } as CmmTableRow,
+        image: row.gallery.length ? {
+          nameAction: 'image',
+          icon: 'edit',
+          class: 'cursor-pointer',
+          function: 'goDetailProduct()',
+          tooltip: 'Editar producto',
+          value: row.gallery[0]?.url,
+        } as CmmTableRow
+        :{
+          value: CmmTableColumnErrorMsg,
+          class: 'm-0',
+
+        },
 
       };
 
@@ -432,18 +431,12 @@ export class DashboardCatalogueComponent implements CmmComponentTableModel {
   // }
 
   /**
-   * @param product Funcion que redirige a la vista de detalle de orden
+   * @param idProduct Funcion que redirige a la vista de detalle de orden
    */
-  goDetailProduct(product?: ProductCatalogModel) {
-
-    let productB64;
-
-    if(product) {
-      productB64 = this.dataService.CmmB64EncodeUnicode(JSON.stringify(product));
-    }
+  goDetailProduct(idProduct?: string) {
 
     this.router.navigate(['dashboard/cataloge/product'], {
-      queryParams: { product: productB64 },
+      queryParams: { idProduct: idProduct },
     });
 
   }

@@ -62,6 +62,43 @@ export class DashboardService {
   }
 
   /**
+   * @description Servicio para optener todas las categorias de los productos
+   * @param name Nombre de la categoria
+   * @returns
+   */
+  getProductsCategoryList(name: string): Observable<any> {
+
+    return this.http.get(this.gatewayUrl + '/v1/list/categories', {params:{
+      name
+    }});
+
+  }
+
+  /**
+   * @description Servicio para crear categorias para los productos
+   * @param name Nombre de la categoria
+   * @returns
+   */
+  createCategoryProduct(name: string): Observable<any> {
+
+    return this.http.post(this.gatewayUrl + '/v1/details/category', {
+      name
+    });
+
+  }
+
+  /**
+   * @description Servicio para elimnar cateogrias de productos
+   * @param idCategory id de la categoria que se quiere eliminar
+   * @returns
+   */
+  deleteCategoryProduct(idCategory: string): Observable<any> {
+
+    return this.http.delete(this.gatewayUrl + '/v1/details/category');
+
+  }
+
+  /**
    * @description Servicio para optener todos los productos del vendedor
    * @param filterData Datos utiles para la funcion de busqueda de productos
    * @returns

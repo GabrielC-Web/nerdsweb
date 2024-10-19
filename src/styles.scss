@@ -57,6 +57,10 @@ h2,
   }
 }
 
+.dropdown-toggle::after {
+  display: none !important;
+}
+
 
 :root {
 

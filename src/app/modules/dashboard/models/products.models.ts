@@ -1,42 +1,58 @@
 import { Subscription } from "rxjs";
 
 /**
- * Interface de todods los productos que puede tener el usuario
+ * Interface de los productos para mostrar en el listasdo
  */
 export interface ProductCatalogModel {
-    productName:     string;
+  name:     string;
+  brand:           string;
+  price:          number | null;
+  extraPrice:     number | null;
+  gallery:        any[];
+  status:         'Activo' | 'Inactivo';
+  visible:         boolean;
+  stock:           string;
+  discount:        number | null;
+  idProduct?:       string;
+}
+
+/**
+ * Interface del producto con todos sus parametros
+ */
+export interface ProductModel {
+    name:     string;
     brand:           string;
     description:     string;
-    amount:          number | null;
-    extraAmount:     number | null;
-    characteristics: string[];
-    image:        string[];
-    category:        string[];
-    status:         'Activo' | 'Inactivo';
+    price:          number | null;
+    extraPrice:     number | null;
+    characteristics: string;
+    gallery:          any[];
+    categories:        {
+      idCategory: string;
+      categoryName: string;
+    }[];
+    status:          'Activo' | 'Inactivo';
     visible:         boolean;
-    variant:         boolean;
     stock:           string;
-    type:           string;
-    limitStock:      string;
+    type:            string;
     discount:        number | null;
-    idProduct?:       string;
-    variants:        VariantModel[] | [];
+    idProduct?:      string;
+    products_variants:        VariantModel[] | [];
 }
 
 /**
  * Interface de las distintas variantes de un producto
  */
 export interface VariantModel {
-    idProduct?:   string;
     name:         string;
     color:        string;
-    startDate:    string;
-    endDate:      string;
-    stock:        string;
-    variantPrice: string;
-    image:        string[];
+    referralStock:        string;
+    referralPrice: string;
+    variant_gallery:        {
+      idImage: string;
+      url: string;
+    }[];
     idVariant?:    string;
-    infoSelect:    any
 }
 
 /**
